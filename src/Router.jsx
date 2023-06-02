@@ -3,6 +3,7 @@ import {createBrowserRouter} from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
 import AboutUs from './pages/Customers/AboutUs';
+import Login from './pages/Customers/Login';
 // this file contain all the Route of this apps
 const Router=createBrowserRouter([
     {
@@ -16,6 +17,11 @@ const Router=createBrowserRouter([
             {
                 path:"aboutUs",
                 element:<AboutUs/>,
+            }
+            ,
+            {
+                path:"login",
+                element:<Login/>,
             }
         ]
         
