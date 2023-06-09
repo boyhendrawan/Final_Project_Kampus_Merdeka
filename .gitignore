@@ -1,4 +1,4 @@
-# Logs
+git checkout -b nama_feature_homepage# Logs
 logs
 *.log
 npm-debug.log*
