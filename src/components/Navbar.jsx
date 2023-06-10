@@ -117,7 +117,7 @@ const Navbar = () => {
         className={
           !nav
             ? "hidden"
-            : " bg-slate-400 rounded-lg shadow-md mt-2 w-full text-center text-white"
+            : " bg-slate-400 rounded-lg shadow-md mt-2 w-full text-center text-white z-40"
         }
       >
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-subMain">
@@ -125,20 +125,7 @@ const Navbar = () => {
             Home
           </Link>
         </li>
-        <li className="border-b-2 border-zinc-300 w-full py-3 hover:text-subMain">
-          <Link smooth={true} offset={-200} duration={500}>
-            <label htmlFor="search-navbar" className="sr-only">
-              Search
-            </label>
-            <input
-              type="text"
-              id="search-navbar"
-              className="flex w-96 justify-center mx-auto pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500"
-              placeholder="Search..."
-            />
-          </Link>
-        </li>
-        <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-subMain">
+        <li className=" border-zinc-300 py-3 w-full hover:text-subMain">
           {isLoggedIn ? (
             <ul className="flex gap-0 items-center">
               <h1 className="text-white hover:text-subMain">

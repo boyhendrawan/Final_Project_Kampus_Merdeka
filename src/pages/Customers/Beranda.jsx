@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import { HiSwitchVertical } from "react-icons/hi";
-import { AiFillSetting } from "react-icons/ai";
+import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import gambar from "../../assets/gambar1.jpg";
 import PassengerModal from "../../components/PassangerModal";
 import ClassModal from "../../components/ClassModal";
 import FlightModal from "../../components/FlightModal";
 import Slides from "../../components/Slides";
+import Destinasi from "../../components/Destinasi";
 
 const Beranda = () => {
   const [showPassengerModal, setShowPassengerModal] = useState(false);
@@ -17,9 +18,9 @@ const Beranda = () => {
   const [jumlahDewasa, setJumlahDewasa] = useState(1);
   const [jumlahAnak, setJumlahAnak] = useState(0);
   const [jumlahBayi, setJumlahBayi] = useState(0);
-  const [departure, setDeparture] = useState("");
-  const [arrival, setArrival] = useState("");
-  const [flightClass, setFlightClass] = useState("");
+  const [departure, setDeparture] = useState("Option 1");
+  const [arrival, setArrival] = useState("Option 2");
+  const [flightClass, setFlightClass] = useState("Economy");
   const [defaultDate, setDefaultDate] = useState("");
   const [switched, setSwitched] = useState(false);
 
@@ -41,6 +42,10 @@ const Beranda = () => {
     setShowDepartureModal(!showDepartureModal);
   };
 
+  const handleClassModal = () => {
+    setShowClassModal(!showClassModal);
+  };
+
   const handleArrivalModal = () => {
     setShowArrivalModal(!showArrivalModal);
   };
@@ -48,10 +53,6 @@ const Beranda = () => {
   const handleDepartureSelect = (selectedDeparture) => {
     setDeparture(selectedDeparture);
     setShowDepartureModal(false);
-  };
-
-  const handleClassModal = () => {
-    setShowClassModal(!showClassModal);
   };
 
   const handleClassSelect = (selectedClass) => {
@@ -73,134 +74,113 @@ const Beranda = () => {
 
   return (
     <div className="font-poppins">
-      <div className="bg-gradient-to-b from-purple-500 to-white md:bg-white">
+      <div className="bg-gradient-to-b to-white">
         <Slides />
         <div className="mx-5 grid lg:mx-auto lg:max-w-6xl py-10">
-          <div className="bg-white rounded-md mt-[-320px] md:mt-[-200px] relative z-20 my-4">
-            <div className="grid gap-4 p-8">
-              <div className="border border-slate-400 rounded-lg">
-                <div
-                  className="p-5 pb-0 flex gap-3"
-                  onClick={handleDepartureModal}
-                >
-                  <p className="text-slate-400 text-2xl">
-                    <FaPlaneDeparture />
-                  </p>
-                  <p>From</p>
-                  <h1 className="text-xl pl-6">{departure}</h1>
+          <div className="bg-transparent rounded-2xl mt-[-520px] md:mt-[-550px] relative z-20 my-4">
+            <div className="grid gap-1">
+              <div
+                className="p-5 flex justify-between items-center gap-3 rounded-2xl bg-gray-800 py-3 lg:py-5 mb-[-22px]"
+                onClick={handleDepartureModal}
+              >
+                <div className="grid gap-2">
+                  <p className="text-gray-300">Jakarta</p>
+                  <h1 className="text-xl text-gray-300 font-semibold">
+                    {departure}
+                  </h1>
                 </div>
-                <div className="grid mx-5">
-                  <div className="flex justify-center items-center">
-                    <hr className="w-full border-gray-500 mx-2" />
-                    <h1
-                      name="switch"
-                      className={`text-2xl p-2 rounded-full border ${
-                        switched
-                          ? "border-green-500 text-green-500"
-                          : "border-purple-700 text-purple-700"
-                      }`}
-                      onClick={handleSwitch}
-                    >
-                      <HiSwitchVertical />
-                    </h1>
-                  </div>
-                </div>
-                <div
-                  className="p-5 pt-0 flex gap-3"
-                  onClick={handleArrivalModal}
-                >
-                  <p className="text-slate-400 text-2xl">
-                    <FaPlaneArrival />
-                  </p>
-                  <p>To</p>
-                  <h1 className="text-xl pl-11">{arrival}</h1>
+                <p className="text-slate-400 text-2xl pt-8">
+                  <FaPlaneDeparture />
+                </p>
+              </div>
+              <div className="grid mx-5 relative">
+                <div className="flex justify-center items-center">
+                  {/* <div className="w-1/2">
+                    <hr className="border-gray-500" />
+                  </div> */}
+
+                  <h1
+                    name="switch"
+                    className={`text-2xl p-2 rounded-full border bg-gray-400 ${
+                      switched
+                        ? "border-green-500 text-green-500"
+                        : "border-gray-300 text-gray-300"
+                    }`}
+                    onClick={handleSwitch}
+                  >
+                    <HiSwitchVertical />
+                  </h1>
+
+                  {/* <div className="w-1/2">
+                    <hr className="border-gray-500" />
+                  </div> */}
                 </div>
               </div>
-              <div className="grid gap-1">
-                <label>Date</label>
-                <input
-                  type="date"
-                  className="rounded-lg"
-                  defaultValue={defaultDate}
-                />
+              <div
+                className="p-5 flex justify-between items-center gap-3 rounded-xl bg-gray-800 py-3 lg:py-5 mt-[-22px]"
+                onClick={handleArrivalModal}
+              >
+                <div className="grid gap-2">
+                  <p className="text-gray-300">Jakarta</p>
+                  <h1 className="text-xl text-gray-300 font-semibold">
+                    {arrival}
+                  </h1>
+                </div>
+                <p className="text-slate-400 text-2xl pt-8">
+                  <FaPlaneArrival />
+                </p>
               </div>
-              <div className="grid grid-cols-2 gap-5">
+
+              <div className="grid gap-1 bg-white rounded-t-2xl">
+                <div className="px-5 py-3 grid">
+                  <label className="font-semibold text-gray-700">Date</label>
+                  <input
+                    type="date"
+                    className="rounded-2xl mb-2 w-full font-semibold"
+                    defaultValue={defaultDate}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 bg-white px-5 py-3 rounded-b-2xl">
                 <div className="grid gap-1">
-                  <label>Passengers</label>
+                  <label className="text-gray-700 font-semibold">
+                    Passengers
+                  </label>
                   <div
-                    className="flex border gap-10 border-slate-400 p-2 rounded-lg"
+                    className="flex border gap-10 border-slate-400 p-2 rounded-2xl"
                     onClick={handlePassengerModal}
                   >
                     <span className="text-2xl mt-1.5">
                       <MdAirlineSeatReclineNormal />
                     </span>{" "}
-                    <span className="text-xl pl-2 pt-1">
+                    <span className="text-xl pl-2 pt-1 font-semibold">
                       {jumlahDewasa + jumlahAnak + jumlahBayi}
                     </span>
                   </div>
                 </div>
                 <div className="grid gap-1">
-                  <label>Class</label>
+                  <label className="text-gray-700 font-semibold">Class</label>
                   <div
-                    className="flex border border-slate-400 p-2 rounded-lg"
+                    className="flex border border-slate-400 p-2 rounded-2xl"
                     onClick={handleClassModal}
                   >
                     <span className="text-xl pt-2 py-1">
                       <AiFillSetting />
                     </span>{" "}
-                    <h1 className="pt-1 pl-5">{flightClass}</h1>
+                    <h1 className="pt-1 pl-5 font-semibold">{flightClass}</h1>
                   </div>
                 </div>
               </div>
-              <button className="bg-[#7126B5] rounded-lg py-2.5 text-white font-semibold">
-                Cari Penerbangan
+              <button className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3">
+                <p className="text-xl">Cari Penerbangan</p>
+                <p className="text-2xl pt-0.5 font-semibold ">
+                  <AiOutlineArrowRight />
+                </p>
               </button>
             </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold">Destinasi Favorit</h1>
-
-            <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-              <a href="#">
-                <img
-                  src={gambar}
-                  className="w-full rounded-t-lg"
-                  alt="Destination"
-                />
-              </a>
-              <div className="p-5">
-                <a href="#">
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    Noteworthy technology acquisitions 2021
-                  </h5>
-                </a>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  Here are the biggest enterprise technology acquisitions of
-                  2021 so far, in reverse chronological order.
-                </p>
-                <a
-                  href="#"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Read more
-                  <svg
-                    aria-hidden="true"
-                    className="w-4 h-4 ml-2 -mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
+        <Destinasi />
         {showPassengerModal && (
           <PassengerModal
             show={showPassengerModal}
