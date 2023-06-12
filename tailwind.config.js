@@ -29,6 +29,9 @@ module.exports = {
           neutral01: "#FFFFFF",
         },
       },
+      fontFamily: {
+        poppins: ["Poppins"],
+      }
     },
   },
   plugins: [require("flowbite/plugin")],
