@@ -1,10 +1,15 @@
-import React from 'react';
-import {createBrowserRouter} from "react-router-dom";
+import AboutUs from './pages/Customers/AboutUs';
 import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
+
+import Login from './pages/login';
+import React from 'react';
+import {createBrowserRouter} from "react-router-dom";
+
 import AboutUs from './pages/Customers/AboutUs';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
+
 // this file contain all the Route of this apps
 const Router=createBrowserRouter([
     
@@ -18,6 +23,7 @@ const Router=createBrowserRouter([
                 element:<Dashboard/>,
             },
             {
+
                 path:"detail/:idPenerbangan",
                 element:"Detail Penerbangan",
             },
@@ -28,7 +34,7 @@ const Router=createBrowserRouter([
             children:[
                 {
                     path:"login",
-                    element:"login",
+                    element:<Login/>,
                 },
                 {
                     path:"Register",
