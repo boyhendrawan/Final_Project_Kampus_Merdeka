@@ -1,10 +1,11 @@
 import React from 'react';
 import {createBrowserRouter} from "react-router-dom";
+
 import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
-import AboutUs from './pages/Customers/AboutUs';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
+import Checkout from "./pages/Admin/checkout/Checkout";
 // this file contain all the Route of this apps
 const Router=createBrowserRouter([
     
@@ -56,8 +57,8 @@ const Router=createBrowserRouter([
                 element:"infoDetailUser"
             },
             {
-                path:"checkOut",
-                element:"checkOut",
+                path:"checkout",
+                element:<Checkout/>,
 
             },
             {

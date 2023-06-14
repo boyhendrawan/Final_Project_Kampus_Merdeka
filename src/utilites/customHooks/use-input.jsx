@@ -1,8 +1,8 @@
 import {useState} from 'react'
 
-function useInput(validateInput) {
+function useInput(validateInput,defaultValue="") {
     // define to handle valueInput
-    const [getValue,setValue]=useState("");
+    const [getValue,setValue]=useState(defaultValue);
     const [touchField,setTouchField]=useState(false);
     // validation value of input using callback
     const validationInput=validateInput(getValue);
