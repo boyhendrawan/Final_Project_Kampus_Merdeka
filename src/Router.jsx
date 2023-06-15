@@ -1,4 +1,3 @@
-import AboutUs from './pages/Customers/AboutUs';
 import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
 
@@ -6,7 +5,7 @@ import Login from './pages/login';
 import React from 'react';
 import {createBrowserRouter} from "react-router-dom";
 
-import AboutUs from './pages/Customers/AboutUs';
+
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 
