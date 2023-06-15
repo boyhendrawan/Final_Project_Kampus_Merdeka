@@ -9,6 +9,7 @@ import ClassModal from "../../components/ClassModal";
 import FlightModal from "../../components/FlightModal";
 import Slides from "../../components/Slides";
 import Destinasi from "../../components/Destinasi";
+import { useNavigate } from "react-router-dom";
 
 const Beranda = () => {
   const [showPassengerModal, setShowPassengerModal] = useState(false);
@@ -23,6 +24,7 @@ const Beranda = () => {
   const [flightClass, setFlightClass] = useState("Economy");
   const [defaultDate, setDefaultDate] = useState("");
   const [switched, setSwitched] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const today = new Date();
@@ -32,7 +34,35 @@ const Beranda = () => {
 
     const defaultFormattedDate = `${year}-${month}-${day}`;
     setDefaultDate(defaultFormattedDate);
+
+    const storedData = JSON.parse(localStorage.getItem("formData"));
+    if (storedData) {
+      setJumlahDewasa(storedData.jumlahDewasa);
+      setJumlahAnak(storedData.jumlahAnak);
+      setJumlahBayi(storedData.jumlahBayi);
+      setDeparture(storedData.departure);
+      setArrival(storedData.arrival);
+      setFlightClass(storedData.flightClass);
+      setSwitched(storedData.switched);
+    }
   }, []);
+
+  const handleSearchFlights = () => {
+    const formData = {
+      jumlahDewasa,
+      jumlahAnak,
+      jumlahBayi,
+      departure,
+      arrival,
+      flightClass,
+      switched,
+    };
+  
+    localStorage.setItem("formData", JSON.stringify(formData));
+  
+   navigate("/")
+    console.log(formData);
+  };
 
   const handlePassengerModal = () => {
     setShowPassengerModal(!showPassengerModal);
@@ -76,7 +106,7 @@ const Beranda = () => {
     <div className="font-poppins">
       <div className="bg-gradient-to-b to-white">
         <Slides />
-        <div className="mx-5 grid lg:mx-auto lg:max-w-6xl py-10">
+        <div className="mx-5 grid lg:mx-auto lg:max-w-5xl py-10">
           <div className="bg-transparent rounded-2xl mt-[-520px] md:mt-[-550px] relative z-20 my-4">
             <div className="grid gap-1">
               <div
@@ -130,13 +160,12 @@ const Beranda = () => {
                   <FaPlaneArrival />
                 </p>
               </div>
-
               <div className="grid gap-1 bg-white rounded-t-2xl">
                 <div className="px-5 py-3 grid">
                   <label className="font-semibold text-gray-700">Date</label>
                   <input
                     type="date"
-                    className="rounded-2xl mb-2 w-full font-semibold"
+                    className="rounded-2xl mb-2 w-full border-none bg-gray-200 font-semibold"
                     defaultValue={defaultDate}
                   />
                 </div>
@@ -147,7 +176,7 @@ const Beranda = () => {
                     Passengers
                   </label>
                   <div
-                    className="flex border gap-10 border-slate-400 p-2 rounded-2xl"
+                    className="flex border gap-10 border-none bg-gray-200 p-2 rounded-2xl"
                     onClick={handlePassengerModal}
                   >
                     <span className="text-2xl mt-1.5">
@@ -161,7 +190,7 @@ const Beranda = () => {
                 <div className="grid gap-1">
                   <label className="text-gray-700 font-semibold">Class</label>
                   <div
-                    className="flex border border-slate-400 p-2 rounded-2xl"
+                    className="flex border border-none bg-gray-200 p-2 rounded-2xl"
                     onClick={handleClassModal}
                   >
                     <span className="text-xl pt-2 py-1">
@@ -171,7 +200,7 @@ const Beranda = () => {
                   </div>
                 </div>
               </div>
-              <button className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3">
+              <button onClick={handleSearchFlights} className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3">
                 <p className="text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">
                   <AiOutlineArrowRight />

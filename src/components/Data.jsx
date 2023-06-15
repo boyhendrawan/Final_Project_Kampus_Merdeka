@@ -1,5 +1,5 @@
 import gambar from "../assets/gambar2.jpg"
-import gambar1 from "../assets/gambar3.jpg"
+import gambar1 from "../assets/gambar5.jpg"
 import gambar2 from "../assets/gambar4.jpg"
 
 const Data = {
