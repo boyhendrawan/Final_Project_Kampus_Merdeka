@@ -2,11 +2,20 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      padding: {
+        DEFAULT: "1rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "7rem",
+        "2xl": "9rem",
+      },
+    },
     extend: {
       colors: {
         primary: {
           darkblue05: "#4B1979",
-          darkblue04: "#7126B5",
+          main: "#7126B5",
           darkblue03: "##A06ECE",
           darkblue02: "#D0B7E6",
           darkblue01: "#E2D4F0",
@@ -31,7 +40,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["Poppins"],
-      }
+      },
     },
   },
   plugins: [require("flowbite/plugin")],

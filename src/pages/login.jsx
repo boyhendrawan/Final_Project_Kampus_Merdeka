@@ -1,14 +1,19 @@
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 import Alert from "../components/alert/alert";
 import { FiEyeOff } from "react-icons/fi";
-import { Link } from "react-router-dom";
 import bgLogin from "../assests/bgWeb.png";
 import logo from "../assests/logo.png";
-import { toast } from "react-toastify";
+import { login as requestLogin } from "../utilities/redux/action/login";
+import { useDispatch } from "react-redux";
 import useInput from "../utilities/customHooks/use-input";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [failedLogin, SetFailedLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -16,6 +21,7 @@ const Login = () => {
     isInvalid: invalidUsername,
     handlerBlur: handleBlurUsername,
     handlerChange: handleChangeUsername,
+    reset: resetUsername,
   } = useInput((e) => e.includes("@"));
 
   const {
@@ -23,6 +29,7 @@ const Login = () => {
     isInvalid: invalidPassword,
     handlerBlur: handleBlurPassword,
     handlerChange: handleChangePassword,
+    reset: resetPassword,
   } = useInput((e) => e.length > 3);
 
   const handlerCloseAlert = (e) => {
@@ -38,12 +45,15 @@ const Login = () => {
     e.preventDefault();
     if (valueUsername.length <= 0 || valuePassword.length <= 0)
       return toast.info("hello", { position: toast.POSITION.BOTTOM_CENTER });
-    localStorage.setItem("username", valueUsername);
-    localStorage.setItem("password", valuePassword);
-
-    window.location.href = "/";
+    dispatch(
+      requestLogin(
+        { valueUsername, valuePassword },
+        navigate,
+        resetUsername,
+        resetPassword
+      )
+    );
   };
-
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -62,11 +72,11 @@ const Login = () => {
 
       {/* Form */}
       <div className="overflow-hidden flex h-screen md:flex md:w-1/2 md:p-5 md:shadow-md">
-        <div className="flex flex-col mx-5 h-screen w-screen mt-[5.3rem] lg:mx-3 lg:mt-[7rem]">
+        <div className="flex flex-col mx-5 h-screen w-screen mt-[5.3rem] lg:mx-auto lg:w-7/12 lg:mt-[7rem]">
           {failedLogin && (
             <Alert
               onClose={handlerCloseAlert}
-              className="bg-primary-darkblue04   text-white"
+              className="bg-primary-main   text-white"
               classNameBtn=" text-rose-200 hover:text-rose-500 hover:bg-rose-200"
             >
               Error ,Filed check again Username and password
@@ -81,13 +91,13 @@ const Login = () => {
             </h1>
             <div>
               <label className="block mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl">
-                Email/Nomor Telepon
+                Email
               </label>
               <input
                 type="email"
                 name="username"
                 placeholder="Masukan Email.."
-                className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-primary-darkblue04 invalid:focus:ring-primary-darkblue04"
+                className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-main focus:border-primary-main invalid:text-primary-main invalid:focus:ring-primary-main"
                 onChange={handleChangeUsername}
                 onBlur={handleBlurUsername}
                 value={valueUsername}
@@ -103,7 +113,7 @@ const Login = () => {
                 <label className="mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl">
                   Password
                 </label>
-                <span className="mb-1 -ml-2 text-primary-darkblue04 font-semibold absolute -right-[0.7rem] after:content-['*'] after:text-pink-600 after:ml-0.5">
+                <span className="mb-1 -ml-2 text-primary-main font-semibold absolute -right-[0.7rem] after:content-['*'] after:text-pink-600 after:ml-0.5">
                   <Link to="/forget">Lupa Password</Link>
                 </span>
               </div>
@@ -128,20 +138,21 @@ const Login = () => {
                 )}
               </div>
             </div>
-            <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
+            <button className="bg-primary-main h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
               Masuk
             </button>
             <p className="text-center whitespace-nowrap justify-self-center absolute -bottom-[16rem] left-1/2 transform -translate-x-1/2">
               Belum punya akun?
               <Link
                 to="/register"
-                className="text-primary-darkblue04 font-bold ml-3 cursor-pointer"
+                className="text-primary-main font-bold ml-3 cursor-pointer"
               >
                 Daftar di sini
               </Link>
             </p>
           </form>
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
