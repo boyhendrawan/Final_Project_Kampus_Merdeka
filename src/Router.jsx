@@ -23,6 +23,7 @@ const Router=createBrowserRouter([
                 element:<Dashboard/>,
             },
             {
+
                 path:"detail/:idPenerbangan",
                 element:"Detail Penerbangan",
             },
