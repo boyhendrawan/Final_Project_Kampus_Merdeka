@@ -1,26 +1,36 @@
 import React from 'react';
-import {createBrowserRouter} from "react-router-dom";
 
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
-import Index from './pages/Customers/Index';
+import Beranda from './pages/Customers/Beranda';
+import Navbar from './components/Navbar';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 import Checkout from "./pages/Customers/checkout/Checkout"
-// this file contain all the Route of this apps
+
 const Router=createBrowserRouter([
     
-    {
-        // router not require login
-        path:"/",
-        element:<Index/>,
+  {
+    path: "/",
+    element: (
+      <>
+        <Navbar /> 
+        <Outlet /> 
+      </>
+    ),
         children:[
             {
                 index:true,
                 element:<Dashboard/>,
             },
             {
+
                 path:"detail/:idPenerbangan",
                 element:"Detail Penerbangan",
+            },
+            {
+              path: "beranda",
+              element: <Beranda />,
             },
                     // here should added element properly and not required login
            {
@@ -31,6 +41,7 @@ const Router=createBrowserRouter([
                     path:"login",
                     element:"login",
                 },
+               
                 {
                     path:"Register",
                     element:"Register",
@@ -52,6 +63,7 @@ const Router=createBrowserRouter([
                 path:"notification",
                 element:"notification"
             },
+           
             {
                 path:"infoDetailUser",
                 element:"infoDetailUser"
@@ -84,4 +96,6 @@ const Router=createBrowserRouter([
 
 ])
 
-export default Router
+
+
+export default Router;

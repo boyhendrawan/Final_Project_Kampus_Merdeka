@@ -1,17 +1,4 @@
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//   content: [
-//     "./src/**/*.{js,jsx,ts,tsx}",
-//   ],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [require('flowbite/plugin')],
-// }
 
-// must delete before push
-
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -29,6 +16,7 @@ module.exports = {
         primary: {
           darkblue05: "#4B1979",
           darkblue04: "#7126B5",
+
           darkblue03: "#A06ECE",
           darkblue02: "#D0B7E6",
           darkblue01: "#E2D4F0",
@@ -58,5 +46,4 @@ module.exports = {
   },
   plugins: [require("flowbite/plugin")],
 };
-
 
