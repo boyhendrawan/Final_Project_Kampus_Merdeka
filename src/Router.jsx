@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
 import Beranda from './pages/Customers/Beranda';
 import Navbar from './components/Navbar';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-
+import Checkout from "./pages/Customers/checkout/Checkout"
 
 const Router=createBrowserRouter([
     
@@ -68,8 +69,8 @@ const Router=createBrowserRouter([
                 element:"infoDetailUser"
             },
             {
-                path:"checkOut",
-                element:"checkOut",
+                path:"checkout",
+                element:<Checkout/>,
 
             },
             {

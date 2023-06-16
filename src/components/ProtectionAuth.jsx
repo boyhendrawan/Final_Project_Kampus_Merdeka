@@ -1,8 +1,11 @@
 import React from 'react'
-
+import { Outlet } from 'react-router-dom'
 const ProtectionAuth = () => {
   return (
-    <div>ProtectionAuth</div>
+  <>
+  <p>this handle with protection Auth</p>
+  <Outlet/>
+  </>
   )
 }
 
