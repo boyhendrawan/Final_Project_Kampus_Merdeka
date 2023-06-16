@@ -33,3 +33,6 @@
 .message-error-input{
     @apply ml-2 mt-1 text-xs lg:text-sm text-rose-600 font-semibold italic
 }
+.glance-animation{
+    @apply relative after:left-0 after:h-full after:top-0 after:rounded-lg after:content-[''] after:absolute after:w-0 after:bg-black/20 after:transition-all after:duration-[450ms] hover:after:w-full
+}

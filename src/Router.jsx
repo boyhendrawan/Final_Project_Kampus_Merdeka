@@ -5,7 +5,7 @@ import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-import Checkout from "./pages/Admin/checkout/Checkout";
+import Checkout from "./pages/Customers/checkout/Checkout"
 // this file contain all the Route of this apps
 const Router=createBrowserRouter([
     

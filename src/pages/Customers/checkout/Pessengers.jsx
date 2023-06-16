@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react'
-import useInput from "../../../utilites/customHooks/use-input"
 import { toast } from "react-toastify";
 
 // default value
@@ -125,8 +124,8 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue }) => {
           <label htmlFor={`title${i}`} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
           <select onChange={e=>handleChangeInput(i,'title',e)}  value={e.title} name="title" id={`title${i}`} className='bg-gray-50 font-base border transition-all  border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
             <option value="">Choosen Your title</option>
-            <option value="woman">Mis</option>
-            <option value="man">Mr</option>
+            <option value="Mis">Mis</option>
+            <option value="Mr">Mr</option>
           </select>
           {validationField['title'].errorMessage}
         </div>
@@ -160,7 +159,7 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue }) => {
           <input  onChange={e=>handleChangeInput(i,'publisherCountry',e)} value={e.publisherCountry} type="text" name="publisherCountry" id={`publisherCountry${i}`} className="bg-gray-50 font-base border transition-all  border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="publisherCountry.example" required="" />
           {validationField['publisherCountry'].errorMessage}
         </div>
-        <div>
+        <div className='md:col-span-2'>
           <label htmlFor={`expired${i}`} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Expired  Tiket</label>
           <input  onChange={e=>handleChangeInput(i,'expired',e)} value={e.expired} type="date" name="expired" id={`expired${i}`} className="bg-gray-50 font-base border transition-all  border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="expired.example" required="" />
           {validationField['expired'].errorMessage}
