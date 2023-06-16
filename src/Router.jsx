@@ -5,6 +5,7 @@ import Beranda from './pages/Customers/Beranda';
 import Navbar from './components/Navbar';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
+import FlightOption from './pages/FlightOption';
 
 
 const Router=createBrowserRouter([
@@ -26,6 +27,11 @@ const Router=createBrowserRouter([
 
                 path:"detail/:idPenerbangan",
                 element:"Detail Penerbangan",
+            },
+            {
+
+                path:"flightoption",
+                element:<FlightOption />,
             },
             {
               path: "beranda",
