@@ -67,7 +67,7 @@ const Checkout = () => {
 
   return (
     <>
-      <div className='container mx-auto '>
+      <div className='container mx-auto mt-32'>
         <h1 className='font-bold text-md md:text-lg lg:text-xl  my-4 ml-4'>Check Out</h1>
         <div className='flex flex-col  items-center w-full gap-y-4 md:flex-row md:items-start md:gap-x-4 justify-center'>
           <div className='order-2 px-6 py-4 bg-white shadow-lg w-full rounded-lg max-w-md lg:max-w-sm'>

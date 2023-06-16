@@ -7,91 +7,95 @@ import Navbar from './components/Navbar';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 import Checkout from "./pages/Customers/checkout/Checkout"
+import PageError from './components/PageError';
+import Login from './pages/login';
 
-const Router=createBrowserRouter([
-    
-  {
-    path: "/",
-    element: (
-      <>
-        <Navbar /> 
-        <Outlet /> 
-      </>
-    ),
-        children:[
+const Router = createBrowserRouter([
+
+    {
+        path: "/",
+        element: (
+            <>
+                <Navbar />
+                <Outlet />
+            </>
+        ),
+        errorElement: <PageError />,
+        children: [
             {
-                index:true,
-                element:<Dashboard/>,
+                index: true,
+                element: <Beranda />,
             },
             {
 
-                path:"detail/:idPenerbangan",
-                element:"Detail Penerbangan",
+                path: "detail/:idPenerbangan",
+                element: "Detail Penerbangan",
             },
             {
-              path: "beranda",
-              element: <Beranda />,
+                path: "beranda",
+                element: <Dashboard/>,
             },
-                    // here should added element properly and not required login
-           {
-            path:"auth",
-            element:<ProtectionHasAuth/>,
-            children:[
-                {
-                    path:"login",
-                    element:"login",
-                },
-               
-                {
-                    path:"Register",
-                    element:"Register",
-                },
-                {
-                    path:"forgotPassword",
-                    element:"Forgot Password",
-                }
-            ]
-           }
-        ]   
+            // here should added element properly and not required login
+            
+        ]
+    },
+    {
+        path: "auth",
+        element: <ProtectionHasAuth />,
+        children: [
+            {
+                path: "login",
+                element: <Login/>,
+            },
+
+            {
+                path: "Register",
+                element: "Register",
+            },
+            {
+                path: "forgotPassword",
+                element: "Forgot Password",
+            }
+        ]
     },
     {
         // required login
-        path:"/user",
-        element:<ProtectionAuth/>,
-        children:[
+        path: "/user",
+        element: <ProtectionAuth />,
+        children: [
             {
-                path:"notification",
-                element:"notification"
+                path: "notification",
+                element: "notification"
             },
-           
+
             {
-                path:"infoDetailUser",
-                element:"infoDetailUser"
+                path: "infoDetailUser",
+                element: "infoDetailUser"
             },
             {
-                path:"checkout",
-                element:<Checkout/>,
+                path: "checkout",
+                element: <Checkout />,
 
             },
             {
-                path:"confirmBooking",
-                element:"confirmBooking",
+                path: "confirmBooking",
+                element: "confirmBooking",
             },
             {
-                path:"history",
-                element:"history",
-                children:[
+                path: "history",
+                element: "history",
+                children: [
                     // detail more history  
                     {
-                        path:":idDetailHisotry",
-                        element:"detail history"
+                        path: ":idDetailHisotry",
+                        element: "detail history"
                     }
                 ]
             },
 
         ]
     }
-   
+
 
 
 ])

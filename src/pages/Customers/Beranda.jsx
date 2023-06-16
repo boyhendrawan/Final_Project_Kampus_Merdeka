@@ -3,7 +3,7 @@ import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import { HiSwitchVertical } from "react-icons/hi";
 import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
-import gambar from "../../assets/gambar1.jpg";
+// import gambar from "../../assets/gambar1.jpg";
 import PassengerModal from "../../components/PassangerModal";
 import ClassModal from "../../components/ClassModal";
 import FlightModal from "../../components/FlightModal";
@@ -61,7 +61,7 @@ const Beranda = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
   
    navigate("/")
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handlePassengerModal = () => {

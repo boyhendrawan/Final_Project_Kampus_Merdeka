@@ -1,9 +1,10 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 const ProtectionAuth = () => {
   return (
   <>
-  <p>this handle with protection Auth</p>
+  <Navbar/>
   <Outlet/>
   </>
   )
