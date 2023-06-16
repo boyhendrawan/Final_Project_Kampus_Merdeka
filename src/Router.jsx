@@ -1,4 +1,6 @@
 import AboutUs from './pages/Customers/AboutUs';
+import Account from './pages/Customers/Account';
+import Notifications from './pages/Customers/Notifications';
 import Dashboard from './pages/Customers/Dashboard';
 import Index from './pages/Customers/Index';
 import Login from './pages/login';
@@ -27,6 +29,14 @@ const Router=createBrowserRouter([
             {
                 path:"register",
                 element:<Register/>,
+            },
+            {
+                path:"Akun",
+                element:<Account/>
+            },
+            {
+                path:"Notifications",
+                element:<Notifications/>
             }
         ]
         

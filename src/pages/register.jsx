@@ -66,10 +66,12 @@ const Register = () => {
         position: toast.POSITION.TOP_CENTER,
       });
     const data = {
-      name: valueFullName,
       email: valueUsername,
       password: valuePassword,
+      full_name: valueFullName,
+      phone: valuePhone,
     };
+    console.log(data)
     setRequest(true);
     dispatch(
       register(
