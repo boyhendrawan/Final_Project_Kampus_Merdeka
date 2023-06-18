@@ -46,7 +46,6 @@ const Beranda = () => {
       flightClass: state.flightClass,
       date: state.date,
     };
-
     // Menyimpan data ke localStorage
     localStorage.setItem("flightFormData", JSON.stringify(formData));
 
