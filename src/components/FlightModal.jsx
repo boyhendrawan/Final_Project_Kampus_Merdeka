@@ -55,7 +55,10 @@ const FlightModal = ({ show, onClose, onSelect, title }) => {
         </ul>
         <button
           className="bg-purple-700 text-white px-4 py-2 rounded-lg w-full mt-4"
-          onClick={handleSave}
+          onClick={() => {
+            handleSave();
+            onClose();
+          }}
         >
           Save
         </button>
