@@ -9,7 +9,7 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { isLoggedIn, token, user } = useState(true);
+  const { isLoggedIn, user } = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
 
@@ -31,17 +31,16 @@ const Navbar = () => {
 
   const handleClickHome = () => {
     navigate(`/`);
-    window.location.reload();
   };
 
   const handleClickLogin = () => {
-    navigate(`/Login`);
-    window.location.reload();
+    navigate(`/auth/login`);
+    
   };
 
   return (
     <div
-      className={`fixed font-poppins w-full left-0 top-0 md:px-10 p-5 drop-shadow-lg z-10 
+      className={`fixed shadow-lg backdrop-blur-md font-poppins w-full left-0 top-0 md:px-10 p-5 drop-shadow-lg z-10 
     ${
       sticky
         ? "bg-slate-50 bg-opacity-75 text-white h-20 z-50 items-center"
@@ -117,11 +116,11 @@ const Navbar = () => {
         className={
           !nav
             ? "hidden"
-            : " bg-slate-400 rounded-lg shadow-md mt-2 w-full text-center text-white z-40"
+            : " bg-slate-50 rounded-lg shadow-md mt-2 w-full text-center text-white z-40"
         }
       >
-        <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-subMain">
-          <Link onClick={handleClickHome} smooth={true} duration={500} classna>
+        <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-subMain text-slate-700">
+          <Link onClick={handleClickHome} duration={500}>
             Home
           </Link>
         </li>
@@ -157,14 +156,14 @@ const Navbar = () => {
           ) : (
             <ul className="flex gap-3 justify-center">
               <button
-                className="bg-red-600 hover:bg-transparent hover:border rounded-md px-3 py-2"
+                className="bg-purple-700 hover:bg-transparent hover:border rounded-md px-3 py-2"
                 onClick={handleClickLogin}
               >
                 <div className="flex gap-2">
                   <p className="pt-1 text-xl">
                     <FiLogIn />
                   </p>
-                  <p className="font-semibold">Login</p>
+                  <p className="font-semibold">Masuk</p>
                 </div>
               </button>
             </ul>

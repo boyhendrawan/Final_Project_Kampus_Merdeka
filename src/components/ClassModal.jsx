@@ -24,8 +24,7 @@ const ClassModal = ({ show, onClose, onSelect, title }) => {
       <div className="absolute inset-0 bg-gray-900 opacity-50 font-poppins"></div>
       <div className="bg-white w-96 p-6 rounded-lg z-10 mx-3">
         <div className="flex justify-between items-center">
-          {" "}
-          <h2 className="text-xl font-bold mb-2">{title}</h2>
+          <h2 className="text-xl font-bold mb-2">Select Class</h2>
           <button
             className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md mb-2"
             onClick={onClose}
@@ -38,7 +37,7 @@ const ClassModal = ({ show, onClose, onSelect, title }) => {
         <ul className="space-y-2">
           <li
             className={`cursor-pointer hover:bg-purple-200 p-2 rounded-md ${
-              selectedOption === "Option 1" ? "bg-purple-200" : ""
+              selectedOption === "Bussiness" ? "bg-purple-200" : ""
             }`}
             onClick={() => handleSelect("Bussiness")}
           >
@@ -46,7 +45,7 @@ const ClassModal = ({ show, onClose, onSelect, title }) => {
           </li>
           <li
             className={`cursor-pointer hover:bg-purple-200 p-2 rounded-md ${
-              selectedOption === "Option 2" ? "bg-purple-200" : ""
+              selectedOption === "Economy" ? "bg-purple-200" : ""
             }`}
             onClick={() => handleSelect("Economy")}
           >
@@ -63,8 +62,11 @@ const ClassModal = ({ show, onClose, onSelect, title }) => {
         </ul>
         <div className="flex justify-center w-full mt-4">
           <button
-            className="bg-purple-700 w-full  text-gray-300 px-4 py-2 rounded-md mr-2"
-            onClick={handleSave}
+            className="bg-purple-700 w-full text-gray-300 px-4 py-2 rounded-md mr-2"
+            onClick={() => {
+              handleSave();
+              onClose();
+            }}
             disabled={!selectedOption}
           >
             Save

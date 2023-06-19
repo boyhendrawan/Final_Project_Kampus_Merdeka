@@ -10,7 +10,7 @@ SwiperCore.use([Autoplay]);
 const Destinasi = () => {
   return (
     <div className="my-16 mx-5 md:mx-0">
-      <h1 className="text-xl font-bold mb-5">Destinasi Favorit</h1>
+      <h1 className="text-xl font-bold mb-5 text-center">Destinasi Favorit</h1>
       <Swiper
         direction="horizontal"
         slidesPerView={1}
