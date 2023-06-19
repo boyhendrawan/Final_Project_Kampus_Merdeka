@@ -5,6 +5,7 @@ import Beranda from './pages/Customers/Beranda';
 import Navbar from './components/Navbar';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
+import History from './pages/Customers/History';
 
 
 const Router=createBrowserRouter([
@@ -30,6 +31,10 @@ const Router=createBrowserRouter([
             {
               path: "beranda",
               element: <Beranda />,
+            },
+            {
+              path: "history",
+              element: <History />,
             },
                     // here should added element properly and not required login
            {
