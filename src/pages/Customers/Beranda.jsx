@@ -1,104 +1,96 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import { HiSwitchVertical } from "react-icons/hi";
 import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
-import PassengerModal from "../../components/modals/PassangerModal";
+import { useNavigate } from "react-router-dom";
+import PassengerModal from "../../components/modals/PassengerModal";
 import ClassModal from "../../components/modals/ClassModal";
 import FlightModal from "../../components/modals/FlightModal";
 import Slides from "../../components/Slides";
 import Destinasi from "../../components/Destinasi";
-import { useNavigate } from "react-router-dom";
+import { berandaReducer, initialState } from "../../reducer/BerandaState";
 
 const Beranda = () => {
-  const [showPassengerModal, setShowPassengerModal] = useState(false);
-  const [showDepartureModal, setShowDepartureModal] = useState(false);
-  const [showArrivalModal, setShowArrivalModal] = useState(false);
-  const [showClassModal, setShowClassModal] = useState(false);
   const [jumlahDewasa, setJumlahDewasa] = useState(1);
   const [jumlahAnak, setJumlahAnak] = useState(0);
   const [jumlahBayi, setJumlahBayi] = useState(0);
-  const [departure, setDeparture] = useState("Option 1");
-  const [arrival, setArrival] = useState("Option 2");
-  const [flightClass, setFlightClass] = useState("Economy");
-  const [defaultDate, setDefaultDate] = useState("");
-  const [switched, setSwitched] = useState(false);
-  const navigate = useNavigate()
+  const [state, dispatch] = useReducer(berandaReducer, initialState);
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-
-    const defaultFormattedDate = `${year}-${month}-${day}`;
-    setDefaultDate(defaultFormattedDate);
-
-    const storedData = JSON.parse(localStorage.getItem("formData"));
-    if (storedData) {
-      setJumlahDewasa(storedData.jumlahDewasa);
-      setJumlahAnak(storedData.jumlahAnak);
-      setJumlahBayi(storedData.jumlahBayi);
-      setDeparture(storedData.departure);
-      setArrival(storedData.arrival);
-      setFlightClass(storedData.flightClass);
-      setSwitched(storedData.switched);
+    const storedFormData = JSON.parse(localStorage.getItem("flightFormData"));
+    if (storedFormData) {
+      setJumlahDewasa(storedFormData.jumlahDewasa);
+      setJumlahAnak(storedFormData.jumlahAnak);
+      setJumlahBayi(storedFormData.jumlahBayi);
+      dispatch({ type: "SET_DATE", payload: storedFormData.date });
+      dispatch({ type: "SET_DEPARTURE", payload: storedFormData.departure });
+      dispatch({ type: "SET_ARRIVAL", payload: storedFormData.arrival });
+      dispatch({
+        type: "SET_FLIGHT_CLASS",
+        payload: storedFormData.flightClass,
+      });
+      dispatch({ type: "TOGGLE_SWITCHED" });
     }
   }, []);
 
   const handleSearchFlights = () => {
     const formData = {
-      jumlahDewasa,
-      jumlahAnak,
-      jumlahBayi,
-      departure,
-      arrival,
-      flightClass,
-      switched,
+      jumlahDewasa: jumlahDewasa,
+      jumlahAnak: jumlahAnak,
+      jumlahBayi: jumlahBayi,
+      departure: state.departure,
+      arrival: state.arrival,
+      flightClass: state.flightClass,
+      date: state.date,
     };
-  
-    localStorage.setItem("formData", JSON.stringify(formData));
-  
-   navigate("/")
+    // Menyimpan data ke localStorage
+    localStorage.setItem("flightFormData", JSON.stringify(formData));
+
+    navigate("/");
     console.log(formData);
   };
 
   const handlePassengerModal = () => {
-    setShowPassengerModal(!showPassengerModal);
+    dispatch({ type: "TOGGLE_PASSENGER_MODAL" });
   };
 
   const handleDepartureModal = () => {
-    setShowDepartureModal(!showDepartureModal);
+    dispatch({ type: "TOGGLE_DEPARTURE_MODAL" });
   };
 
   const handleClassModal = () => {
-    setShowClassModal(!showClassModal);
+    dispatch({ type: "TOGGLE_CLASS_MODAL" });
   };
 
   const handleArrivalModal = () => {
-    setShowArrivalModal(!showArrivalModal);
+    dispatch({ type: "TOGGLE_ARRIVAL_MODAL" });
   };
 
   const handleDepartureSelect = (selectedDeparture) => {
-    setDeparture(selectedDeparture);
-    setShowDepartureModal(false);
+    dispatch({ type: "SET_DEPARTURE", payload: selectedDeparture });
+    dispatch({ type: "TOGGLE_DEPARTURE_MODAL" });
   };
 
   const handleClassSelect = (selectedClass) => {
-    setFlightClass(selectedClass);
-    setShowClassModal(false);
+    dispatch({ type: "SET_FLIGHT_CLASS", payload: selectedClass });
+    dispatch({ type: "TOGGLE_CLASS_MODAL" });
   };
 
   const handleArrivalSelect = (selectedArrival) => {
-    setArrival(selectedArrival);
-    setShowArrivalModal(false);
+    dispatch({ type: "SET_ARRIVAL", payload: selectedArrival });
+    dispatch({ type: "TOGGLE_ARRIVAL_MODAL" });
   };
 
   const handleSwitch = () => {
-    setSwitched(!switched);
-    const temp = departure;
-    setDeparture(arrival);
-    setArrival(temp);
+    dispatch({ type: "TOGGLE_SWITCHED" });
+  };
+
+  const handleChangeDate = (event) => {
+    const selectedDate = event.target.value;
+    dispatch({ type: "SET_DATE", payload: selectedDate });
   };
 
   return (
@@ -115,7 +107,7 @@ const Beranda = () => {
                 <div className="grid gap-2">
                   <p className="text-gray-300">Jakarta</p>
                   <h1 className="text-xl text-gray-300 font-semibold">
-                    {departure}
+                    {state.departure}
                   </h1>
                 </div>
                 <p className="text-slate-400 text-2xl pt-8">
@@ -124,14 +116,10 @@ const Beranda = () => {
               </div>
               <div className="grid mx-5 relative">
                 <div className="flex justify-center items-center">
-                  {/* <div className="w-1/2">
-                    <hr className="border-gray-500" />
-                  </div> */}
-
                   <h1
                     name="switch"
                     className={`text-2xl p-2 rounded-full border bg-gray-400 ${
-                      switched
+                      state.switched
                         ? "border-green-500 text-green-500"
                         : "border-gray-300 text-gray-300"
                     }`}
@@ -139,10 +127,6 @@ const Beranda = () => {
                   >
                     <HiSwitchVertical />
                   </h1>
-
-                  {/* <div className="w-1/2">
-                    <hr className="border-gray-500" />
-                  </div> */}
                 </div>
               </div>
               <div
@@ -152,7 +136,7 @@ const Beranda = () => {
                 <div className="grid gap-2">
                   <p className="text-gray-300">Jakarta</p>
                   <h1 className="text-xl text-gray-300 font-semibold">
-                    {arrival}
+                    {state.arrival}
                   </h1>
                 </div>
                 <p className="text-slate-400 text-2xl pt-8">
@@ -163,9 +147,10 @@ const Beranda = () => {
                 <div className="px-5 py-3 grid">
                   <label className="font-semibold text-gray-700">Date</label>
                   <input
+                    onChange={handleChangeDate}
                     type="date"
                     className="rounded-2xl mb-2 w-full border-none bg-gray-200 font-semibold"
-                    defaultValue={defaultDate}
+                    value={state.date}
                   />
                 </div>
               </div>
@@ -195,11 +180,16 @@ const Beranda = () => {
                     <span className="text-xl pt-2 py-1">
                       <AiFillSetting />
                     </span>{" "}
-                    <h1 className="pt-1 pl-5 font-semibold">{flightClass}</h1>
+                    <h1 className="pt-1 pl-5 font-semibold">
+                      {state.flightClass}
+                    </h1>
                   </div>
                 </div>
               </div>
-              <button onClick={handleSearchFlights} className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3">
+              <button
+                onClick={handleSearchFlights}
+                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3"
+              >
                 <p className="text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">
                   <AiOutlineArrowRight />
@@ -209,39 +199,37 @@ const Beranda = () => {
           </div>
         </div>
         <Destinasi />
-        {showPassengerModal && (
+        {state.showPassengerModal && (
           <PassengerModal
-            show={showPassengerModal}
+            show={state.showPassengerModal}
             onClose={handlePassengerModal}
-            jumlahDewasa={jumlahDewasa}
-            jumlahAnak={jumlahAnak}
-            jumlahBayi={jumlahBayi}
             setJumlahAnak={setJumlahAnak}
-            setJumlahDewasa={setJumlahDewasa}
             setJumlahBayi={setJumlahBayi}
-            showPassengerModal={showPassengerModal}
-            setShowPassengerModal={setShowPassengerModal}
+            setJumlahDewasa={setJumlahDewasa}
+            jumlahAnak={jumlahAnak}
+            jumlahDewasa={jumlahDewasa}
+            jumlahBayi={jumlahBayi}
           />
         )}
-        {showDepartureModal && (
+        {state.showDepartureModal && (
           <FlightModal
-            show={showDepartureModal}
+            show={state.showDepartureModal}
             onClose={handleDepartureModal}
             onSelect={handleDepartureSelect}
             title="Select Departure"
           />
         )}
-        {showArrivalModal && (
+        {state.showArrivalModal && (
           <FlightModal
-            show={showArrivalModal}
+            show={state.showArrivalModal}
             onClose={handleArrivalModal}
             onSelect={handleArrivalSelect}
             title="Select Arrival"
           />
         )}
-        {showClassModal && (
+        {state.showClassModal && (
           <ClassModal
-            show={showClassModal}
+            show={state.showClassModal}
             onClose={handleClassModal}
             onSelect={handleClassSelect}
             title="Select Class"
