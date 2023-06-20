@@ -1,14 +1,18 @@
-import React from 'react';
+import { Outlet, createBrowserRouter } from "react-router-dom";
 
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import Dashboard from './pages/Customers/Dashboard';
+import Account from "./pages/Customers/Account";
 import Beranda from './pages/Customers/Beranda';
+import Checkout from "./pages/Customers/checkout/Checkout"
+import Dashboard from './pages/Customers/Dashboard';
+import Login from './pages/login';
 import Navbar from './components/Navbar';
+import Notifications from "./pages/Customers/Notifications";
+import PageError from './components/PageError';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-import Checkout from "./pages/Customers/checkout/Checkout"
-import PageError from './components/PageError';
-import Login from './pages/login';
+import React from 'react';
+import Register from "./pages/register";
+import UpdatePassword from "./pages/UpdatePassword";
 
 const Router = createBrowserRouter([
 
@@ -35,6 +39,7 @@ const Router = createBrowserRouter([
                 path: "beranda",
                 element: <Dashboard/>,
             },
+
             // here should added element properly and not required login
             
         ]
@@ -43,18 +48,18 @@ const Router = createBrowserRouter([
         path: "auth",
         element: <ProtectionHasAuth />,
         children: [
+            // test register and login 
             {
                 path: "login",
                 element: <Login/>,
             },
-
             {
-                path: "Register",
-                element: "Register",
+                path: "register",
+                element: <Register/>,
             },
             {
-                path: "forgotPassword",
-                element: "Forgot Password",
+                path: "updatePassword",
+                element: <UpdatePassword/>,
             }
         ]
     },
@@ -65,12 +70,12 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: "notification",
-                element: "notification"
+                element: <Notifications/>,
             },
 
             {
-                path: "infoDetailUser",
-                element: "infoDetailUser"
+                path: "account",
+                element: <Account/>
             },
             {
                 path: "checkout",
