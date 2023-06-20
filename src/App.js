@@ -1,16 +1,18 @@
 import './App.css';
+import "react-toastify/dist/ReactToastify.css";
+
+import { Provider } from 'react-redux';
 import Router from './Router';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Provider } from 'react-redux';
+import store from "./utilites/redux/store";
 
-import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
-    <>
-    <RouterProvider router={Router}/>
-    <ToastContainer theme="colored"/>
-    </>
+    <Provider store={store}>
+      <RouterProvider router={Router} />
+      <ToastContainer theme="colored" />
+    </Provider>
     
 
   );
