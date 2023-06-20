@@ -97,7 +97,7 @@ const Beranda = () => {
     <div className="font-poppins">
       <div className="bg-gradient-to-b to-white">
         <Slides />
-        <div className="mx-5 grid lg:mx-auto lg:max-w-5xl py-10">
+        <div className="mx-5 md:mx-8 grid xl:mx-auto lg:max-w-5xl py-10">
           <div className="bg-transparent rounded-2xl mt-[-520px] md:mt-[-550px] relative z-20 my-4">
             <div className="grid gap-1">
               <div
