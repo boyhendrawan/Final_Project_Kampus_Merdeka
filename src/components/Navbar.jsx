@@ -86,7 +86,7 @@ const Navbar = () => {
           ) : (
             <ul className="flex gap-3">
               <button
-                className="bg-purple-600 rounded-md font-bold px-4 py-2 "
+                className="bg-purple-600 rounded-md font-bold px-4 py-2 hover:bg-purple-800"
                 onClick={handleClickLogin}
               >
                 <div className="flex gap-2">

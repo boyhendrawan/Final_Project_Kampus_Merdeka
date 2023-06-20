@@ -49,7 +49,7 @@ const Beranda = () => {
     // Menyimpan data ke localStorage
     localStorage.setItem("flightFormData", JSON.stringify(formData));
 
-    navigate("/");
+    navigate("/flightoption");
     console.log(formData);
   };
 
