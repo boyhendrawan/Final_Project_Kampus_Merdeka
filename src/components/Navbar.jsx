@@ -40,10 +40,10 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed shadow-lg backdrop-blur-md font-poppins w-full left-0 top-0 lg:px-32 p-5 drop-shadow-lg z-10 
+      className={`fixed font-poppins w-full left-0 top-0 md:px-10 p-5 drop-shadow-lg z-10 
     ${
       sticky
-        ? "bg-slate-50 bg-opacity-75 text-white h-20 z-50 items-center"
+        ? "bg-slate-50 bg-opacity-75 text-white h-20 z-50 items-center shadow-lg"
         : "text-white"
     }`}
     >

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FiEyeOff } from "react-icons/fi";
-
 import Alert from "../components/alert/alert";
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";

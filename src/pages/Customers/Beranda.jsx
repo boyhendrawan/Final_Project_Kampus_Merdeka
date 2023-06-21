@@ -4,9 +4,9 @@ import { HiSwitchVertical } from "react-icons/hi";
 import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import PassengerModal from "../../components/PassengerModal";
-import ClassModal from "../../components/ClassModal";
-import FlightModal from "../../components/FlightModal";
+import PassengerModal from "../../components/modals/PassengerModal";
+import ClassModal from "../../components/modals/ClassModal";
+import FlightModal from "../../components/modals/FlightModal";
 import Slides from "../../components/Slides";
 import Destinasi from "../../components/Destinasi";
 import { berandaReducer, initialState } from "../../reducer/BerandaState";
@@ -97,7 +97,7 @@ const Beranda = () => {
     <div className="font-poppins">
       <div className="bg-gradient-to-b to-white">
         <Slides />
-        <div className="mx-5 grid lg:mx-auto lg:max-w-5xl py-10">
+        <div className="mx-5 md:mx-8 grid xl:mx-auto lg:max-w-5xl py-10">
           <div className="bg-transparent rounded-2xl mt-[-520px] md:mt-[-550px] relative z-20 my-4">
             <div className="grid gap-1">
               <div

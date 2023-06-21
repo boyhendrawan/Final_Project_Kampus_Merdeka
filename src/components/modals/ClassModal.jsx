@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const ClassModal = ({ show, onClose, onSelect, title }) => {
+const ClassModal = ({ show, onClose, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelect = (option) => {
