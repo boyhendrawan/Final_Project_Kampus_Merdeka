@@ -4,6 +4,7 @@ import SwiperCore, { Autoplay } from "swiper";
 import "swiper/swiper.min.css";
 import gambar from "../assets/gambar4.jpg";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 SwiperCore.use([Autoplay]);
 
@@ -60,13 +61,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl shadow-lg">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>
@@ -88,13 +89,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl shadow-lg">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>
@@ -116,13 +117,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl shadow-lg">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>
@@ -144,13 +145,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl shadow-lg">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>
@@ -172,13 +173,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>
@@ -200,13 +201,13 @@ const Destinasi = () => {
         </SwiperSlide>
         <SwiperSlide>
           <div className="border-b-gray-300 border rounded-2xl shadow-lg">
-            <a href="#">
+            <Link to="">
               <img
                 src={gambar}
                 className="w-full rounded-t-2xl"
                 alt="Destination"
               />
-            </a>
+            </Link>
             <div className="m-2 grid gap-1 mb-5">
               <div className="flex gap-2 py-2 text-xl font-semibold text-gray-700">
                 <h1>Jakarta</h1>

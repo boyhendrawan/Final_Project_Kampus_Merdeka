@@ -17,7 +17,7 @@ const reducerData = (state, action) => {
     case "STEP_NEXT":
       return { ...state, stepper: state.stepper += 1 };
     case "STEP_PREVIOUS":
-      return { ...state, stepper: state.stepper -=1 };
+      return { ...state, stepper: state.stepper -= 1 };
     case "PERSONAL":
       return { ...state, personal: action.data };
     case "PESSENGERS":
@@ -69,8 +69,8 @@ const Checkout = () => {
     <>
       <div className='container mx-auto mt-32'>
         <h1 className='font-bold text-md md:text-lg lg:text-xl  my-4 ml-4'>Check Out</h1>
-        <div className='flex flex-col  items-center w-full gap-y-4 md:flex-row md:items-start md:gap-x-4 justify-center'>
-          <div className='order-2 px-6 py-4 bg-white shadow-lg w-full rounded-lg max-w-md lg:max-w-sm'>
+        <div className='flex flex-col  items-center w-full gap-y-4 lg:flex-row lg:items-start lg:gap-x-4 justify-center'>
+          <div className='order-2 px-6 py-4 bg-white shadow-lg w-full rounded-lg max-w-md lg:max-w-sm '>
             <h1 className='header-title-h1 font-semibold mt-4 mb-2 text-center'>Detail Penerbangan</h1>
             <div className='flex justify-between w-full my-4 flex-wrap'>
               <h1 className='text-xs lg:text-sm font-semibold '>JT-AIR 101</h1>
@@ -96,10 +96,10 @@ const Checkout = () => {
                 <p className='text-xs lg:text-sm  text-slate-500 font-base'>3 Jam 59 Menit</p>
               </div>
             </div>
-            {checkOutData.stepper ===3 &&
-            <button className='bg-emerald-500 font-semibold  py-2 text-white w-full rounded-lg text-sm md:text-base lg:text-lg glance-animation'>Bayar</button>
+            {checkOutData.stepper === 3 &&
+              <button className='bg-emerald-500 font-semibold  py-2 text-white w-full rounded-lg text-sm md:text-base lg:text-lg glance-animation'>Bayar</button>
             }
-            </div>
+          </div>
           <div className='order-1 px-6 py-4 bg-white shadow-lg w-full rounded-lg'>
             {/* Stepper */}
             <div id="stepper">

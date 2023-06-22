@@ -18,7 +18,7 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue }) => {
   // for firsttime running
   // added useState as container that input
   const [dataUsers,setDataUsers]=useState([]);
-  const sumPessenger = 3;
+  const sumPessenger = 1;
   useEffect(()=>{
     // check if handle change data is available
     if(valueData.length ===sumPessenger) return setDataUsers(valueData);
