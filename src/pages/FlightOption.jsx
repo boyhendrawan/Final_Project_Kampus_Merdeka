@@ -4,12 +4,14 @@ import { ReactComponent as Left } from '../assets/fi_arrow-left.svg'
 import { ReactComponent as Line } from '../assets/Thin.svg'
 import { ReactComponent as Termurah } from '../assests/Prefix icon.svg'
 import FlightOptionCard from '../components/FlightOptionCard'
+import NoAvailable from './Customers/NoAvailable'
 import FilterCard from '../components/FilterCard'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as Filter } from '../assests/filteredIcon.svg'
 
 const FlightOption = () => {
     const [showFlightOptionCard, setShowFlightOptionCard] = useState(true)
+    const [showNoAvailable, setShowNoAvailable] = useState(false)
     const [isActive, setIsActive] = useState(true)
     const navigate = useNavigate()
 
@@ -66,6 +68,11 @@ const FlightOption = () => {
 
     const handleFlightOptionCard = () => {
         setShowFlightOptionCard(current => !current);
+        setIsActive(!isActive)
+    }
+
+    const handleNoAvailable = () => {
+        setShowNoAvailable(current => !current);
         setIsActive(!isActive)
     }
 
@@ -131,7 +138,7 @@ const FlightOption = () => {
                     <Line />
                 </div>
 
-                <div className='text-center hover:cursor-pointer m-2'>
+                <div onClick={handleNoAvailable} className='text-center hover:cursor-pointer m-2'>
                     <div className={`p-2 lg:px-4 hover:bg-purple-600 rounded-md  hover:text-white hover:rounded-md ${isActive ? 'bg-purple-800 !text-white' : 'text-black bg-transparent'} `}>
                         <p className={`font-bold `}>Rabu</p>
                         <p className=' text-xs opacity-70'>03/03/2023</p>
@@ -194,8 +201,8 @@ const FlightOption = () => {
                 </div>
             </div>
 
-            <div className='flex justify-end max-sm:justify-between lg:mx-72 lg:py-6 p-2 max-sm:text-xs'>
-                <button className='md:hidden inline-flex items-center border-2 rounded-3xl gap-2 py-2 px-3 font-medium'>
+            <div className='flex justify-end max-lg:justify-between md:mx-6 lg:mx-72 lg:py-6 p-2 max-sm:text-xs'>
+                <button className='lg:hidden inline-flex items-center border-2 rounded-3xl gap-2 py-2 px-3 font-medium'>
                     <Filter />
 
                     <div className='hover:underline'>
@@ -227,6 +234,13 @@ const FlightOption = () => {
                         ))
                     }
                 </div>
+                    
+                {showNoAvailable && (
+                    <NoAvailable
+                        show={showNoAvailable}
+                        onClose={handleNoAvailable}
+                    />
+                )}
             </div>
         </>
     )
