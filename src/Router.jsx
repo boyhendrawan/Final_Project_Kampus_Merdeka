@@ -1,15 +1,16 @@
 import React from 'react';
-
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
 import Beranda from './pages/Customers/Beranda';
 import Navbar from './components/Navbar';
+import History from './pages/Customers/History';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 import FlightOption from './pages/FlightOption';
 import Checkout from "./pages/Customers/checkout/Checkout"
 import PageError from './components/PageError';
 import Login from './pages/login';
+import Register from './pages/register';
 
 const Router = createBrowserRouter([
 
@@ -56,7 +57,7 @@ const Router = createBrowserRouter([
 
             {
                 path: "Register",
-                element: "Register",
+                element: <Register />,
             },
             {
                 path: "forgotPassword",
@@ -89,7 +90,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: "history",
-                element: "history",
+                element: <History />,
                 children: [
                     // detail more history  
                     {

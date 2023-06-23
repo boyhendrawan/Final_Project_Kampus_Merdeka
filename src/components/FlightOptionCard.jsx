@@ -1,17 +1,18 @@
 import { Disclosure } from '@headlessui/react'
 import { ReactComponent as DropButton } from '../assets/Neutral_button.svg'
 import { ReactComponent as Koper } from '../assets/Group.svg'
-import FlightCard from '../components/FilterCard'
+
 import Jet from '../assets/Image.svg'
 import React from 'react'
 
-const FlightOptionCard = ({ show, item }) => {
+const FlightOptionCard = ({ index,show, item },props) => {
+    
     return (
-        <div className='max-sm:pt-2 md:pb-4 lg:pb-6 max-sm:text-xs font-poppins'>
+        <div className='max-sm:pt-2 md:pb-4 lg:pb-6 max-sm:text-xs font-poppins' key={index}>
             <Disclosure as='div' className='flex border md:p-3 rounded-md flex-col'>
                 <div className='flex justify-between md:order-1 order-2 max-sm:p-3'>
                     <div className='inline-flex gap-2'>
-                        <div><img src={Jet} /></div>
+                        <div><img src={Jet} alt='foto pesawat' /></div>
                         <h3 className='font-semibold'>{`${item?.maskapai}`}</h3>
                     </div>
                     <Disclosure.Button>
