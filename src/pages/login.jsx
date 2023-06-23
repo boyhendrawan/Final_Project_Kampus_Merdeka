@@ -17,7 +17,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-  
   const {
     value: valueUsername,
     isInvalid: invalidUsername,

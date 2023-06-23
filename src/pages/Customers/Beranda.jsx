@@ -4,9 +4,9 @@ import { HiSwitchVertical } from "react-icons/hi";
 import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import PassengerModal from "../../components/PassengerModal";
-import ClassModal from "../../components/ClassModal";
-import FlightModal from "../../components/FlightModal";
+import PassengerModal from "../../components/modals/PassengerModal";
+import ClassModal from "../../components/modals/ClassModal";
+import FlightModal from "../../components/modals/FlightModal";
 import Slides from "../../components/Slides";
 import Destinasi from "../../components/Destinasi";
 import { berandaReducer, initialState } from "../../reducer/BerandaState";
@@ -17,7 +17,7 @@ const Beranda = () => {
   const [jumlahBayi, setJumlahBayi] = useState(0);
   const [state, dispatch] = useReducer(berandaReducer, initialState);
   const navigate = useNavigate();
-  
+
 
   useEffect(() => {
     const storedFormData = JSON.parse(localStorage.getItem("flightFormData"));
@@ -97,9 +97,10 @@ const Beranda = () => {
     <div className="font-poppins">
       <div className="bg-gradient-to-b to-white">
         <Slides />
-        <div className="mx-5 grid lg:mx-auto lg:max-w-5xl py-10">
-          <div className="bg-transparent rounded-2xl mt-[-520px] md:mt-[-550px] relative z-20 my-4">
-            <div className="grid gap-1">
+
+        <div className="w-full px-4 absolute  top-0 z-10 h-full  md:top-20 lg:top-24 text-sm">
+          <div className="bg-transparent rounded-2xl w-full flex justify-end  h-full flex-col items-center">
+            <div className="w-full max-w-4xl">
               <div
                 className="p-5 flex justify-between items-center gap-3 rounded-2xl bg-gray-800 py-3 lg:py-5 mb-[-22px]"
                 onClick={handleDepartureModal}
@@ -118,11 +119,10 @@ const Beranda = () => {
                 <div className="flex justify-center items-center">
                   <h1
                     name="switch"
-                    className={`text-2xl p-2 rounded-full border bg-gray-400 ${
-                      state.switched
-                        ? "border-green-500 text-green-500"
-                        : "border-gray-300 text-gray-300"
-                    }`}
+                    className={`text-2xl p-2 rounded-full border bg-gray-400 ${state.switched
+                      ? "border-green-500 text-green-500"
+                      : "border-gray-300 text-gray-300"
+                      }`}
                     onClick={handleSwitch}
                   >
                     <HiSwitchVertical />
@@ -188,9 +188,9 @@ const Beranda = () => {
               </div>
               <button
                 onClick={handleSearchFlights}
-                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3"
+                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3 items-center mt-2"
               >
-                <p className="text-xl">Cari Penerbangan</p>
+                <p className="text-md md:text-lg lg:text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">
                   <AiOutlineArrowRight />
                 </p>

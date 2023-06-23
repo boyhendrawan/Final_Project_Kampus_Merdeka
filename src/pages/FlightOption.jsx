@@ -57,7 +57,7 @@ const FlightOption = () => {
     ]
 
     const handleFlightOptionCard = () => {
-        setShowFlightOptionCard(!showFlightOptionCard)
+        setShowFlightOptionCard(current => !current);
     }
 
     return (
@@ -72,22 +72,22 @@ const FlightOption = () => {
 
                     <ol className='inline-flex items-center text-xs font-poppins text-neutral-300'>
                         <li>
-                            <a href='#' className='hover:text-white font-bold'>JKT</a>
+                            <span href='#' className='hover:text-white font-bold'>JKT</span>
                         </li>
 
                         <li>
                             <div>
-                                <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                <svg aria-hidden="true" className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
                             </div>
                         </li>
 
                         <li>
-                            <a href='#' className='hover:text-white font-bold'>MLB</a>
+                            <span href='#' className='hover:text-white font-bold'>MLB</span>
                         </li>
 
                         <li>
                             <div>
-                                <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                <svg aria-hidden="true" className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
                             </div>
                         </li>
 
@@ -97,7 +97,7 @@ const FlightOption = () => {
 
                         <li>
                             <div>
-                                <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                <svg aria-hidden="true" className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
                             </div>
                         </li>
 
@@ -183,20 +183,14 @@ const FlightOption = () => {
                 </div>
 
                 <div>
-                    {showFlightOptionCard && (
-                        <>
-                            {
-                                arrayDummy.map((item) => (
-                                    <>
-                                        <FlightOptionCard
-                                            show={showFlightOptionCard}
-                                            item={item}
-                                        />
-                                    </>
-                                ))
-                            }
-                        </>
-                    )}
+                    {showFlightOptionCard && 
+                        arrayDummy?.map((item, i) => (
+                            <FlightOptionCard key={i} index={i}
+                                show={showFlightOptionCard}
+                                item={item}
+                            />
+                        ))
+                    }
                 </div>
             </div>
         </>
