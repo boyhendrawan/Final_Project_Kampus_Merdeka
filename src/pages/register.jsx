@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import Alert from "../components/alert/alert";
 import { FiEyeOff } from "react-icons/fi";
+import LoadingRequest from "../components/LoadingRequest";
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";
 import plant from "../assets/Plantshome.png";
@@ -14,6 +15,7 @@ import useInput from "../utilites/customHooks/use-input";
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const [failedLogin, setFailedLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [requestRegister, setRequest] = useState(false);
@@ -74,8 +76,9 @@ const Register = () => {
       password: valuePassword,
       full_name: valueFullName,
       phone: valuePhone,
+      gender: "L",
+      roles: "ROLE_USER"
     };
-    console.log(data);
     setRequest(true);
     dispatch(
       register(
@@ -196,7 +199,7 @@ const Register = () => {
                   </label>
                 </div>
                 <div className="relative ">
-                <input
+                  <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder={showPassword ? "********" : "Masukan Password"}
@@ -225,7 +228,7 @@ const Register = () => {
                   </Link>
                 </p>
               </div>
-              {requestRegister && "loading"}
+              {requestRegister && <LoadingRequest/>}
               {!requestRegister && (
                 <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
                   Daftar

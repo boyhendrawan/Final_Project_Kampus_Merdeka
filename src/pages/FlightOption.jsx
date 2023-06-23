@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import React from 'react'
+import FilterCard from '../components/FilterCard'
+import FlightOptionCard from '../components/FlightOptionCard'
 import { ReactComponent as Left } from '../assets/fi_arrow-left.svg'
 import { ReactComponent as Line } from '../assets/Thin.svg'
+import React from 'react'
 import { ReactComponent as Termurah } from '../assests/Prefix icon.svg'
-import FlightOptionCard from '../components/FlightOptionCard'
-import FilterCard from '../components/FilterCard'
+import { useState } from 'react'
 
 const FlightOption = () => {
     const [showFlightOptionCard, setShowFlightOptionCard] = useState(false)
-
+        
     const arrayDummy = [
         {
             maskapai: "Jet Air - Economy",

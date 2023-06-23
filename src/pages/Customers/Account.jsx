@@ -1,13 +1,15 @@
 import { IoMdArrowBack, IoMdNotificationsOutline } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import { MdEventNote, MdOutlineAccountCircle } from "react-icons/md";
 import React, { useState } from "react";
 
 import { BiHomeAlt } from "react-icons/bi";
 import { FiSettings } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
-import { Link } from "react-router-dom";
 import { TbPencilMinus } from "react-icons/tb";
 import logo from "../../assets/logo.png";
+import { logout } from "../../utilites/redux/action/login"
+import { useDispatch } from "react-redux";
 
 const Account = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +17,8 @@ const Account = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -41,6 +45,8 @@ const Account = () => {
     console.log("Data Profil:", fullName, phoneNumber, email);
     closeModal();
   };
+
+
 
   return (
     <div className="w-11/12 h-11/12 ml-[1.5rem]">
@@ -71,7 +77,7 @@ const Account = () => {
         </div>
         <div className="border-b border-slate-500 w-11/12 flex items-center py-4">
           <ImExit className="text-primary-darkblue04 mr-2" size="30px" />
-          <button className="flex items-center gap-2">Keluar</button>
+          <button className="flex items-center gap-2" onClick={e=>dispatch(logout(navigate))}>Keluar</button>
         </div>
         <span className="text-slate-500 font-thin text-xs">version 1.1.0</span>
       </div>

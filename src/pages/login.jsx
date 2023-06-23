@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import { FiEyeOff } from "react-icons/fi";
+import "react-toastify/dist/ReactToastify.css";
 
-import Alert from "../components/alert/alert";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+
+import { FiEyeOff } from "react-icons/fi";
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";
 import plant from "../assets/Plantshome.png";
 import { login as requestLogin } from "../utilites/redux/action/login";
 import { useDispatch } from "react-redux";
 import useInput from "../utilites/customHooks/use-input";
-import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [failedLogin, setFailedLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  
   const {
     value: valueUsername,
     isInvalid: invalidUsername,
@@ -34,14 +34,13 @@ const Login = () => {
     reset: resetPassword,
   } = useInput((e) => e.length > 3);
 
-  const handleCloseAlert = () => {
-    setFailedLogin(false);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (valueUsername.length <= 0 || valuePassword.length <= 0) {
-      toast.error("Harap isi semua inputan", { position: toast.POSITION.BOTTOM_CENTER });
+      toast.error("Harap isi semua inputan", {
+        position: toast.POSITION.BOTTOM_CENTER,
+      });
       return;
     }
     dispatch(
@@ -79,15 +78,6 @@ const Login = () => {
         {/* Left Bar */}
         <div className="w-full h-screen md:w-1/2 md:p-5 md:shadow-md">
           <div className="relative flex flex-col max-h-max mx-auto sm:mt-[10%] md:mt-[12%] lg:w-10/12">
-            {failedLogin && (
-              <Alert
-                onClose={handleCloseAlert}
-                className="bg-rose-700 text-white"
-                classNameBtn="text-rose-200 hover:text-rose-500 hover:bg-rose-200"
-              >
-                Error, please check your username and password
-              </Alert>
-            )}
             <form
               onSubmit={handleSubmit}
               className="space-y-6 my-auto mx-auto w-10/12 mt-[8rem] md:space-y-13 md:mt-[8rem] xl:mt-[5rem]"
@@ -156,7 +146,7 @@ const Login = () => {
               <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
                 Masuk
               </button>
-      <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
+              <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
             </form>
           </div>
         </div>

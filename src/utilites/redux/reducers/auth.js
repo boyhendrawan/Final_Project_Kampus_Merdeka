@@ -19,12 +19,15 @@ const tokenSlice = createSlice({
       state.token = action.payload;
     },
     logout(state, action) {
+      state.token = null;
+      state.isLoggedIn = false;
       state.dataUser = null;
+      localStorage.removeItem("token");
     },
     setUser(state, action) {
       state.dataUser = action.payload;
     },
-    setIsLoggedIn: (state, action) => {
+    setIsLoggedIn(state, action) {
       state.isLoggedIn = action.payload;
     },
   },

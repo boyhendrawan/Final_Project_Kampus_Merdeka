@@ -24,7 +24,9 @@ function useInput(validateInput,defaultValue="") {
         handlerChange,
         handlerBlur,
         reset
+        
     }
+    
 }
 
 export default useInput
