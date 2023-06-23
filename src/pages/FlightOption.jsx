@@ -5,9 +5,17 @@ import { ReactComponent as Line } from '../assets/Thin.svg'
 import { ReactComponent as Termurah } from '../assests/Prefix icon.svg'
 import FlightOptionCard from '../components/FlightOptionCard'
 import FilterCard from '../components/FilterCard'
+import { useNavigate } from 'react-router-dom'
+import { ReactComponent as Filter } from '../assests/filteredIcon.svg'
 
 const FlightOption = () => {
-    const [showFlightOptionCard, setShowFlightOptionCard] = useState(false)
+    const [showFlightOptionCard, setShowFlightOptionCard] = useState(true)
+    const [isActive, setIsActive] = useState(true)
+    const navigate = useNavigate()
+
+    const handleChangeFlights = () => {
+        navigate("/")
+    }
 
     const arrayDummy = [
         {
@@ -58,6 +66,7 @@ const FlightOption = () => {
 
     const handleFlightOptionCard = () => {
         setShowFlightOptionCard(!showFlightOptionCard)
+        setIsActive(!isActive)
     }
 
     return (
@@ -66,7 +75,7 @@ const FlightOption = () => {
 
             <div className='flex max-sm:flex-wrap items-center justify-between gap-2 md:gap-4 pt-24 md:pt-10 px-2 md:px-10 lg:px-72'>
                 <div className='inline-flex bg-primary-darkblue05 max-sm:w-full gap-2 py-2 md:gap-4 rounded-md md:flex-1'>
-                    <button type='button' className='flex items-center ml-4 hover:bg-primary-darkblue04 hover:rounded-3xl'>
+                    <button onClick={handleChangeFlights} className='flex items-center ml-4 hover:bg-primary-darkblue04 hover:rounded-3xl'>
                         <Left />
                     </button>
 
@@ -107,14 +116,14 @@ const FlightOption = () => {
                     </ol>
                 </div>
 
-                <button type='button' className='bg-lime-600 hover:bg-lime-400 max-sm:w-full text-center rounded-md text-white font-bold py-2 md:px-20'>Ubah Pencarian</button>
+                <button onClick={handleChangeFlights} className='bg-lime-600 hover:bg-lime-400 max-sm:w-full text-center rounded-md text-white font-bold py-2 md:px-20'>Ubah Pencarian</button>
             </div>
 
-            <div className='inline-flex max-sm:relative md:justify-center border-b-2 w-full md:text-lg text-sm max-sm:overflow-scroll'>
+            <div className='inline-flex max-sm:relative md:justify-center border-b-2 w-full lg:text-lg text-sm max-sm:overflow-scroll'>
                 <div onClick={handleFlightOptionCard} className='text-center hover:cursor-pointer m-2'>
-                    <div className='p-2 md:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
-                        <div className='font-bold'>Selasa</div>
-                        <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
+                    <div className={`p-2 lg:px-4 hover:bg-purple-600 rounded-md  hover:text-white hover:rounded-md ${isActive ? 'bg-purple-800 !text-white' : 'text-black bg-transparent'} `}>
+                        <p className={`font-bold `}>Selasa</p>
+                        <p className=' text-xs opacity-70'>02/03/2023</p>
                     </div>
                 </div>
 
@@ -123,9 +132,9 @@ const FlightOption = () => {
                 </div>
 
                 <div className='text-center hover:cursor-pointer m-2'>
-                    <div className='p-2 md:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
-                        <div className='font-bold'>Rabu</div>
-                        <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
+                    <div className={`p-2 lg:px-4 hover:bg-purple-600 rounded-md  hover:text-white hover:rounded-md ${isActive ? 'bg-purple-800 !text-white' : 'text-black bg-transparent'} `}>
+                        <p className={`font-bold `}>Rabu</p>
+                        <p className=' text-xs opacity-70'>03/03/2023</p>
                     </div>
                 </div>
 
@@ -134,7 +143,7 @@ const FlightOption = () => {
                 </div>
 
                 <div className='text-center hover:cursor-pointer m-2'>
-                    <div className='p-2 md:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
+                    <div className='p-2 lg:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
                         <div className='font-bold'>Kamis</div>
                         <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
                     </div>
@@ -145,7 +154,7 @@ const FlightOption = () => {
                 </div>
 
                 <div className='text-center hover:cursor-pointer m-2'>
-                    <div className='p-2 md:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
+                    <div className='p-2 lg:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
                         <div className='font-bold'>Jumat</div>
                         <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
                     </div>
@@ -156,7 +165,7 @@ const FlightOption = () => {
                 </div>
 
                 <div className='text-center hover:cursor-pointer m-2'>
-                    <div className='p-2 md:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
+                    <div className='p-2 lg:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
                         <div className='font-bold'>Sabtu</div>
                         <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
                     </div>
@@ -165,10 +174,35 @@ const FlightOption = () => {
                 <div className='flex items-center'>
                     <Line />
                 </div>
+
+                <div className='text-center hover:cursor-pointer m-2'>
+                    <div className='p-2 lg:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
+                        <div className='font-bold'>Sabtu</div>
+                        <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
+                    </div>
+                </div>
+
+                <div className='flex items-center'>
+                    <Line />
+                </div>
+
+                <div className='text-center hover:cursor-pointer m-2'>
+                    <div className='p-2 lg:px-4 hover:bg-purple-600 hover:text-white hover:rounded-md'>
+                        <div className='font-bold'>Sabtu</div>
+                        <div className='text-neutral-500 text-xs hover:text-neutral-200'>02/03/2023</div>
+                    </div>
+                </div>
             </div>
 
-            <div className='flex justify-end lg:mx-72 lg:py-6 max-lg:p-2 max-sm:text-xs'>
-                <button type='button' className='flex flex-row gap-4 border-2 border-primary-darkblue04 px-3 py-2 items-center rounded-3xl'>
+            <div className='flex justify-end max-sm:justify-between lg:mx-72 lg:py-6 p-2 max-sm:text-xs'>
+                <button className='md:hidden inline-flex items-center border-2 rounded-3xl gap-2 py-2 px-3 font-medium'>
+                    <Filter />
+
+                    <div className='hover:underline'>
+                        Filter
+                    </div>
+                </button>
+                <button type='button' className='flex flex-row gap-4 max-sm:gap-2 border-2 border-primary-darkblue04 px-3 py-2 items-center rounded-3xl'>
                     <Termurah />
 
                     <div className='text-primary-darkblue04 font-medium hover:underline'>
@@ -191,6 +225,7 @@ const FlightOption = () => {
                                         <FlightOptionCard
                                             show={showFlightOptionCard}
                                             item={item}
+                                            
                                         />
                                     </>
                                 ))

@@ -37,13 +37,13 @@ const FlightOptionCard = ({ show, item }) => {
                         </div>
                     </div>
 
-                    <div className='flex items-center'>
+                    <div className='flex items-center justify-end'>
                         <div className='flex items-center max-sm:w-4 px-4'>
                             <Koper />
                         </div>
-                        <div className='price flex flex-col gap-2 max-sm:px-2'>
+                        <div className='price flex flex-col items-end w-full gap-2 max-sm:px-2'>
                             <h2 className='font-semibold text-right'>{`${item?.price}`}</h2>
-                            <button type='button' className='px-10 max-sm:hidden py-1 hover:bg-purple-600 bg-purple-700 text-white rounded-xl'>Pilih</button>
+                            <button type='button' className='px-10 max-sm:hidden py-1 max-w-[100px] items-center justify-center flex  hover:bg-purple-600 bg-purple-700 text-white rounded-xl'>Pilih</button>
                         </div>
                     </div>
                 </div>

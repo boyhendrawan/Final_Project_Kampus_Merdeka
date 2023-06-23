@@ -188,7 +188,7 @@ const Beranda = () => {
               </div>
               <button
                 onClick={handleSearchFlights}
-                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3"
+                className="bg-[#7126B5] hover:bg-primary-darkblue03 rounded-2xl py-4 text-white flex justify-between px-3"
               >
                 <p className="text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">
