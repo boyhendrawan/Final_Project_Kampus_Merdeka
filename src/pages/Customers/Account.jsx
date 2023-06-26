@@ -8,7 +8,7 @@ import { FiSettings } from "react-icons/fi";
 import { ImExit } from "react-icons/im";
 import { TbPencilMinus } from "react-icons/tb";
 import logo from "../../assets/logo.png";
-import { logout } from "../../utilites/redux/action/login"
+import { logout } from "../../utilites/redux/action/login";
 import { useDispatch } from "react-redux";
 
 const Account = () => {
@@ -46,12 +46,10 @@ const Account = () => {
     closeModal();
   };
 
-
-
   return (
-    <div className="w-11/12 h-11/12 ml-[1.5rem]">
+    <div className="container mx-auto px-4">
       {/* Komponen Account */}
-      <div className="md:border-b md:border-slate-500  md:ml-[6rem]">
+      <div className="md:border-b md:border-slate-500 md:ml-[6rem]">
         <div className="mt-[6rem]">
           <h1 className="text-xl font-bold">Akun</h1>
         </div>
@@ -77,7 +75,9 @@ const Account = () => {
         </div>
         <div className="border-b border-slate-500 w-11/12 flex items-center py-4">
           <ImExit className="text-primary-darkblue04 mr-2" size="30px" />
-          <button className="flex items-center gap-2" onClick={e=>dispatch(logout(navigate))}>Keluar</button>
+          <button className="flex items-center gap-2" onClick={(e) => dispatch(logout(navigate))}>
+            Keluar
+          </button>
         </div>
         <span className="text-slate-500 font-thin text-xs">version 1.1.0</span>
       </div>
@@ -93,7 +93,7 @@ const Account = () => {
             <div className="mr-4 flex flex-col items-center text-slate-500 md:hidden">
               <Link to={"/"}>
                 <BiHomeAlt size="25px" />
-                <span className="text-xs mt-1 ">Beranda</span>
+                <span className="text-xs mt-1">Beranda</span>
               </Link>
             </div>
             <div className="mr-4 flex flex-col items-center text-slate-500">
@@ -108,10 +108,7 @@ const Account = () => {
             </div>
             <div className="mr-4 flex flex-col items-center text-primary-darkblue04">
               <Link to={"/user/account"}>
-                <MdOutlineAccountCircle
-                  className="flex items-center"
-                  size="25px"
-                />
+                <MdOutlineAccountCircle className="flex items-center" size="25px" />
                 <span className="font-bold text-xs mt-1 md:hidden">Akun</span>
               </Link>
             </div>
@@ -129,14 +126,8 @@ const Account = () => {
               <h3 className="text-neutral-neutral01 bg-primary-darkblue03 p-2 text-sm rounded-t-lg">
                 Data Diri
               </h3>
-              <form
-                className="bg-white flex flex-col gap-1 w-10/12 mx-auto"
-                onSubmit={handleSubmit}
-              >
-                <label
-                  htmlFor="fullName"
-                  className="text-xs text-primary-darkblue04 mt-3"
-                >
+              <form className="bg-white flex flex-col gap-1 w-10/12 mx-auto" onSubmit={handleSubmit}>
+                <label htmlFor="fullName" className="text-xs text-primary-darkblue04 mt-3">
                   Nama Lengkap
                 </label>
                 <input
@@ -147,10 +138,7 @@ const Account = () => {
                   value={fullName}
                   onChange={handleInputChange}
                 />
-                <label
-                  htmlFor="phoneNumber"
-                  className="text-xs text-primary-darkblue04"
-                >
+                <label htmlFor="phoneNumber" className="text-xs text-primary-darkblue04">
                   Nomor Telepon
                 </label>
                 <input
@@ -174,17 +162,17 @@ const Account = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-primary-darkblue04 text-white p-2 w-10/12 mx-auto mt-5 rounded-lg mb-3"
+                  className="bg-primary-darkblue02 text-white rounded-sm px-2 py-1 mt-2"
                 >
                   Simpan
                 </button>
+                <button
+                  className="bg-primary-darkblue04 text-white rounded-sm px-2 py-1 mt-2"
+                  onClick={closeModal}
+                >
+                  Batal
+                </button>
               </form>
-              <button
-                className="text-sm text-primary-darkblue04 underline"
-                onClick={closeModal}
-              >
-                Batal
-              </button>
             </div>
           </div>
         </div>
