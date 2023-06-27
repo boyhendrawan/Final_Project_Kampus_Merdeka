@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { FiEyeOff } from "react-icons/fi";
-import Alert from "../components/alert/alert";
+
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";
 import plant from "../assets/Plantshome.png";
 import { login as requestLogin } from "../utilites/redux/action/login";
 import { useDispatch } from "react-redux";
 import useInput from "../utilites/customHooks/use-input";
-import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [failedLogin, setFailedLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const {
     value: valueUsername,
@@ -33,14 +33,13 @@ const Login = () => {
     reset: resetPassword,
   } = useInput((e) => e.length > 3);
 
-  const handleCloseAlert = () => {
-    setFailedLogin(false);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (valueUsername.length <= 0 || valuePassword.length <= 0) {
-      toast.error("Harap isi semua inputan", { position: toast.POSITION.BOTTOM_CENTER });
+      toast.error("Harap isi semua inputan", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
       return;
     }
     dispatch(
@@ -58,8 +57,8 @@ const Login = () => {
   };
 
   return (
-    <div className="overflow-auto md:h-3/6">
-      <div className="flex flex-col h-screen md:flex-row">
+    <div className="h-screen w-screen overflow-auto">
+      <div className="mx-auto flex flex-col h-screen md:flex-row">
         {/* Right Bar */}
         <div className="relative hidden w-full max-h-max md:flex md:w-1/2">
           <img src={bgLogin} alt="Login page" className="w-full h-screen" />
@@ -76,17 +75,8 @@ const Login = () => {
         </div>
 
         {/* Left Bar */}
-        <div className="w-full h-screen md:w-1/2 md:p-5 md:shadow-md">
+        <div className="container w-full h-screen md:w-1/2 md:p-5 md:shadow-md">
           <div className="relative flex flex-col max-h-max mx-auto sm:mt-[10%] md:mt-[12%] lg:w-10/12">
-            {failedLogin && (
-              <Alert
-                onClose={handleCloseAlert}
-                className="bg-rose-700 text-white"
-                classNameBtn="text-rose-200 hover:text-rose-500 hover:bg-rose-200"
-              >
-                Error, please check your username and password
-              </Alert>
-            )}
             <form
               onSubmit={handleSubmit}
               className="space-y-6 my-auto mx-auto w-10/12 mt-[8rem] md:space-y-13 md:mt-[8rem] xl:mt-[5rem]"
@@ -95,11 +85,15 @@ const Login = () => {
                 Masuk
               </h1>
               <div>
-                <label className="block mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl">
+                <label
+                  htmlFor="email"
+                  className="block mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl"
+                >
                   Email
                 </label>
                 <input
                   type="email"
+                  id="email"
                   name="username"
                   placeholder="Masukan Email.."
                   className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500"
@@ -109,13 +103,16 @@ const Login = () => {
                 />
                 {invalidUsername && (
                   <p className="message-error-input">
-                    your Email must includes @
+                    Email harus mengandung karakter '@'
                   </p>
                 )}
               </div>
               <div className="mt-4">
                 <div className="flex justify-between relative">
-                  <label className="mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl">
+                  <label
+                    htmlFor="password"
+                    className="mb-1 -ml-2 text-slate-700 after:content-['*'] lg:text-xl"
+                  >
                     Password
                   </label>
                   <span className="mb-1 -ml-2 text-primary-darkblue04 font-semibold absolute -right-[0.7rem] after:content-['*'] after:text-pink-600 after:ml-0.5">
@@ -125,6 +122,7 @@ const Login = () => {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
+                    id="password"
                     name="password"
                     placeholder={showPassword ? "********" : "Masukan Password"}
                     className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
@@ -132,13 +130,20 @@ const Login = () => {
                     onBlur={handleBlurPassword}
                     value={valuePassword}
                   />
-                  <FiEyeOff
-                    className="absolute right-3 top-3 text-gray-400 cursor-pointer"
-                    onClick={toggleShowPassword}
-                  />
+                  {showPassword ? (
+                    <FiEye
+                      className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+                      onClick={toggleShowPassword}
+                    />
+                  ) : (
+                    <FiEyeOff
+                      className="absolute right-3 top-3 text-gray-400 cursor-pointer"
+                      onClick={toggleShowPassword}
+                    />
+                  )}
                   {invalidPassword && (
                     <p className="message-error-input">
-                      your password must be greater than 3 characters
+                      Password harus terdiri dari minimal 3 karakter
                     </p>
                   )}
                 </div>
@@ -155,7 +160,7 @@ const Login = () => {
               <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
                 Masuk
               </button>
-      <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
+              <ToastContainer/>
             </form>
           </div>
         </div>
