@@ -84,7 +84,7 @@ const Register = () => {
     dispatch(
       register(
         data,
-        navigate, 
+        navigate,
         resetUsername,
         resetPassword,
         resetFullName,
@@ -146,9 +146,8 @@ const Register = () => {
                   id="full_name"
                   name="full_name"
                   placeholder="Nama Lengkap"
-                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${
-                    invalidFullName ? 'text-opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidFullName ? 'text-opacity-50 cursor-not-allowed' : ''
+                    }`}
                   onChange={handleChangeFullName}
                   onBlur={handleBlurFullName}
                   value={valueFullName}
@@ -171,9 +170,8 @@ const Register = () => {
                   id="email"
                   name="email"
                   placeholder="Masukan Email.."
-                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${
-                    invalidUsername ? 'text-opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidUsername ? 'text-opacity-50 cursor-not-allowed' : ''
+                    }`}
                   onChange={handleChangeUsername}
                   onBlur={handleBlurUsername}
                   value={valueUsername}
@@ -196,9 +194,8 @@ const Register = () => {
                   id="phone"
                   name="phone"
                   placeholder="Masukan Nomor Telepon.."
-                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${
-                    invalidPhone ? 'text-opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidPhone ? 'text-opacity-50 cursor-not-allowed' : ''
+                    }`}
                   onChange={handleChangePhone}
                   onBlur={handleBlurPhone}
                   value={valuePhone}
@@ -224,9 +221,8 @@ const Register = () => {
                     id="password"
                     name="password"
                     placeholder={showPassword ? "********" : "Masukan Password"}
-                    className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500 ${
-                      invalidPassword ? 'text-opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidPassword ? 'text-opacity-50 cursor-not-allowed' : ''
+                      }`}
                     onChange={handleChangePassword}
                     onBlur={handleBlurPassword}
                     value={valuePassword}
@@ -258,9 +254,8 @@ const Register = () => {
               ) : (
                 <button
                   disabled={isRegisterDisabled}
-                  className={`bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg ${
-                    isRegisterDisabled ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg ${isRegisterDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                   type="submit"
                 >
                   Daftar

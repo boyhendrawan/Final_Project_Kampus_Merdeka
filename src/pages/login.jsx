@@ -160,7 +160,7 @@ const Login = () => {
               <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
                 Masuk
               </button>
-              <ToastContainer/>
+              <ToastContainer />
             </form>
           </div>
         </div>

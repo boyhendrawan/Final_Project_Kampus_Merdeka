@@ -40,7 +40,7 @@ const UpdatePassword = () => {
       });
       return;
     }
-    
+
 
     // Lakukan pengiriman formulir atau tindakan lain yang diinginkan
     // ...

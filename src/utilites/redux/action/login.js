@@ -1,7 +1,7 @@
 import {
   login as fLogin,
   logout as fLogout,
-  setIsLoggedIn
+  setIsLoggedIn,
 } from "../reducers/auth";
 
 import axios from "axios";
