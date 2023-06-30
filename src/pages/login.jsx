@@ -116,7 +116,7 @@ const Login = () => {
                     Password
                   </label>
                   <span className="mb-1 -ml-2 text-primary-darkblue04 font-semibold absolute -right-[0.7rem] after:content-['*'] after:text-pink-600 after:ml-0.5">
-                    <Link to="/auth/updatePassword">Lupa Password</Link>
+                    <Link to="/auth/forgotPassword">Lupa Password</Link>
                   </span>
                 </div>
                 <div className="relative">
@@ -125,7 +125,7 @@ const Login = () => {
                     id="password"
                     name="password"
                     placeholder={showPassword ? "********" : "Masukan Password"}
-                    className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
+                    className="px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm appearance-none placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500"
                     onChange={handleChangePassword}
                     onBlur={handleBlurPassword}
                     value={valuePassword}
