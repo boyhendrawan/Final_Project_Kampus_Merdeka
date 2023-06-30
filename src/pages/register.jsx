@@ -1,6 +1,6 @@
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import Alert from "../components/alert/alert";
@@ -19,6 +19,15 @@ const Register = () => {
   const [failedLogin, setFailedLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [requestRegister, setRequest] = useState(false);
+
+  useEffect(() => {
+    if (failedLogin) {
+      toast.error("Error, please check your username and password", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
+    }
+  }, [failedLogin]);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -71,6 +80,13 @@ const Register = () => {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "absolute bottom-0 right-1/2",
       });
+    }
+    if (valueUsername.length <= 0 || valuePassword.length <= 0 || valueFullName.length <= 0 || valuePhone.length <= 0 ) {
+      toast.error("Harap isi semua inputan", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
+      return;
     }
     const data = {
       full_name: valueFullName,
@@ -221,7 +237,7 @@ const Register = () => {
                     id="password"
                     name="password"
                     placeholder={showPassword ? "********" : "Masukan Password"}
-                    className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidPassword ? 'text-opacity-50 cursor-not-allowed' : ''
+                    className={`px-3 py-2 h-[48px] border font-semibold shadow appearance-none rounded-lg w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidPassword ? 'text-opacity-50 cursor-not-allowed' : ''
                       }`}
                     onChange={handleChangePassword}
                     onBlur={handleBlurPassword}
@@ -254,8 +270,7 @@ const Register = () => {
               ) : (
                 <button
                   disabled={isRegisterDisabled}
-                  className={`bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg ${isRegisterDisabled ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                  className={`bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg ${isRegisterDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                   type="submit"
                 >
                   Daftar

@@ -28,7 +28,7 @@ const Notifications = () => {
   ];
 
   return (
-    <div className="w-11/12 h-11/12 ml-[1.5rem]">
+    <div className="container w-11/12 h-11/12 ml-[1.5rem]">
       <div className="md:border-b md:border-slate-500 md:ml-[6rem]">
         <div className="mt-[6rem] mx-auto">
           <h1 className="text-xl font-bold">Notifikasi</h1>
