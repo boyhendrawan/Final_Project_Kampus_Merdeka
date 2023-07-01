@@ -11,6 +11,7 @@ import Checkout from "./pages/Customers/checkout/Checkout"
 import PageError from './components/PageError';
 import Login from './pages/login';
 import Register from './pages/register';
+import HistoryModal from './components/modals/HistoryModal';
 
 const Router = createBrowserRouter([
 
@@ -41,6 +42,17 @@ const Router = createBrowserRouter([
             {
                 path: "beranda",
                 element: <Dashboard/>,
+            },
+            {
+                path: "history",
+                element: <History />,
+                children: [
+                    // detail more history  
+                    {
+                        path: ":uuid_history",
+                        element: <HistoryModal />
+                    }
+                ]
             },
             // here should added element properly and not required login
             
@@ -90,7 +102,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: "history",
-                element: <History />,
+                element:"History",
                 children: [
                     // detail more history  
                     {
