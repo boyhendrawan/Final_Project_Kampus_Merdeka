@@ -56,20 +56,36 @@ export const register =
           "Content-Type": "application/json",
         }
       );
-      dispatch(setIsLoggedIn(true));
+      const code = response?.data?.status
 
-      // reset all fields
-      resetUsername();
-      resetFullName();
-      resetPhone();
-      resetPassword();
+      if (code === 200 ){
+        dispatch(setIsLoggedIn(true));
 
-      // redirect to home, don't forget to useNavigate in the component
-      toast.success(response?.data?.msg, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        className: "absolute bottom-0 right-1/2",
-      });
-      navigate("/auth/login");
+        // reset all fields
+        resetUsername();
+        resetFullName();
+        resetPhone();
+        resetPassword();
+
+        // redirect to home, don't forget to useNavigate in the component
+        toast.success(response?.data?.msg, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
+        navigate("/auth/login");
+      } else {
+        // reset all fields
+        resetUsername();
+        resetFullName();
+        resetPhone();
+        resetPassword();
+
+        toast.error(response?.data?.msg, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
+      }
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error?.response?.data, {
