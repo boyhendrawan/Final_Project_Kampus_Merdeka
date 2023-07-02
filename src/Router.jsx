@@ -1,16 +1,21 @@
+
 import React from 'react';
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
 import Beranda from './pages/searchSchedule/Beranda';
-import Navbar from './components/Navbar';
+import Account from './pages/Customers/Account';
+import Checkout from "./pages/Customers/checkout/Checkout"
+import FlightOption from './pages/FlightOption';
+
 import History from './pages/Customers/History';
+import Login from './pages/login';
+import Navbar from './components/Navbar';
+import Notifications from './pages/Customers/Notifications';
+import PageError from './components/PageError';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-import FlightOption from './pages/searchSchedule/FlightOption';
-import Checkout from "./pages/Customers/checkout/Checkout"
-import PageError from './components/PageError';
-import Login from './pages/login';
 import Register from './pages/register';
+import UpdatePassword from './pages/UpdatePassword';
 
 const Router = createBrowserRouter([
 
@@ -58,14 +63,13 @@ const Router = createBrowserRouter([
                 path: "login",
                 element: <Login/>,
             },
-
             {
                 path: "Register",
                 element: <Register />,
             },
             {
                 path: "forgotPassword",
-                element: "Forgot Password",
+                element:<UpdatePassword/>,
             }
         ]
     },
@@ -76,12 +80,12 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: "notification",
-                element: "notification"
+                element: <Notifications/>
             },
 
             {
                 path: "infoDetailUser",
-                element: "infoDetailUser"
+                element: <Account/>
             },
             {
                 path: "checkout/:idTiket",

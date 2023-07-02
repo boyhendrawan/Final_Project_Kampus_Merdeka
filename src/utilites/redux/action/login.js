@@ -54,7 +54,7 @@ export const login =
       );
 
       const token = response?.data.datas.token;
-        console.log(token);
+
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
 
@@ -63,6 +63,7 @@ export const login =
       resetPassword();
       // redirect to home, don't forget to useNavigate in the component
       navigate(url);
+
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -147,4 +148,5 @@ export const logout = (navigate) => {
     dispatch(setIsLoggedIn(false));
     navigate("/auth/login");
   };
+
 };
