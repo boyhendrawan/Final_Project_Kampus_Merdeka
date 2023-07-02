@@ -5,7 +5,7 @@ import Dashboard from './pages/Customers/Dashboard';
 import Beranda from './pages/searchSchedule/Beranda';
 import Account from './pages/Customers/Account';
 import Checkout from "./pages/Customers/checkout/Checkout"
-import FlightOption from './pages/FlightOption';
+import FlightOption from './pages/searchSchedule/FlightOption';
 
 import History from './pages/Customers/History';
 import Login from './pages/login';

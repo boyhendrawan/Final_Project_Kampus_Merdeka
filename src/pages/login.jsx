@@ -39,9 +39,7 @@ const Login = () => {
     reset: resetPassword,
   } = useInput((e) => e.length > 3);
 
-  const handleCloseAlert = () => {
-    setFailedLogin(false);
-  };
+
   // this function to convert data into a object from params
   const convertAndCheck = (data) => {
     const paramsObject = {};
