@@ -50,13 +50,8 @@ export const login =
         { "Content-Type": "application/json" }
       );
 
-<<<<<<< HEAD
-      const { token } = response?.data?.data;
-
-=======
       const token = response?.data.datas.token;
         console.log(response);
->>>>>>> f447b7c9479c237201fd8c529097d3c9cd31573d
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
 
