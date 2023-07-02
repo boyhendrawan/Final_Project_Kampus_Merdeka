@@ -1,14 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import { berandaReducer, initialState } from "../../reducer/BerandaState";
 import { AiOutlineClose } from "react-icons/ai";
 
 const PassengerModal = ({
   show,
   onClose,
-  state,
-  dispatch
+  jumlahDewasa,
+  jumlahAnak,
+  jumlahBayi,
+  setJumlahAnak,
+  setJumlahDewasa,
+  setJumlahBayi,
 }) => {
-  
+  const [state, setState] = useState(initialState);
 
+  const dispatch = (action) => {
+    const newState = berandaReducer(state, action);
+    setState(newState);
+  };
+
+  const handleIncreaseDewasa = () => {
+    setJumlahDewasa((prevCount) => prevCount + 1);
+  };
+
+  const handleDecreaseDewasa = () => {
+    if (jumlahDewasa > 0) {
+      setJumlahDewasa((prevCount) => prevCount - 1);
+    }
+  };
+
+  const handleIncreaseAnak = () => {
+    setJumlahAnak((prevCount) => prevCount + 1);
+  };
+
+  const handleDecreaseAnak = () => {
+    if (jumlahAnak > 0) {
+      setJumlahAnak((prevCount) => prevCount - 1);
+    }
+  };
+
+  const handleIncreaseBayi = () => {
+    setJumlahBayi((prevCount) => prevCount + 1);
+  };
+
+  const handleDecreaseBayi = () => {
+    if (jumlahBayi > 0) {
+      setJumlahBayi((prevCount) => prevCount - 1);
+    }
+  };
 
   const handleSave = () => {
     onClose();
@@ -40,14 +79,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={ ()=> dispatch({type:"DECREASE_DEWASA"})}
+                    onClick={handleDecreaseDewasa}
                   >
                     -
                   </button>
-                  <span className="mx-2">{state.jumlahDewasa}</span>
+                  <span className="mx-2">{jumlahDewasa}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={ ()=>dispatch({type:"INCREASE_DEWASA"})}
+                    onClick={handleIncreaseDewasa}
                   >
                     +
                   </button>
@@ -62,14 +101,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={()=>dispatch({type:"DECREASE_ANAK"})}
+                    onClick={handleDecreaseAnak}
                   >
                     -
                   </button>
-                  <span className="mx-2">{state.jumlahAnak}</span>
+                  <span className="mx-2">{jumlahAnak}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={()=>dispatch({type:"INCREASE_ANAK"})}
+                    onClick={handleIncreaseAnak}
                   >
                     +
                   </button>
@@ -84,14 +123,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={()=> dispatch({type:"DECREASE_BAYI"})}
+                    onClick={handleDecreaseBayi}
                   >
                     -
                   </button>
-                  <span className="mx-2">{state.jumlahBayi}</span>
+                  <span className="mx-2">{jumlahBayi}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={()=> dispatch({type:"INCREASE_BAYI"})}
+                    onClick={handleIncreaseBayi}
                   >
                     +
                   </button>
@@ -99,7 +138,7 @@ const PassengerModal = ({
               </div>
               <div className="border-b border-slate-600 h-0 "></div>
               <span className="text-xl pl-2 pt-1 font-semibold text-end mx-8">
-                Total: {state.jumlahAnak + state.jumlahBayi + state.jumlahDewasa}
+                Total: {jumlahAnak + jumlahBayi + jumlahDewasa}
               </span>
               <div className="border-b border-slate-600 h-0 "></div>
               <button

@@ -1,18 +1,16 @@
-import React, { useReducer,useEffect, useCallback } from 'react';
+import React, { useReducer } from 'react';
 
 // pages
 import PersonalData from './PersonalData';
 import Pessengers from './Pessengers';
 import DonePage from './DonePage';
-import airplane from "./airplane.svg";
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import airplane from "./airplane.svg"
 // end pages
 // initial value for each input
 const intialData = {
-  stepper: null,
+  stepper: 1,
   personal: {},
-  pessengers: [],
+  pessengers: []
 }
 const reducerData = (state, action) => {
   switch (action.type) {
@@ -24,36 +22,13 @@ const reducerData = (state, action) => {
       return { ...state, personal: action.data };
     case "PESSENGERS":
       return { ...state, pessengers: action.data };
-    case "UPDATE_STEPPER":
-      return {...state,stepper:action.data}
     default:
       return state;
   }
 };
 
 const Checkout = () => {
-  // define all intial from module
   const [checkOutData, dispatch] = useReducer(reducerData, intialData);
-  const navigate=useNavigate();
-  const [allParams,setParams]=useSearchParams();
-  // convert params into 
-  const convertAndCheck = useCallback((data)=>{
-    const paramsObject = {};
-    for (let [key, value] of data.entries()) {
-        if (value.trim().length <= 0) return false;
-        paramsObject[key] = value;
-    }
-    return paramsObject;
-  },[]);
-  // get data from params
-  const allParamsConvert=convertAndCheck(allParams);
-  useEffect(()=>{
-    // send to the server this schedul is order
-    const convertParams=convertAndCheck(allParams);
-    if(!convertParams) return navigate("/");
-    dispatch({type:"UPDATE_STEPPER",data: parseInt(convertParams.stepper)});
-    // make an request to get uuid_transsection and make an checkoutfor this user
-  },[allParams,convertAndCheck,navigate])
 
   // define important function
   const prevStep = () => {
@@ -72,21 +47,23 @@ const Checkout = () => {
       dispatch({ type: typePage, data: value });
     }
   }
+
   // added some logic for stepper function
   let holdPage = "";
-  switch (parseInt(checkOutData?.stepper)) {
+  switch (checkOutData.stepper) {
     case 1:
-      holdPage = <PersonalData setParams={setParams} dataParams={allParamsConvert}  valueData={checkOutData.personal} next={nextStep} handleChangeData={handleChangeData} />;
+      holdPage = <PersonalData valueData={checkOutData.personal} next={nextStep} handleChangeData={handleChangeData} />;
       break;
     case 2:
-      holdPage = <Pessengers setParams={setParams} dataParams={allParamsConvert} allValue={checkOutData} next={nextStep} previous={prevStep} handleChangeData={handleChangeData} />;
+      holdPage = <Pessengers allValue={checkOutData} next={nextStep} previous={prevStep} handleChangeData={handleChangeData} />;
       break;
     case 3:
-      holdPage = <DonePage valueData={checkOutData} handleChangeData={handleChangeData} />;
+      holdPage = <DonePage valueData={checkOutData} next={nextStep} previous={prevStep} handleChangeData={handleChangeData} />;
       break;
     default:
-      holdPage = "1";
+      holdPage = "";
   }
+
 
   return (
     <>

@@ -6,43 +6,9 @@ import {
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setUser } from "../reducers/auth";
 
-
-export const getProfile =()=>async(dispatch,getState)=>{
-  try{
-    // get token 
-    const {token} =getState().auth;
-
-    const response=await axios.get(`${process.env.REACT_APP_API}/Users/token`,{
-      headers:{
-        "Authorization":`Bearer ${token}`,
-        "Content-Type":"application/json",
-        "token":`${token}`
-      }
-    });
-    // console.log(response);
-    if(response.status !==200) throw new Error(`Opps get error when fetching  data ${response.status}`);
-    // status ok
-    dispatch(setUser(response.data.datas));
-    // done
-  }catch (error) {
-    if (axios.isAxiosError(error)) {
-      toast.error(error?.response?.data, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        className: "absolute bottom-0 right-1/2",
-      });
-      return;
-    }
-
-    toast.error(error.msg, {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      className: "absolute bottom-0 right-1/2",
-    });
-  }
-}
 export const login =
-  (data, navigate, resetUsername, resetPassword,url) => async (dispatch) => {
+  (data, navigate, resetUsername, resetPassword) => async (dispatch) => {
     try {
       const response = await axios.post(
         `https://novel-tomatoes-production.up.railway.app/Users/login`,
@@ -62,8 +28,7 @@ export const login =
       resetUsername();
       resetPassword();
       // redirect to home, don't forget to useNavigate in the component
-      navigate(url);
-
+      navigate("/");
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_RIGHT,
@@ -148,5 +113,4 @@ export const logout = (navigate) => {
     dispatch(setIsLoggedIn(false));
     navigate("/auth/login");
   };
-
 };

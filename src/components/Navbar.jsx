@@ -6,35 +6,20 @@ import { AiOutlineCaretDown } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 import { FiLogIn } from "react-icons/fi";
 import logo from "../assets/logo.png";
-import { useSelector,useDispatch } from "react-redux";
-import { getProfile } from "../utilites/redux/action/login";
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  // const { isLoggedIn, dataUser } = useState(true);
+  const { isLoggedIn, user } = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
 
-  // define global state
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  // get data from global var 
-  const { isLoggedIn, token,dataUser } = useSelector(features => features.auth);
-  // console.log(datadataUser)
-  useEffect(() => {
-    if (isLoggedIn && token){
-      dispatch(getProfile())
-    }
-  //  else navigate("/login");
-   
-  }, [isLoggedIn, token, dispatch]);
   const toggleDropdown = () => {
     setRotate(!rotate);
     setIsOpen(!isOpen);
   };
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      // const nav = document.querySelector("nav");
+      const nav = document.querySelector("nav");
       window.scrollY > 0 ? setSticky(true) : setSticky(false);
     });
   }, []);
@@ -42,13 +27,14 @@ const Navbar = () => {
   const [rotate, setRotate] = useState(false);
 
   const handleClick = () => setNav(!nav);
+  const navigate = useNavigate();
 
   const handleClickHome = () => {
     navigate(`/`);
   };
 
   const handleClickLogin = () => {
-    navigate(`/auth/login/allData?statusLogin=false`);
+    navigate(`/auth/login`);
     
   };
 
@@ -72,22 +58,22 @@ const Navbar = () => {
         <div className="hidden md:flex pr-4">
           {isLoggedIn ? (
             <ul className="flex gap-0 items-center">
-              <h1 className={` font-semibold text-md`}>
-               
+              <h1 className="text-white">
+                Welcome, {user && user.name ? user.name : "Guest"}
               </h1>
               <div className="relative">
                 <button
-                  className={` text-primary-darkblue04 bg-transparent  font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out`}
+                  className={`bg-transparent text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out ${
+                    rotate ? "rotate-180" : ""
+                  }`}
                   onClick={toggleDropdown}
                 >
-                   Welcome, {dataUser && dataUser.full_name ? dataUser.full_name : "Guest"}
-                  <span className={`text-primary-darkblue04 ml-2  ${rotate ? "rotate-180" : ""
-                  }` }>
+                  <span className="text-white">
                     <AiOutlineCaretDown />
                   </span>
                 </button>
                 {isOpen && (
-                  <div className="absolute text-purple-700 font-medium bg-white  max-w-lg w-40 px-3 py-2 top-10 right-0 text-center rounded-xl">
+                  <div className="absolute text-purple-700 font-medium bg-white rounded-sm w-28 px-3 py-2 top-10 right-0 text-center">
                     <button className="flex gap-2" onClick={handleClickHome}>
                       <p className="pt-1 text-xl">
                         <VscSignOut />
@@ -143,7 +129,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <ul className="flex gap-0 items-center">
               <h1 className="text-white hover:text-subMain">
-                Welcome, {dataUser && dataUser.name ? dataUser.name : "Guest"}
+                Welcome, {user && user.name ? user.name : "Guest"}
               </h1>
               <div className="relative">
                 <button

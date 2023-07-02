@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 SwiperCore.use([Autoplay]);
 
-const Destinasi = (props) => {
+const Destinasi = () => {
   return (
     <div className="my-16 mx-5 md:mx-0">
       <h1 className="text-xl font-bold mb-5 text-center">Destinasi Favorit</h1>
@@ -16,7 +16,11 @@ const Destinasi = (props) => {
         direction="horizontal"
         slidesPerView={1}
         spaceBetween={32}
-        
+        loop={true}
+        speed={1000}
+        autoplay={{
+          delay: 3000,
+        }}
         breakpoints={{
           640: {
             slidesPerView: 2.5,
@@ -229,4 +233,4 @@ const Destinasi = (props) => {
   );
 };
 
-export default React.memo(Destinasi);
+export default Destinasi;

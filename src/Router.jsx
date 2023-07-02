@@ -1,12 +1,10 @@
+import { Outlet, createBrowserRouter } from "react-router-dom";
 
-import React from 'react';
-import { createBrowserRouter, Outlet } from "react-router-dom";
-import Dashboard from './pages/Customers/Dashboard';
-import Beranda from './pages/searchSchedule/Beranda';
 import Account from './pages/Customers/Account';
+import Beranda from './pages/Customers/Beranda';
 import Checkout from "./pages/Customers/checkout/Checkout"
+import Dashboard from './pages/Customers/Dashboard';
 import FlightOption from './pages/FlightOption';
-
 import History from './pages/Customers/History';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
@@ -14,6 +12,7 @@ import Notifications from './pages/Customers/Notifications';
 import PageError from './components/PageError';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
+import React from 'react';
 import Register from './pages/register';
 import UpdatePassword from './pages/UpdatePassword';
 
@@ -40,7 +39,7 @@ const Router = createBrowserRouter([
             },
             {
 
-                path:"flightoption/:allData",
+                path:"flightoption",
                 element:<FlightOption />,
             },
             {
@@ -55,10 +54,6 @@ const Router = createBrowserRouter([
         path: "auth",
         element: <ProtectionHasAuth />,
         children: [
-            {
-                path: "login/:tokenTiket",
-                element: <Login/>,
-            },
             {
                 path: "login",
                 element: <Login/>,
@@ -88,7 +83,7 @@ const Router = createBrowserRouter([
                 element: <Account/>
             },
             {
-                path: "checkout/:idTiket",
+                path: "checkout",
                 element: <Checkout />,
 
             },

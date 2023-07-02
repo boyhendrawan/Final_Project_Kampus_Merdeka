@@ -1,12 +1,6 @@
-import { combineReducers } from "@reduxjs/toolkit";
-// reducers
 import auth from "./auth";
-import searchFlight from "./searchFlight";
-import checkout from "./checkout";
-import cities from "./cities";
+import { combineReducers } from "@reduxjs/toolkit";
+
 export default combineReducers({
   auth,
-  searchFlight,
-  checkout,
-  cities
 });

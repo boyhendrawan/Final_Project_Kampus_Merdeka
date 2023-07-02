@@ -1,4 +1,4 @@
-
+const currentDate = new Date().toISOString().split("T")[0];
 // Initial state for the reducer
 const initialState = {
   showPassengerModal: false,
@@ -8,14 +8,15 @@ const initialState = {
   jumlahDewasa: 1,
   jumlahAnak: 0,
   jumlahBayi: 0,
-  departure: "Surabaya",
-  arrival: "Semarang",
+  departure: "Option 1",
+  arrival: "Option 2",
   flightClass: "Economy",
-  date:new Date().toISOString().split("T")[0],
-
+  date: currentDate,
+  switched: false,
 };
+
 // Reducer function to handle state changes
-const berandaReducer = (state , action) => {
+const berandaReducer = (state = initialState, action) => {
   switch (action.type) {
     case "TOGGLE_PASSENGER_MODAL":
       return { ...state, showPassengerModal: !state.showPassengerModal };
@@ -44,22 +45,18 @@ const berandaReducer = (state , action) => {
     case "SET_FLIGHT_CLASS":
       return { ...state, flightClass: action.payload };
     case "SET_DATE":
-      console.log(action.payload)
       return { ...state, date: action.payload };
     case "TOGGLE_SWITCHED":
       const temp = state.departure;
       return {
         ...state,
+        switched: !state.switched,
         departure: state.arrival,
         arrival: temp,
       };
-    case "UPDATE_REDUX":
-      return {...state,...action.payload};
-    case "UPDATE_ALL_REDUX":
-      return action.payload;
     default:
       return state;
   }
 };
 
-export { berandaReducer,initialState };
+export { berandaReducer, initialState };

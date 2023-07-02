@@ -5,7 +5,7 @@ import { Link,useNavigate,useRouteError} from 'react-router-dom'
 const PageError = () => {
     const navigation=useNavigate();
     const getError=useRouteError();
-    // console.log(getError);
+    console.log(getError);
   return (
     <section className="bg-white dark:bg-gray-900 ">
     <div className="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">

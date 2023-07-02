@@ -6,7 +6,7 @@ import "swiper/swiper.min.css";
 
 const Slides = () => {
   return (
-    <div className="relative h-[100vh]">
+    <div className="relative">
       <Swiper
         direction="horizontal"
         slidesPerView={1}
@@ -16,7 +16,7 @@ const Slides = () => {
         autoplay={{
           delay: 5000,
         }}
-        className="w-full h-[100vh]"
+        className="w-full h-full"
       >
         {Data.heroData.map((item, index) => (
           <SwiperSlide
@@ -54,4 +54,4 @@ const Slides = () => {
   );
 };
 
-export default React.memo(Slides);
+export default Slides;
