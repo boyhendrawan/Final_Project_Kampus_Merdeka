@@ -1,18 +1,22 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Accordion } from 'flowbite-react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoadingRequest from "../../../components/LoadingRequest";
-const DonePage = (props) => {
-  // const personal = props?.valueData?.personal;
-  const pessegers = props?.valueData?.pessengers;
-
+import { requestDataSide } from '../../../utilites/redux/action/checkout';
+import moment from 'moment';
+const DonePage = ({dataParams},props) => {
+  // define all funciton
+  const dispatch=useDispatch();
   // get datauser
   const { dataUser} = useSelector(features => features.auth);
-
+  const { dataSidePage } = useSelector(features => features.checkout);
+  useEffect(() => {
+    dispatch(requestDataSide(dataParams.transaction))
+}, [dataParams.transaction, dispatch])
   return (
     <>
-    {!dataUser && <LoadingRequest/>}
-    {dataUser &&
+    {!dataUser &&dataSidePage ==null && <LoadingRequest/>}
+    {dataUser && dataSidePage &&
       <div>
         <div className='flex w-full gap-6 mt-4 justify-center mb-4'>
           <h1 className='font-semibold text-base md:text-lg lg:text-3xl '>Summary Order Tiket</h1>
@@ -45,22 +49,22 @@ const DonePage = (props) => {
             <h1 className='  text-sm md:text-lg font-bold text-black'> Pessengers</h1>
           </div>
           <Accordion collapseAll className='col-span-2 border-none flex flex-col '>
-            {pessegers.map(e => {
-              return <Accordion.Panel>
+            {dataSidePage.map((e,id) => {
+              return <Accordion.Panel key={id}>
                 <Accordion.Title className='text-xs md:text-base lg:text-base tracking-wider font-bold text-start'>
-                  {/* {e.title}.{e?.fullName} - <span>{e?.familyName.length > 0 ? e?.familyName : ""}</span> */}
+                  {e.title}.{e?.full_name} - <span>{e?.given_name.length > 0 ? e?.given_name : ""}</span>
                 </Accordion.Title>
                 <Accordion.Content className='mt-2 '>
                   <div className=' w-full grid grid-cols-2 px-2  gap-x-5 gap-y-1 mb-4 gap text-gray-500 dark:text-gray-400 text-xs md:text-base lg:text-base'>
                     <div className='flex flex-col gap-y-2'>
-                      <p className=''>{e?.birthDate}</p>
-                      <p className=''>{e?.numberIdentity}</p>
+                      <p className=''>{moment(e?.birth_date).format("L")}</p>
+                      <p className=''>{e?.id_card}</p>
                       <p>Expired Date</p>
                     </div>
                     <div className='flex flex-col gap-y-2 justify-self-end text-end'>
-                      <p className=''>{e?.citizen}</p>
-                      <p className=' text-end'>{e?.publisherCountry}</p>
-                      <p>{e?.expired}</p>
+                      <p className=''>Indonesia</p>
+                      <p className=' text-end'>IND</p>
+                      <p>{e?.valid_until}</p>
                     </div>
                   </div>
                   <p className="mb-2 ">
