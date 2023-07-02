@@ -16,7 +16,7 @@ import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 import Register from './pages/register';
 import UpdatePassword from './pages/UpdatePassword';
-
+import SideFooter from './components/Footer.jsx';
 const Router = createBrowserRouter([
 
     {
@@ -25,6 +25,7 @@ const Router = createBrowserRouter([
             <>
                 <Navbar />
                 <Outlet />
+                <SideFooter/>
             </>
         ),
         errorElement: <PageError />,

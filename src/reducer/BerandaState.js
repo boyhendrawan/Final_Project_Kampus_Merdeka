@@ -10,7 +10,7 @@ const initialState = {
   jumlahBayi: 0,
   departure: "Surabaya",
   arrival: "Semarang",
-  flightClass: "Economy",
+  flightClass: "Bisnis",
   date:new Date().toISOString().split("T")[0],
 
 };

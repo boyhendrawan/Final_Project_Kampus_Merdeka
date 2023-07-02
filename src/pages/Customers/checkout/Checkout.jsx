@@ -1,12 +1,14 @@
 import React, { useReducer,useEffect, useCallback } from 'react';
-
 // pages
 import PersonalData from './PersonalData';
 import Pessengers from './Pessengers';
 import DonePage from './DonePage';
 import airplane from "./airplane.svg";
-import { useSearchParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams,Link,useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
+import { paidCheckOut,getCetakTiket } from '../../../utilites/redux/action/checkout';
+import queryString from 'query-string';
+import imgDone from "../../../assets/doneCheckout.svg";
 // end pages
 // initial value for each input
 const intialData = {
@@ -72,6 +74,43 @@ const Checkout = () => {
       dispatch({ type: typePage, data: value });
     }
   }
+  // checkoutPaid
+  const dispatchApi=useDispatch();
+  const {isLoading,dataCheckoutPaid} =useSelector(features=>features.checkout);
+
+  // provide BodyRequest for Paid
+  const produceBodyRequestPaid = useCallback((pessegers,transaction) => {
+    const collectData = [];
+    for (let i = 0; i < pessegers; i++) {
+      const constructData = {
+        "uuid_transaction": transaction,
+      }
+      collectData.push(constructData);
+    }
+    return collectData;
+  }, []);
+  const handlePaidCheckout=()=>{
+    // console.log(allParamsConvert);
+    const dataRequestPaid=produceBodyRequestPaid(parseInt(allParamsConvert.pessengers),allParamsConvert.transaction);
+    dispatchApi(paidCheckOut(dataRequestPaid));
+  }
+  useEffect(()=>{
+    // console.log(isLoading,dataCheckoutPaid);
+    if(allParamsConvert.stepper ==="3" && !isLoading && dataCheckoutPaid){
+      // produce new url
+      const newParams={
+        stepper:4,
+        pessengers:dataCheckoutPaid.length,
+        transaction:dataCheckoutPaid[0].uuid_transaction
+      }
+      setParams(queryString.stringify(newParams));
+    }
+  },[allParamsConvert.stepper,dataCheckoutPaid,isLoading,setParams])
+
+  const handlerCetakTiket=()=>{
+    console.log(allParamsConvert)
+    dispatchApi(getCetakTiket(allParamsConvert.transaction))
+  }
   // added some logic for stepper function
   let holdPage = "";
   switch (parseInt(checkOutData?.stepper)) {
@@ -87,9 +126,12 @@ const Checkout = () => {
     default:
       holdPage = "1";
   }
-
+  // console.log(checkOutData?.stepper);
+  
   return (
     <>
+    {/* chcek its done */}
+    {parseInt(checkOutData?.stepper) !==4 &&
       <div className='container mx-auto mt-32'>
         <h1 className='font-bold text-md md:text-lg lg:text-xl  my-4 ml-4'>Check Out</h1>
         <div className='flex flex-col  items-center w-full gap-y-4 lg:flex-row lg:items-start lg:gap-x-4 justify-center'>
@@ -120,7 +162,7 @@ const Checkout = () => {
               </div>
             </div>
             {checkOutData.stepper === 3 &&
-              <button className='bg-emerald-500 font-semibold  py-2 text-white w-full rounded-lg text-sm md:text-base lg:text-lg glance-animation'>Bayar</button>
+              <button onClick={handlePaidCheckout} className='bg-emerald-500 font-semibold  py-2 text-white w-full rounded-lg text-sm md:text-base lg:text-lg glance-animation'>Bayar</button>
             }
           </div>
           <div className='order-1 px-6 py-4 bg-white shadow-lg w-full rounded-lg'>
@@ -149,7 +191,7 @@ const Checkout = () => {
                   <span className="stepper-dot rounded-full shrink-0">
                     3
                   </span>
-                  Done
+                  Paid
                 </li>
               </ol>
 
@@ -162,7 +204,21 @@ const Checkout = () => {
         </div>
 
       </div>
+    }{
+      parseInt(checkOutData?.stepper) ===4 &&
+      <div className='container mx-auto mt-32'>
+         <h1 className='font-bold text-md md:text-lg lg:text-xl  my-4 ml-4'>Selesai Bayar</h1>
+         <div className='grid grid-cols-1 justify-items-center mt-10'>
+          <img src={imgDone} className='justify-self-center w-12/12 h-12/12' alt="" />
+          <p className='mt-5'>Transaksi Pembayaran Selesai</p>
+         <div className='w-full max-w-xs  mt-10'>
+          <button onClick={handlerCetakTiket} className='bg-primary-darkblue04 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Cetak Tiket</button>
 
+          <Link to="/" className='bg-primary-darkblue03 block text-center mt-4 mb-10 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Back To Home</Link>
+         </div>
+         </div>
+      </div>
+    }
 
     </>
   )

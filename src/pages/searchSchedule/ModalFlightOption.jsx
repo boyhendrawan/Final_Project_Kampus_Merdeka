@@ -174,14 +174,14 @@ export default function ModalFlightOption(props) {
                         <div className='self-end flex justify-center'>
                           <button onClick={(e)=>{
                             e.preventDefault();
-                            const svg=e.target.firstChild.parentElement;
+                            const svg=document.getElementById("svg");
                             svg.classList.add('animate-[spin_450ms_ease-in-out]');
                             setTimeout(()=>{
                               svg.classList.remove("animate-[spin_450ms_ease-in-out]")
                             },500)
                             handleSwitch();
                           }} className='rounded-full border hover:bg-slate-50 p-2 group'>
-                            <ArrowPathIcon className='h-5 w-5 group-hover:text-primary-darkblue04 ' />
+                            <ArrowPathIcon id='svg' className='h-5 w-5 group-hover:text-primary-darkblue04 ' />
                           </button>
 
                         </div>

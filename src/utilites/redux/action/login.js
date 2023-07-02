@@ -54,7 +54,7 @@ export const login =
       );
 
       const token = response?.data.datas.token;
-
+        console.log(response);
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
 
