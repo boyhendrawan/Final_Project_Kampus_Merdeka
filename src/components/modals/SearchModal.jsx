@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { getSearch } from "../../utilites/redux/action/post";
 import HistoryModal from "./HistoryModal";
 
 const SearchModal = ({ show, onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [isDataNotFound, setIsDataNotFound] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const { searchResults } = useSelector((state) => state.post);
+  const isDataNotFound = searchResults.length === 0;
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
@@ -21,33 +25,7 @@ const SearchModal = ({ show, onClose }) => {
   };
 
   const handleSearch = () => {
-    const searchTermLength = searchTerm.length;
-
-    if (searchTermLength < 8) {
-      setIsDataNotFound(false);
-      return;
-    }
-
-    const apiUrl = `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/uuid/8dfabfbb-89f6-4022-845f-16ec6f7a5cc0`;
-
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredResults = data.datas.filter((item) => {
-          const uuidStart = item.uuid_history.substring(0, searchTermLength);
-          return uuidStart.toLowerCase() === searchTerm.toLowerCase();
-        });
-
-        if (filteredResults.length === 0) {
-          setIsDataNotFound(true);
-        } else {
-          setSearchResults(filteredResults);
-          setIsDataNotFound(false);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    dispatch(getSearch(searchTerm));
   };
 
   return (
@@ -88,20 +66,22 @@ const SearchModal = ({ show, onClose }) => {
           ) : searchResults.length > 0 ? (
             <ul>
               {searchResults.map((item) => (
-                <li key={item.id}><span onClick={handleHistoryModal} className="font-semibold truncate">
-                {item.uuid_history.length > 10
-                  ? item.uuid_history.substring(0, 8)
-                  : item.uuid_history}
-              </span></li>
+                <li key={item.id}>
+                  <span
+                    onClick={() => handleHistoryModal(item)}
+                    className="font-semibold truncate"
+                  >
+                    {item.uuid_history.length > 10
+                      ? item.uuid_history.substring(0, 8)
+                      : item.uuid_history}
+                  </span>
+                </li>
               ))}
             </ul>
           ) : null}
         </div>
       </div>
-      <HistoryModal
-        show={showHistoryModal}
-        onClose={handleCloseModal}
-      />
+      <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
     </div>
   );
 };

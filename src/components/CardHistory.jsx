@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { FaPlane } from "react-icons/fa";
 import HistoryModal from "./modals/HistoryModal";
 import plane from "../assets/plane.svg";

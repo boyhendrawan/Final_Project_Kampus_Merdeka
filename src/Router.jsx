@@ -16,6 +16,7 @@ import React from 'react';
 import Register from './pages/register';
 import HistoryModal from './components/modals/HistoryModal';
 import UpdatePassword from './pages/UpdatePassword';
+import Footer from "./components/Footer";
 
 const Router = createBrowserRouter([
 
@@ -25,6 +26,7 @@ const Router = createBrowserRouter([
             <>
                 <Navbar />
                 <Outlet />
+                <Footer />
             </>
         ),
         errorElement: <PageError />,

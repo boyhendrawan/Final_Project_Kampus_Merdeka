@@ -10,15 +10,14 @@ import { AiOutlineClose } from "react-icons/ai";
 import plane from "../../assets/plane.svg";
 
 const HistoryModal = ({ show, onClose }) => {
-  const { uuid_history, uuid_user } = useParams();
+  const { uuid_history } = useParams();
   const navigate = useNavigate();
   const { postDetail, postStatus } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPostDetails(uuid_history, uuid_user));
-  }, [dispatch, uuid_history, uuid_user]);
-  
+    dispatch(getPostDetails(uuid_history));
+  }, [dispatch, uuid_history]);
 
   useEffect(() => {
     dispatch(getPostStatus());
@@ -63,7 +62,7 @@ const HistoryModal = ({ show, onClose }) => {
             </h1>
             {postStatus === "Unpaid" && (
               <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-red-400 text-white py-2">
-                {postStatus?.status}
+                Unpaid
               </h1>
             )}
             {postStatus === "Paid" && (
@@ -78,7 +77,7 @@ const HistoryModal = ({ show, onClose }) => {
             )}
             {postStatus === "Checkout" && (
               <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-blue-400 text-white py-2">
-                {postDetail?.status}
+                Chekout
               </h1>
             )}
           </div>

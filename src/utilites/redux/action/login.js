@@ -3,6 +3,7 @@ import {
   logout as fLogout,
   setIsLoggedIn,
 } from "../reducers/auth";
+import { getPostDetails, getPostStatus } from "./post";
 
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -11,15 +12,12 @@ export const login =
   (data, navigate, resetUsername, resetPassword) => async (dispatch) => {
     try {
       const response = await axios.post(
-        `https://novel-tomatoes-production.up.railway.app/Users/login`,
-        {
-          email: data.valueUsername,
-          password: data.valuePassword,
-        },
+        `${import.meta.env.VITE_AUTH_API}/api/v1/auth/login`,
+        data,
         { "Content-Type": "application/json" }
       );
 
-      const token = response?.data.datas.token;
+      const { token } = response?.data?.data;
 
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
@@ -29,6 +27,12 @@ export const login =
       resetPassword();
       // redirect to home, don't forget to useNavigate in the component
       navigate("/");
+
+      // Call the required functions to fetch additional data
+      const uuid_user = response?.data?.datas?.uuid_user;
+      const uuid_history = response?.data?.datas?.uuid_history;
+      dispatch(getPostStatus(uuid_user));
+      dispatch(getPostDetails(uuid_history, uuid_user));
     } catch (error) {
       toast.error(error.message, {
         position: toast.POSITION.BOTTOM_RIGHT,

@@ -4,6 +4,9 @@ const initialState = {
   posts: [],
   postStatus: null,
   postDetail: null,
+  searchTerm: '',
+  searchResults: [],
+  isDataNotFound: false,
 };
 
 const postSlice = createSlice({
@@ -19,9 +22,27 @@ const postSlice = createSlice({
     setPostsDetails: (state, action) => {
       state.postDetail = action.payload;
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+    setSearchResults: (state, action) => {
+      state.searchResults = action.payload;
+      state.isDataNotFound = action.payload.length === 0;
+    },
+    clearSearchResults: (state) => {
+      state.searchResults = [];
+      state.isDataNotFound = false;
+    },
   },
 });
 
-export const { setPosts, setPostsStatus, setPostsDetails } = postSlice.actions;
+export const {
+  setPosts,
+  setPostsStatus,
+  setPostsDetails,
+  setSearchTerm,
+  setSearchResults,
+  clearSearchResults,
+} = postSlice.actions;
 
 export default postSlice.reducer;

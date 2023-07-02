@@ -97,7 +97,7 @@ const History = () => {
       {state.showHistoryModal && (
         <HistoryModal handleHistoryModal={handleHistoryModal} />
       )}
-      {/* {state.showFilterModal && (
+      {state.showFilterModal && (
         <FilterModal
           show={state.showFilterModal}
           onClose={handleFilterModal}
@@ -111,7 +111,7 @@ const History = () => {
           searchTerm={state.searchTerm}
           onSearchInputChange={handleSearchInputChange}
         />
-      )} */}
+      )}
     </div>
   );
 };
