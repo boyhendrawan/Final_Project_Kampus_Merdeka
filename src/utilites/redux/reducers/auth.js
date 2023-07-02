@@ -22,6 +22,7 @@ const tokenSlice = createSlice({
       state.dataUser = null;
     },
     setUser(state, action) {
+      // console.log(action.payload);
       state.dataUser = action.payload;
     },
     setIsLoggedIn: (state, action) => {

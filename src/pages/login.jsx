@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { FiEyeOff } from "react-icons/fi";
@@ -10,6 +10,8 @@ import { login as requestLogin } from "../utilites/redux/action/login";
 import { useDispatch } from "react-redux";
 import useInput from "../utilites/customHooks/use-input";
 import "react-toastify/dist/ReactToastify.css";
+import { useSearchParams } from "react-router-dom";
+import queryString from "query-string";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,19 +38,41 @@ const Login = () => {
   const handleCloseAlert = () => {
     setFailedLogin(false);
   };
+  // this function to convert data into a object from params
+  const convertAndCheck = (data) => {
+    const paramsObject = {};
+    for (let [key, value] of data.entries()) {
+        if (value.trim().length <= 0) return false;
+        paramsObject[key] = value;
+    }
+    return paramsObject;
+}
+// get Params
+const [getParmas]=useSearchParams();
+// determine url;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (valueUsername.length <= 0 || valuePassword.length <= 0) {
       toast.error("Harap isi semua inputan", { position: toast.POSITION.BOTTOM_CENTER });
       return;
-    }
+    } 
+
+    // check url
+    let url;
+    const objParams=convertAndCheck(getParmas);
+    if(objParams.hasOwnProperty('pessegers') && objParams.hasOwnProperty('schedule') && objParams.hasOwnProperty('stepper')){
+    url=`/user/checkout/allData?${queryString.stringify(objParams)}`;
+    } else url="/";
+
+    console.log(url);
     dispatch(
       requestLogin(
         { valueUsername, valuePassword },
         navigate,
         resetUsername,
-        resetPassword
+        resetPassword,
+        url
       )
     );
   };

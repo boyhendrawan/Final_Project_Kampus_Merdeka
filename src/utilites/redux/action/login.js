@@ -1,13 +1,51 @@
-import { login as fLogin, setIsLoggedIn } from "../reducers/auth";
+import {
+  login as fLogin,
+  logout as fLogout,
+  setIsLoggedIn,
+} from "../reducers/auth";
 
 import axios from "axios";
 import { toast } from "react-toastify";
+import { setUser } from "../reducers/auth";
 
+
+export const getProfile =()=>async(dispatch,getState)=>{
+  try{
+    // get token 
+    const {token} =getState().auth;
+
+    const response=await axios.get(`${process.env.REACT_APP_API}/Users/token`,{
+      headers:{
+        "Authorization":`Bearer ${token}`,
+        "Content-Type":"application/json",
+        "token":`${token}`
+      }
+    });
+    // console.log(response);
+    if(response.status !==200) throw new Error(`Opps get error when fetching  data ${response.status}`);
+    // status ok
+    dispatch(setUser(response.data.datas));
+    // done
+  }catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error?.response?.data, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
+      return;
+    }
+
+    toast.error(error.msg, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      className: "absolute bottom-0 right-1/2",
+    });
+  }
+}
 export const login =
-  (data, navigate, resetUsername, resetPassword) => async (dispatch) => {
+  (data, navigate, resetUsername, resetPassword,url) => async (dispatch) => {
     try {
       const response = await axios.post(
-        `https://km4-challenge-5-api.up.railway.app/api/v1/auth/login`,
+        `https://novel-tomatoes-production.up.railway.app/Users/login`,
         {
           email: data.valueUsername,
           password: data.valuePassword,
@@ -15,23 +53,21 @@ export const login =
         { "Content-Type": "application/json" }
       );
 
-      const { token } = response?.data.data;
-
+      const token = response?.data.datas.token;
+        console.log(token);
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
 
-      // reset password and useranme
+      // reset password and username
       resetUsername();
       resetPassword();
       // redirect to home, don't forget to useNavigate in the component
-      navigate("/user/account");
+      navigate(url);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast.error(error?.response?.data.message);
-        return;
-      }
-
-      toast.error(error.message);
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
     }
   };
 
@@ -48,39 +84,67 @@ export const register =
   async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/Users/Register`,
+        `https://novel-tomatoes-production.up.railway.app/Users/register`,
         data,
-        { "Content-Type": "application/json" }
+        {
+          "Content-Type": "application/json",
+        }
       );
-      const { status, msg, Datas } = response?.data;
+      const code = response?.data?.status
 
-      // Mengakses nilai email dan password dari Datas
-      const { email, password } = Datas;
+      if (code === 200 ){
+        dispatch(setIsLoggedIn(true));
 
-      // Menggunakan nilai yang diperoleh dari respons API
-      console.log("Status:", status);
-      console.log("Message:", msg);
-      console.log("Email:", email);
-      console.log("Password:", password);
-      const { token } = response?.data.datas;
+        // reset all fields
+        resetUsername();
+        resetFullName();
+        resetPhone();
+        resetPassword();
 
-      dispatch(fLogin(token));
-      dispatch(setIsLoggedIn(true));
-      // reset al field
-      resetFullName();
-      resetUsername();
-      resetPhone();
-      resetPassword();
-      // redirect to home, don't forget to useNavigate in the component
-      navigate("/user/account");
+        // redirect to home, don't forget to useNavigate in the component
+        toast.success(response?.data?.msg, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
+        navigate("/auth/login");
+      } else {
+        // reset all fields
+        resetUsername();
+        resetFullName();
+        resetPhone();
+        resetPassword();
+
+        toast.error(response?.data?.msg, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
+      }
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error?.response?.data.msg);
+        toast.error(error?.response?.data, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
         return;
       }
 
-      toast.error(error.msg);
+      toast.error(error.msg, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: "absolute bottom-0 right-1/2",
+      });
     }
+
     // if request has done
     setRequest(false);
   };
+
+export const logout = (navigate) => {
+  return (dispatch) => {
+    console.log("masuk");
+    dispatch(fLogout());
+    dispatch(fLogin());
+    dispatch(setIsLoggedIn(false));
+    navigate("/auth/login");
+  };
+};

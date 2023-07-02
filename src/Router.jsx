@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
-import Beranda from './pages/Customers/Beranda';
+import Beranda from './pages/searchSchedule/Beranda';
 import Navbar from './components/Navbar';
 import History from './pages/Customers/History';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-import FlightOption from './pages/FlightOption';
+import FlightOption from './pages/searchSchedule/FlightOption';
 import Checkout from "./pages/Customers/checkout/Checkout"
 import PageError from './components/PageError';
 import Login from './pages/login';
@@ -35,7 +35,7 @@ const Router = createBrowserRouter([
             },
             {
 
-                path:"flightoption",
+                path:"flightoption/:allData",
                 element:<FlightOption />,
             },
             {
@@ -50,6 +50,10 @@ const Router = createBrowserRouter([
         path: "auth",
         element: <ProtectionHasAuth />,
         children: [
+            {
+                path: "login/:tokenTiket",
+                element: <Login/>,
+            },
             {
                 path: "login",
                 element: <Login/>,
@@ -80,7 +84,7 @@ const Router = createBrowserRouter([
                 element: "infoDetailUser"
             },
             {
-                path: "checkout",
+                path: "checkout/:idTiket",
                 element: <Checkout />,
 
             },
