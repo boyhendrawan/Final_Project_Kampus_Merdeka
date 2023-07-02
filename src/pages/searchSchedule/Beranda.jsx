@@ -94,7 +94,7 @@ const Beranda = () => {
 
         <div className="w-full px-4 pb-10 absolute  top-0 z-10 h-[100vh]  text-sm">
           <div className="bg-transparent rounded-2xl w-full flex justify-end  h-full flex-col items-center">
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl grid gap-1">
               <div
                 className="p-5 cursor-pointer flex justify-between items-center gap-3 rounded-2xl bg-gray-800 py-3 lg:py-5 mb-[-22px]"
                 onClick={handleDepartureModal}
@@ -179,7 +179,7 @@ const Beranda = () => {
               </div>
               <button
                 onClick={handleSearchFlights}
-                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3 items-center mt-2"
+                className="bg-[#7126B5] w-full rounded-2xl py-4 text-white flex justify-between px-3 items-center mt-2"
               >
                 <p className="text-md md:text-lg lg:text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">

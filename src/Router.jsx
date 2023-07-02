@@ -6,7 +6,6 @@ import Beranda from './pages/searchSchedule/Beranda';
 import Account from './pages/Customers/Account';
 import Checkout from "./pages/Customers/checkout/Checkout"
 import FlightOption from './pages/searchSchedule/FlightOption';
-
 import History from './pages/Customers/History';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
@@ -15,6 +14,7 @@ import PageError from './components/PageError';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
 import Register from './pages/register';
+import HistoryModal from './components/modals/HistoryModal';
 import UpdatePassword from './pages/UpdatePassword';
 import SideFooter from './components/Footer.jsx';
 const Router = createBrowserRouter([
@@ -48,6 +48,7 @@ const Router = createBrowserRouter([
                 path: "beranda",
                 element: <Dashboard/>,
             },
+           
             // here should added element properly and not required login
             
         ]
@@ -100,13 +101,13 @@ const Router = createBrowserRouter([
             {
                 path: "history",
                 element: <History />,
-                children: [
-                    // detail more history  
-                    {
-                        path: ":idDetailHisotry",
-                        element: "detail history"
-                    }
-                ]
+                // children: [
+                //     // detail more history  
+                //     {
+                //         path: ":uuid_history",
+                //         element: <HistoryModal />
+                //     }
+                // ]
             },
 
         ]

@@ -1,22 +1,36 @@
-import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import garuda from "../../assets/garuda.png";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getPostDetails,
+  getPostStatus,
+} from "../../utilites/redux/action/history";
+import { AiOutlineClose } from "react-icons/ai";
+import plane from "../../assets/plane.svg";
 
 const HistoryModal = ({ show, onClose }) => {
-  const [paymentStatus, setPaymentStatus] = useState("unpaid");
+  const { uuid_history } = useParams();
   const navigate = useNavigate();
+  const { postDetail, postStatus } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
-  const handleSave = () => {
-    onClose();
-  };
+  useEffect(() => {
+    dispatch(getPostDetails(uuid_history));
+  }, [dispatch, uuid_history]);
+
+  useEffect(() => {
+    dispatch(getPostStatus());
+  }, [dispatch]);
 
   const handleUnpaid = () => {
     navigate("/");
   };
+
   const handleSuccess = () => {
     navigate("/history");
   };
+
   const handleCheckout = () => {
     navigate("/");
   };
@@ -29,9 +43,9 @@ const HistoryModal = ({ show, onClose }) => {
     >
       <div className="absolute inset-0 bg-gray-900 opacity-50 font-poppins"></div>
       <div className="bg-white w-96 md:w-[800px] p-6 rounded-2xl z-10 mx-3 ">
-        <div className="">
+        <div>
           <div className="flex justify-between">
-            <h2 className="text-xl font-bold mb-2">Detail Pemesanan</h2>{" "}
+            <h2 className="text-xl font-bold mb-2">Detail Pemesanan</h2>
             <button
               className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md mb-2"
               onClick={onClose}
@@ -40,161 +54,125 @@ const HistoryModal = ({ show, onClose }) => {
             </button>
           </div>
           <div className="flex justify-between items-center">
-            {" "}
             <h1>
               Booking Code:{" "}
-              <span className="text-purple-600 font-bold">code.example</span>
+              <span className="font-semibold truncate text-purple-500">
+                {postDetail?.uuid_history?.substring(0, 8)}
+              </span>
             </h1>
-            {paymentStatus === "unpaid" && (
-              <h1
-                className={`text-center py-1 my-2 font-semibold w-20 rounded-3xl text-sm ${
-                  paymentStatus === "unpaid"
-                    ? "bg-red-400 text-white"
-                    : "bg-gray-300 text-gray-700"
-                }`}
-              >
-                unpaid
+            {postStatus === "Unpaid" && (
+              <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-red-400 text-white py-2">
+                Unpaid
               </h1>
             )}
-            {paymentStatus === "success" && (
-              <h1
-                className={`text-center py-1 my-2 font-semibold w-20 rounded-3xl text-sm ${
-                  paymentStatus === "success"
-                    ? "bg-green-400 text-white"
-                    : "bg-gray-300 text-gray-700"
-                }`}
-              >
-                success
+            {postStatus === "Paid" && (
+              <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-green-400 text-white py-2">
+                {postDetail?.status}
               </h1>
             )}
-            {paymentStatus === "cancel" && (
-              <h1
-                className={`text-center py-1 my-2 font-semibold w-20 rounded-3xl text-sm ${
-                  paymentStatus === "cancel"
-                    ? "bg-gray-500 text-white"
-                    : "bg-gray-300 text-gray-700"
-                }`}
-              >
-                cancel
+            {postStatus === "Cancel" && (
+              <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-gray-500 text-white py-2">
+                {postDetail?.status}
               </h1>
             )}
-            {paymentStatus === "checkout" && (
-              <h1
-                className={`text-center py-1 my-2 font-semibold w-20 rounded-3xl text-sm ${
-                  paymentStatus === "checkout"
-                    ? "bg-blue-400 text-white"
-                    : "bg-gray-300 text-gray-700"
-                }`}
-              >
-                checkout
+            {postStatus === "Checkout" && (
+              <h1 className="text-center my-2 font-semibold w-20 rounded-3xl text-sm bg-blue-400 text-white py-2">
+                Chekout
               </h1>
             )}
           </div>
-        </div>
-        <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
-        <div className="text-sm">
-          <h1 className="text-purple-600 font-semibold pb-1">Keberangkatan</h1>
-          <h1 className="font-semibold">00.09</h1>
-          <h1>5 Maret 2102</h1>
-          <h1 className="">
-            <span>Soekarno Hatta</span> - <span>Terminal 1A Domestik</span>
-          </h1>
-        </div>
-        <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
-        <div className="text-sm ">
-          <div className="flex gap-2 items-center">
-            <img src={garuda} alt="" className="w-14" />
-            <div className="font-semibold">
-              <h1>Garuda Indonesia</h1>
-              <h1>JT - 231</h1>
+          <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
+          <div className="text-sm">
+            <h1 className="text-purple-600 font-semibold pb-1">
+              Keberangkatan
+            </h1>
+            <h1 className="font-semibold">{postDetail?.departure_time}</h1>
+            <h1>{postDetail?.departure_date}</h1>
+            <h1 className="">
+              <span>{postDetail?.departure_airport}</span>
+              <span>{postDetail?.arrival_airport}</span>
+            </h1>
+          </div>
+          <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
+          <div className="text-sm ">
+            <div className="flex gap-2 items-center">
+              <img src={plane} alt="" className="w-14" />
+              <div className="font-semibold pl-2">
+                <h1>{postDetail?.airplane_name}</h1>
+                <h1>{postDetail?.airplane_type}</h1>
+              </div>
+            </div>
+            <div>
+              <h1 className="font-semibold pt-3">Informasi :</h1>
+              <h1>
+                Penumpang 1: <span>Mr. Messi</span>
+              </h1>
+              <span>
+                ID :{" "}
+                <span className="font-semibold truncate">
+                  {postDetail?.uuid_user?.substring(0, 8)}
+                </span>
+              </span>
             </div>
           </div>
-          <div>
-            <h1 className="font-semibold pt-3">Informasi :</h1>
-            <h1>
-              Penumpang 1: <span>Mr. Messi</span>
-            </h1>
-            <h1>
-              ID: <span>12345</span>
-            </h1>
-            <h1>
-              Penumpang 2: <span>Mr. Messi</span>
-            </h1>
-            <h1>
-              ID: <span>12345</span>
-            </h1>
+          <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
+          <div className="text-sm">
+            <h1 className="text-purple-600 font-semibold pb-1">Kedatangan</h1>
+            <h1 className="font-semibold">{postDetail?.arrival_time}</h1>
+            <h1>{postDetail?.arrival_date}</h1>
+            <h1>{postDetail?.arrival_airport}</h1>
           </div>
-        </div>
-        <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
-        <div className="text-sm">
-          <h1 className="text-purple-600 font-semibold pb-1">Kedatangan</h1>
-          <h1 className="font-semibold">21:23</h1>
-          <h1>6 Juni 20032</h1>
-          <h1>Melborne International</h1>
-        </div>
-        <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
-        <div className="text-sm">
-          <h1 className="font-semibold pb-3">Rincian Harga</h1>
-          <div className="flex justify-between">
-            {" "}
-            <div className="grid gap-0.5">
-              <h1>2 Adults</h1>
-              <h1>1 Baby</h1>
-              <h1>Tax</h1>
-            </div>
-            <div className="grid gap-0.5">
-              <h1>IDR. 9.500.000</h1>
-              <h1>0</h1>
-              <h1>IDR. 300.000</h1>
+          <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
+          <div className="text-sm">
+            <h1 className="font-semibold pb-3">Rincian Harga</h1>
+            <div className="flex justify-between">
+              <div className="grid gap-0.5">
+                <h1>
+                  <span>{postDetail?.passenger} Passenger</span>
+                </h1>
+              </div>
+              <div className="grid gap-0.5">
+                <h1>
+                  IDR. <span>{postDetail?.price}</span>
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
-        <div className="flex justify-between text-xl font-bold">
-          {" "}
-          <h1>Total</h1>
-          <h1 className="text-purple-600">IDR. 9.850.000</h1>
-        </div>
-        <div className="flex justify-center mt-4 space-x-4">
-          {paymentStatus === "unpaid" && (
-            <button
-              onClick={handleUnpaid}
-              className={`px-4 py-2 text-sm rounded-md w-full ${
-                paymentStatus === "unpaid"
-                  ? "bg-red-600 text-white"
-                  : "bg-gray-300 text-gray-700"
-              }`}
-            >
-              Lanjut Bayar
-            </button>
-          )}
-          {paymentStatus === "checkout" && (
-            <button
-              onClick={handleCheckout}
-              className={`px-4 py-2 text-sm rounded-md w-full ${
-                paymentStatus === "checkout"
-                  ? "bg-blue-700 text-white"
-                  : "bg-gray-300 text-gray-700"
-              }`}
-            >
-              Checkout
-            </button>
-          )}
-          {paymentStatus === "success" && (
-            <button
-              onClick={handleSuccess}
-              className={`px-4 py-2 text-sm rounded-md w-full ${
-                paymentStatus === "success"
-                  ? "bg-green-600 text-white"
-                  : "bg-gray-300 text-gray-700"
-              }`}
-            >
-              Cetak Tiket
-            </button>
-          )}
+          <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
+          <div className="flex justify-between text-xl font-bold">
+            <h1>Total</h1>
+            <h1 className="text-purple-600">IDR. {postDetail?.price}</h1>
+          </div>
+          <div className="flex justify-center mt-4 space-x-4">
+            {postStatus === "Unpaid" && (
+              <button
+                className="bg-red-400 hover:bg-red-500 text-white px-6 py-2 rounded-md w-full"
+                onClick={handleUnpaid}
+              >
+                Bayar Pesanan
+              </button>
+            )}
+            {postStatus === "Paid" && (
+              <button
+                className="bg-blue-400 hover:bg-blue-500 text-white px-6 py-2 rounded-md w-full"
+                onClick={handleSuccess}
+              >
+                Cetak Tiket
+              </button>
+            )}
+            {postStatus === "Checkout" && (
+              <button
+                className="bg-green-400 hover:bg-green-500 text-white px-6 py-2 rounded-md w-full"
+                onClick={handleCheckout}
+              >
+                Checkout
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default HistoryModal;

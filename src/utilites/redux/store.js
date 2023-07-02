@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import reducers from "./reducers/index";
+import reducers from "./reducers";
 
-export default configureStore({
-    reducer:reducers,
-    devTools:process.env.NODE_ENV==="development" //to make devTools nonactive
+const store = configureStore({
+  reducer: reducers,
+  devTools: process.env.NODE_ENV === "development",
 });
+
+export default store;

@@ -45,11 +45,8 @@ export const login =
   (data, navigate, resetUsername, resetPassword,url) => async (dispatch) => {
     try {
       const response = await axios.post(
-        `https://novel-tomatoes-production.up.railway.app/Users/login`,
-        {
-          email: data.valueUsername,
-          password: data.valuePassword,
-        },
+        `${import.meta.env.VITE_AUTH_API}/api/v1/auth/login`,
+        data,
         { "Content-Type": "application/json" }
       );
 
