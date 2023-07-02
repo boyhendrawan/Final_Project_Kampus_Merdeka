@@ -3,7 +3,7 @@ import { Accordion } from 'flowbite-react';
 import { useSelector } from 'react-redux';
 import LoadingRequest from "../../../components/LoadingRequest";
 const DonePage = (props) => {
-  const personal = props?.valueData?.personal;
+  // const personal = props?.valueData?.personal;
   const pessegers = props?.valueData?.pessengers;
 
   // get datauser
@@ -33,7 +33,7 @@ const DonePage = (props) => {
           </div>
           <div className='flex flex-col px-5  gap-y-2 justify-self-end text-xs md:text-base lg:text-base text-gray-500 '>
             <p className=''>{dataUser.email}</p>
-            <p className=' text-end'>"-"</p>
+            <p className=' text-end'>-</p>
           </div>
 
           <div className='col-span-2 flex gap-x-2 justify-self-start items-center text-primary-darkblue03 mt-8'>

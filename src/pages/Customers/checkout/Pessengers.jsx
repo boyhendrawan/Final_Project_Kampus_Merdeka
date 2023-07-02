@@ -125,6 +125,7 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue,setPara
       const objectParams={
         stepper:3,
         transaction:dataCheckoutUnpaid[0].uuid_transaction,
+        pessengers:dataCheckoutUnpaid.length
       }
       setParams(queryString.stringify(objectParams));
 
