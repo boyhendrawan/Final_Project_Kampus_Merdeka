@@ -16,8 +16,12 @@ import ProtectionHasAuth from './components/ProtectionHasAuth';
 import Register from './pages/register';
 import HistoryModal from './components/modals/HistoryModal';
 import UpdatePassword from './pages/UpdatePassword';
+<<<<<<< HEAD
 import Footer from "./components/Footer";
 
+=======
+import SideFooter from './components/Footer.jsx';
+>>>>>>> f447b7c9479c237201fd8c529097d3c9cd31573d
 const Router = createBrowserRouter([
 
     {
@@ -26,7 +30,11 @@ const Router = createBrowserRouter([
             <>
                 <Navbar />
                 <Outlet />
+<<<<<<< HEAD
                 <Footer />
+=======
+                <SideFooter/>
+>>>>>>> f447b7c9479c237201fd8c529097d3c9cd31573d
             </>
         ),
         errorElement: <PageError />,
