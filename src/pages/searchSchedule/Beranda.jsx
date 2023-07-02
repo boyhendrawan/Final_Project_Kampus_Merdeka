@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 import { HiSwitchVertical } from "react-icons/hi";
 import { AiFillSetting, AiOutlineArrowRight } from "react-icons/ai";
@@ -9,48 +9,42 @@ import ClassModal from "../../components/modals/ClassModal";
 import FlightModal from "../../components/modals/FlightModal";
 import Slides from "../../components/Slides";
 import Destinasi from "../../components/Destinasi";
-import { berandaReducer, initialState } from "../../reducer/BerandaState";
+import { berandaReducer,initialState } from "../../reducer/BerandaState";
 
+import { useSelector,useDispatch } from "react-redux";
+import queryString from 'query-string';
+import { getAllCity } from "../../utilites/redux/action/flight";
 const Beranda = () => {
-  const [jumlahDewasa, setJumlahDewasa] = useState(1);
-  const [jumlahAnak, setJumlahAnak] = useState(0);
-  const [jumlahBayi, setJumlahBayi] = useState(0);
   const [state, dispatch] = useReducer(berandaReducer, initialState);
+
+  // explisit function from module
   const navigate = useNavigate();
+  const dispatchRedux =useDispatch();
+  // handle  dataUtilites already running as well
+  const {dataCity}=useSelector(Features =>Features.cities);
+  
+  useEffect(()=>{
+    // making q request
+    dispatchRedux(getAllCity());
+  },[dispatchRedux])
 
-
-  useEffect(() => {
-    const storedFormData = JSON.parse(localStorage.getItem("flightFormData"));
-    if (storedFormData) {
-      setJumlahDewasa(storedFormData.jumlahDewasa);
-      setJumlahAnak(storedFormData.jumlahAnak);
-      setJumlahBayi(storedFormData.jumlahBayi);
-      dispatch({ type: "SET_DATE", payload: storedFormData.date });
-      dispatch({ type: "SET_DEPARTURE", payload: storedFormData.departure });
-      dispatch({ type: "SET_ARRIVAL", payload: storedFormData.arrival });
-      dispatch({
-        type: "SET_FLIGHT_CLASS",
-        payload: storedFormData.flightClass,
-      });
-      dispatch({ type: "TOGGLE_SWITCHED" });
-    }
-  }, []);
+  
 
   const handleSearchFlights = () => {
     const formData = {
-      jumlahDewasa: jumlahDewasa,
-      jumlahAnak: jumlahAnak,
-      jumlahBayi: jumlahBayi,
+      sumAdults: state.jumlahDewasa,
+      sumChildren: state.jumlahAnak,
+      sumBabies: state.jumlahBayi,
       departure: state.departure,
       arrival: state.arrival,
       flightClass: state.flightClass,
       date: state.date,
     };
-    // Menyimpan data ke localStorage
-    localStorage.setItem("flightFormData", JSON.stringify(formData));
+   
+    // make the objet to query params 
+    const encodedData = queryString.stringify(formData);
+    navigate(`/flightoption/data?${encodedData}`);
 
-    navigate("/flightoption");
-    console.log(formData);
   };
 
   const handlePassengerModal = () => {
@@ -96,17 +90,17 @@ const Beranda = () => {
   return (
     <div className="font-poppins">
       <div className="bg-gradient-to-b to-white">
-        <Slides />
+        <Slides/>
 
-        <div className="w-full px-4 absolute  top-0 z-10 h-full  md:top-20 lg:top-24 text-sm">
+        <div className="w-full px-4 pb-10 absolute  top-0 z-10 h-[100vh]  text-sm">
           <div className="bg-transparent rounded-2xl w-full flex justify-end  h-full flex-col items-center">
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl grid gap-1">
               <div
-                className="p-5 flex justify-between items-center gap-3 rounded-2xl bg-gray-800 py-3 lg:py-5 mb-[-22px]"
+                className="p-5 cursor-pointer flex justify-between items-center gap-3 rounded-2xl bg-gray-800 py-3 lg:py-5 mb-[-22px]"
                 onClick={handleDepartureModal}
               >
                 <div className="grid gap-2">
-                  <p className="text-gray-300">Jakarta</p>
+                  <p className="font-semibold tracking-wider  text-white">From</p>
                   <h1 className="text-xl text-gray-300 font-semibold">
                     {state.departure}
                   </h1>
@@ -119,10 +113,7 @@ const Beranda = () => {
                 <div className="flex justify-center items-center">
                   <h1
                     name="switch"
-                    className={`text-2xl p-2 rounded-full border bg-gray-400 ${state.switched
-                      ? "border-green-500 text-green-500"
-                      : "border-gray-300 text-gray-300"
-                      }`}
+                    className={`text-2xl p-2 rounded-full border bg-gray-400 border-gray-300 text-gray-300`}
                     onClick={handleSwitch}
                   >
                     <HiSwitchVertical />
@@ -134,7 +125,7 @@ const Beranda = () => {
                 onClick={handleArrivalModal}
               >
                 <div className="grid gap-2">
-                  <p className="text-gray-300">Jakarta</p>
+                <p className=" font-semibold tracking-wider  text-white">To</p>
                   <h1 className="text-xl text-gray-300 font-semibold">
                     {state.arrival}
                   </h1>
@@ -167,7 +158,7 @@ const Beranda = () => {
                       <MdAirlineSeatReclineNormal />
                     </span>{" "}
                     <span className="text-xl pl-2 pt-1 font-semibold">
-                      {jumlahDewasa + jumlahAnak + jumlahBayi}
+                      {state.jumlahDewasa + state.jumlahAnak + state.jumlahBayi}
                     </span>
                   </div>
                 </div>
@@ -188,7 +179,7 @@ const Beranda = () => {
               </div>
               <button
                 onClick={handleSearchFlights}
-                className="bg-[#7126B5] rounded-2xl py-4 text-white flex justify-between px-3 items-center mt-2"
+                className="bg-[#7126B5] w-full rounded-2xl py-4 text-white flex justify-between px-3 items-center mt-2"
               >
                 <p className="text-md md:text-lg lg:text-xl">Cari Penerbangan</p>
                 <p className="text-2xl pt-0.5 font-semibold ">
@@ -198,17 +189,15 @@ const Beranda = () => {
             </div>
           </div>
         </div>
+       
         <Destinasi />
         {state.showPassengerModal && (
           <PassengerModal
             show={state.showPassengerModal}
             onClose={handlePassengerModal}
-            setJumlahAnak={setJumlahAnak}
-            setJumlahBayi={setJumlahBayi}
-            setJumlahDewasa={setJumlahDewasa}
-            jumlahAnak={jumlahAnak}
-            jumlahDewasa={jumlahDewasa}
-            jumlahBayi={jumlahBayi}
+            dispatch={dispatch}
+            state={state}
+            
           />
         )}
         {state.showDepartureModal && (
@@ -216,7 +205,9 @@ const Beranda = () => {
             show={state.showDepartureModal}
             onClose={handleDepartureModal}
             onSelect={handleDepartureSelect}
+            currentValue={state.departure}
             title="Select Departure"
+            data={dataCity}
           />
         )}
         {state.showArrivalModal && (
@@ -224,7 +215,9 @@ const Beranda = () => {
             show={state.showArrivalModal}
             onClose={handleArrivalModal}
             onSelect={handleArrivalSelect}
+            currentValue={state.arrival}
             title="Select Arrival"
+            data={dataCity}
           />
         )}
         {state.showClassModal && (

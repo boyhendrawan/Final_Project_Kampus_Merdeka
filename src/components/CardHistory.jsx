@@ -3,11 +3,7 @@ import { FaPlane } from "react-icons/fa";
 import HistoryModal from "./modals/HistoryModal";
 import plane from "../assets/plane.svg";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getPostDetails,
-  getposts,
-  getPostStatus,
-} from "../utilites/redux/action/post";
+import { getPostDetails, getPosts, getPostStatus} from "../utilites/redux/action/history";
 
 const CardHistory = () => {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
@@ -15,13 +11,13 @@ const CardHistory = () => {
   const { posts, postStatus } = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(getposts());
+    dispatch(getPosts());
     dispatch(getPostStatus());
   }, [dispatch]);
 
   const handleHistoryModal = (uuid_history) => {
-    setShowHistoryModal(true);
     dispatch(getPostDetails(uuid_history));
+    setShowHistoryModal(true);
   };
 
   const handleCloseModal = () => {
@@ -32,7 +28,7 @@ const CardHistory = () => {
     <div className="max-w-7xl">
       {posts.map((item) => (
         <div
-          key={item.id}
+          key={item.uuid_history}
           onClick={() => handleHistoryModal(item.uuid_history)}
           className="rounded-3xl bg-white border mb-5 border-gray-300 p-5 shadow-lg"
         >
@@ -99,7 +95,9 @@ const CardHistory = () => {
           </div>
         </div>
       ))}
-      <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
+      {showHistoryModal && (
+        <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };

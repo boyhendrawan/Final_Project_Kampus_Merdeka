@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getPostDetails,
   getPostStatus,
-} from "../../utilites/redux/action/post";
+} from "../../utilites/redux/action/history";
 import { AiOutlineClose } from "react-icons/ai";
 import plane from "../../assets/plane.svg";
 

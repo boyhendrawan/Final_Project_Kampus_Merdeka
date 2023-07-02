@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearch } from "../../utilites/redux/action/post";
+import { getSearch } from "../../utilites/redux/action/history";
 import HistoryModal from "./HistoryModal";
 
 const SearchModal = ({ show, onClose }) => {

@@ -16,7 +16,7 @@ function getUuidFromToken(token) {
 }
 
 const initialState = {
-  dataUser: { uuid: "" },
+  dataUser: { uuid: "57de8b62-ca57-4710-8e47-0614e0da68d7" },
   isLoggedIn: !!localStorage.getItem("token"),
   token: localStorage.getItem("token") || null,
 };
@@ -39,6 +39,8 @@ const tokenSlice = createSlice({
     setUser(state, action) {
       const uuid = getUuidFromToken(action.payload);
       state.dataUser = { uuid };
+      // console.log(action.payload);
+      state.dataUser = action.payload;
     },
     setIsLoggedIn(state, action) {
       state.isLoggedIn = action.payload;
