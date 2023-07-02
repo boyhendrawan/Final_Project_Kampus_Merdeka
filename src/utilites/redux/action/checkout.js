@@ -7,12 +7,12 @@ import {
   changeStatusLoading,
   setDataUnpaid,
   setDataPaid,
+  setDataSidePage
 } from "../reducers/checkout";
 export const sendCheckout = (body, token) => async (dispatch) => {
   // set loading to be true
   dispatch(changeStatusLoading());
   try {
-    // console.log(body)
     const request = await axios.post(
       `${process.env.REACT_APP_API}/TempTransaction/addTempTransaction`,
       body,
@@ -25,7 +25,6 @@ export const sendCheckout = (body, token) => async (dispatch) => {
     );
     if (request.status === 200) {
       const produceData = { data: request.data.datas };
-      // console.log();
       // sent to function reducer
       dispatch(setParamsNextPage(produceData));
       toast.success(`${request.data.msg} checkout`, {
@@ -55,7 +54,6 @@ export const sendUnpaidCheckout = (data) => async (dispatch, getState) => {
   dispatch(changeStatusLoading());
   try {
     const { token } = getState().auth;
-    // console.log( JSON.stringify(data));
     const response = await axios.put(
       `${process.env.REACT_APP_API}/TempTransaction/unpaidCheckout`,
       JSON.stringify(data),
@@ -66,7 +64,6 @@ export const sendUnpaidCheckout = (data) => async (dispatch, getState) => {
         },
       }
     );
-    console.log(response);
     if (response.status !== 200)
       throw new Error(`Opps got Error ${response.status}`);
     // store to
@@ -94,7 +91,6 @@ export const paidCheckOut = (data) => async (dispatch,getState) => {
   dispatch(changeStatusLoading());
   try {
     const { token } = getState().auth;
-    // console.log( JSON.stringify(data));
     const response = await axios.put(
       `${process.env.REACT_APP_API}/TempTransaction/paidCheckout`,
       JSON.stringify(data),
@@ -105,7 +101,6 @@ export const paidCheckOut = (data) => async (dispatch,getState) => {
         },
       }
     );
-    console.log(response);
     if (response.status !== 200)throw new Error(`Opps got Error ${response.status}`);
     // store to
     dispatch(setDataPaid(response.data.datas));
@@ -130,9 +125,7 @@ export const paidCheckOut = (data) => async (dispatch,getState) => {
 export const getCetakTiket = (id_transactoin) => async (dispatch,getState) => {
   dispatch(changeStatusLoading());
   try {
-    console.log("bener");
     const { token } = getState().auth;
-    // console.log( JSON.stringify(data));
     const response = await axios.get(
       `${process.env.REACT_APP_API}/Ticket/${id_transactoin}`,
       {
@@ -149,7 +142,6 @@ export const getCetakTiket = (id_transactoin) => async (dispatch,getState) => {
     saveAs(blob, 'invoice_tiket.pdf');
   
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) {
       if (error?.response?.message) {
         toast.error(error?.response?.message);
@@ -164,3 +156,36 @@ export const getCetakTiket = (id_transactoin) => async (dispatch,getState) => {
   // to set loading to be true
   dispatch(changeStatusLoading());
 };
+
+export const requestDataSide=(uuid_transaction)=>async(dispatch,getState)=>{
+  dispatch(changeStatusLoading());
+  try {
+    const { token } = getState().auth;
+    const response = await axios.get(
+      `${process.env.REACT_APP_API}/TempTransaction/findByUuid/${uuid_transaction}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.status !== 200)throw new Error(`Opps got Error ${response.status}`);
+    // store to
+    dispatch(setDataSidePage(response.data.datas));
+   
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error?.response?.message) {
+        toast.error(error?.response?.message);
+        return;
+      }
+
+      toast.error(error?.message);
+      return;
+    }
+    return toast.error(error?.message);
+  }
+  // to set loading to be true
+  dispatch(changeStatusLoading());
+}

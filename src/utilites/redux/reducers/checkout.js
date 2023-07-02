@@ -4,6 +4,7 @@ const initialState={
     isLoading:false,
     dataCheckoutUnpaid:null,
     dataCheckoutPaid:null,
+    dataSidePage:null,
 }
 
 const checkoutSlice=createSlice({
@@ -31,8 +32,11 @@ const checkoutSlice=createSlice({
         setDataPaid(state,action){
             state.dataCheckoutPaid=action.payload;
         },
+        setDataSidePage(state,action){
+            state.dataSidePage=action.payload;
+        },
     }
 });
 
 export default checkoutSlice.reducer;
-export const {setParamsNextPage,changeStatusLoading,setDataUnpaid,setDataPaid}=checkoutSlice.actions;
+export const {setParamsNextPage,changeStatusLoading,setDataUnpaid,setDataPaid,setDataSidePage}=checkoutSlice.actions;
