@@ -100,8 +100,8 @@ const CardHistory = () => {
         <>
           <div className='mt-10 text-center flex flex-col items-center'>
             <img src={imgNotFound} alt="" />
-            <h1 className='mt-4 text-md md:text-lg lg:text-xl capitalize  font-semibold'>Maaf Tiket Terjual Habis</h1>
-            <p className='text-xs md:text-sm lg:text-md text-primary-darkblue04 font-semibold'>Coba cari perjalanan lainnya!</p>
+            <h1 className='mt-4 text-md md:text-lg lg:text-xl capitalize  font-semibold'>Maaf Kamu Belum Melakukan Transaksi</h1>
+            <p className='text-xs md:text-sm lg:text-md text-primary-darkblue04 font-semibold'>Coba Lakukan Transaksi</p>
           </div>
         </>
       }
