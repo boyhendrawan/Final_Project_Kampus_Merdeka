@@ -32,15 +32,11 @@ const Slides = () => {
               />
               <div className="">
                 <div className="absolute bottom-0 right-0 left-0 flex flex-col text-center md:py-[520px] py-[500px] justify-center mx-5">
-                  <h1 className="text-white lg:text-4xl xl:text-5xl md:text-3xl truncate capitalize font-sans text-xl font-bold ">
-                    {item.title}
-                  </h1>
+                  
                   <div className="flex-MovieItem">
                     <div className="flex gap-2 pt-[-16px] py-2 lg:text-lg">
                       <div className="flex justify-center mx-auto">
-                        <p className="text-white text-xs lg:text-lg">
-                          {item.desc}
-                        </p>
+                        
                       </div>
                     </div>
                   </div>

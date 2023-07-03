@@ -1,13 +1,8 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react'
-
 import Navbar from './Navbar';
-
-import { Outlet } from 'react-router-dom';
-import React from 'react'
+import { useSelector } from 'react-redux';
 import Footer from './Footer';
-
-
 // import { useDispatch, useSelector } from 'react-redux';
 
 

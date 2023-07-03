@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import {
   AiOutlineMenu,
   AiOutlineClose,
-  AiOutlineProfile,
 } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,8 +14,6 @@ import {
 import { VscSignOut } from "react-icons/vsc";
 
 import { FiLogIn } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { VscSignOut } from "react-icons/vsc";
 import logo from "../assets/logo.png";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -60,8 +57,8 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   const handleClickHome = () => {
-    dispatch(logout(navigate));
-    // navigate(`/`);
+    // dispatch(logout(navigate));
+    navigate(`/`);
   };
 
   const handleClickLogin = () => {
@@ -138,7 +135,6 @@ const Navbar = () => {
         <div className="hidden md:flex pr-4">
           {isLoggedIn ? (
             <ul className="flex gap-0 items-center">
-              <h1 className={` font-semibold text-md`}></h1>
               <div className="relative bg-gray-800 py-1.5 rounded-3xl">
                 <button
                   className={` text-white bg-transparent  font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out`}
