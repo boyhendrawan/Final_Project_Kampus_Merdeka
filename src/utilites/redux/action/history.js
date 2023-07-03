@@ -44,7 +44,8 @@ export const getPostStatus = () => async (dispatch, getState) => {
       }
     );
     if(response.data.status !=='200') throw new Error(`Opps Got error ${response.data.status}`)
-    dispatch(setPostsStatus(response.data.datas[0].status.trim()));
+    
+    if(response.data.datas.length>0)dispatch(setPostsStatus(response.data.datas[0].status.trim()));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);

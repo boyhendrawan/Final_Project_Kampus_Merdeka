@@ -160,6 +160,7 @@ export const logout = (navigate) => {
     dispatch(fLogout());
     dispatch(fLogin());
     dispatch(setIsLoggedIn(false));
+    console.log("works");
     navigate("/auth/login");
   };
 

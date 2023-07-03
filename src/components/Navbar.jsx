@@ -161,7 +161,7 @@ const Navbar = () => {
                       </p>
                       <p>Account</p>
                     </button>
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button className="flex gap-2" onClick={() => dispatch(logout(navigate))}>
                       <p className="pt-1 text-xl">
                         <VscSignOut />
                       </p>
