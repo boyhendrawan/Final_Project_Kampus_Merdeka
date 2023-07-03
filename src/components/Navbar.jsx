@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { AiOutlineCaretDown } from "react-icons/ai";
-import { VscSignOut } from "react-icons/vsc";
 import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { VscSignOut } from "react-icons/vsc";
 import logo from "../assets/logo.png";
+import { logout } from "../utilites/redux/action/login"
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
-  const { isLoggedIn, user } = useState(true);
+  const { isLoggedIn, user } = useSelector(state => state.auth);
   const [isOpen, setIsOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
-
+  const dispatch = useDispatch();
   const toggleDropdown = () => {
     setRotate(!rotate);
     setIsOpen(!isOpen);
@@ -35,18 +38,17 @@ const Navbar = () => {
 
   const handleClickLogin = () => {
     navigate(`/auth/login`);
-    
+
   };
 
   return (
     <div
       className={`fixed shadow-lg backdrop-blur-md font-poppins w-full left-0 top-0 lg:px-32 p-5 drop-shadow-lg z-50 
 
-    ${
-      sticky
-        ? "bg-slate-50 bg-opacity-75 text-white h-20 z-50 items-center shadow-lg"
-        : "text-white"
-    }`}
+    ${sticky
+          ? "bg-slate-50 bg-opacity-75 text-white h-20 z-50 items-center shadow-lg"
+          : "text-white"
+        }`}
     >
       <div className="flex justify-between items-center w-full text-white">
         <div
@@ -63,9 +65,8 @@ const Navbar = () => {
               </h1>
               <div className="relative">
                 <button
-                  className={`bg-transparent text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out ${
-                    rotate ? "rotate-180" : ""
-                  }`}
+                  className={`bg-transparent text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out ${rotate ? "rotate-180" : ""
+                    }`}
                   onClick={toggleDropdown}
                 >
                   <span className="text-white">
@@ -74,7 +75,7 @@ const Navbar = () => {
                 </button>
                 {isOpen && (
                   <div className="absolute text-purple-700 font-medium bg-white rounded-sm w-28 px-3 py-2 top-10 right-0 text-center">
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button className="flex gap-2" onClick={(e) => dispatch(logout(navigate))}>
                       <p className="pt-1 text-xl">
                         <VscSignOut />
                       </p>
@@ -133,9 +134,8 @@ const Navbar = () => {
               </h1>
               <div className="relative">
                 <button
-                  className={`bg-transparent text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out ${
-                    rotate ? "rotate-180" : ""
-                  }`}
+                  className={`bg-transparent text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out ${rotate ? "rotate-180" : ""
+                    }`}
                   onClick={toggleDropdown}
                 >
                   <span className="text-white">
@@ -144,7 +144,10 @@ const Navbar = () => {
                 </button>
                 {isOpen && (
                   <div className="absolute text-red-700 font-medium bg-white rounded-sm w-28 px-3 py-2 top-10 left-0 text-center">
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button className="flex gap-2" onClick={(e) => {
+                      dispatch(logout());
+                      navigate('/'); // Assuming you want to navigate to the homepage after logout.
+                    }}>
                       <p className="pt-1 text-xl">
                         <VscSignOut />
                       </p>

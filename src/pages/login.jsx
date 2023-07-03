@@ -3,12 +3,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";
 import plant from "../assets/Plantshome.png";
 import { login as requestLogin } from "../utilites/redux/action/login";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import useInput from "../utilites/customHooks/use-input";
 
@@ -160,7 +160,6 @@ const Login = () => {
               <button className="bg-primary-darkblue04 h-[48px] mt-8 p-2 w-full cursor-pointer text-neutral-neutral01 font-semibold rounded-lg">
                 Masuk
               </button>
-              <ToastContainer />
             </form>
           </div>
         </div>
