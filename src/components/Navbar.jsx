@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { div } from "react-router-dom";
 import {
   AiOutlineMenu,
   AiOutlineClose,
@@ -16,7 +16,7 @@ import { VscSignOut } from "react-icons/vsc";
 import { FiLogIn } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import { useSelector, useDispatch } from "react-redux";
-import { getProfile } from "../utilites/redux/action/login";
+import { getProfile, logout } from "../utilites/redux/action/login";
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   // const { isLoggedIn, dataUser } = useState(true);
@@ -61,6 +61,18 @@ const Navbar = () => {
     navigate(`/auth/login/allData?statusLogin=false`);
   };
 
+  const handleClickHistory = () => {
+    navigate(`/user/history/`);
+  };
+
+  const handleClickAccount = () => {
+    navigate(`/user/infoDetailUser/`);
+  };
+
+  const handleClickNotification = () => {
+    navigate(`/user/notification/`);
+  };
+
   return (
     <div
       className={`fixed shadow-lg bg-gray-100 md:bg-transparent backdrop-blur-sm font-poppins w-full left-0 top-0 lg:px-32 p-5 drop-shadow-lg z-50 ${
@@ -76,39 +88,39 @@ const Navbar = () => {
           <img src={logo} alt="" className="w-24" />
         </div>
         <div className="hidden md:flex font-bold md:gap-0">
-          <ul className="flex gap-4">
+          <ul className="flex gap-4 text-slate-800">
             <li
               className="hover:text-purple-500 font-semibold relative cursor-pointer transition-all 
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <Link onClick={handleClickHome} duration={500}>
+              <div onClick={handleClickHome} duration={500}>
                 <span className="flex gap-1 justify-center">
                   <p>Home</p>
                 </span>
-              </Link>
+              </div>
             </li>
             <li
               className="hover:text-purple-500 font-semibold relative cursor-pointer transition-all 
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <Link onClick={handleClickHome} duration={500}>
+              <div onClick={handleClickHistory} duration={500}>
                 <span className="flex gap-1 justify-center">
                   <p>History</p>
                 </span>
-              </Link>
+              </div>
             </li>
             <li
               className="hover:text-purple-500 font-semibold  relative cursor-pointer transition-all 
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <Link onClick={handleClickHome} duration={500}>
+              <div onClick={handleClickNotification} duration={500}>
                 <span className="flex gap-1 justify-center">
                   <p>Notification</p>
                 </span>
-              </Link>
+              </div>
             </li>
           </ul>
         </div>
@@ -135,7 +147,7 @@ const Navbar = () => {
                 </button>
                 {isOpen && (
                   <div className="absolute text-black font-medium bg-white grid gap-3 mt-5 max-w-lg w-56 py-5 px-3 top-10 right-0 text-center rounded-lg">
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button className="flex gap-2" onClick={handleClickAccount}>
                       <p className="pt-1 text-xl">
                         <AiOutlineUser />
                       </p>
@@ -184,7 +196,7 @@ const Navbar = () => {
         className={!nav ? "hidden" : "mt-2 w-full text-center text-white z-40"}
       >
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <Link onClick={handleClickHome} duration={500}>
+          <div onClick={handleClickHome} duration={500}>
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
@@ -192,10 +204,10 @@ const Navbar = () => {
               </span>
               <p>Home</p>
             </span>
-          </Link>
+          </div>
         </li>
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <Link onClick={handleClickHome} duration={500}>
+          <div onClick={handleClickHome} duration={500}>
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
@@ -203,10 +215,10 @@ const Navbar = () => {
               </span>
               <p>History</p>
             </span>
-          </Link>
+          </div>
         </li>
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <Link onClick={handleClickHome} duration={500}>
+          <div onClick={handleClickHome} duration={500}>
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
@@ -215,7 +227,7 @@ const Navbar = () => {
 
               <p>Notification</p>
             </span>
-          </Link>
+          </div>
         </li>
         <li className=" border-zinc-300 py-3 w-full hover:text-subMain">
           {isLoggedIn ? (
@@ -239,13 +251,16 @@ const Navbar = () => {
                 </button>
                 {isOpen && (
                   <div className="absolute text-black font-medium bg-white grid gap-3 mt-5 max-w-lg w-56 py-5 px-3 top-10 right-0 text-center rounded-lg">
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button className="flex gap-2" onClick={handleClickAccount}>
                       <p className="pt-1 text-xl">
                         <AiOutlineUser />
                       </p>
                       <p>Account</p>
                     </button>
-                    <button className="flex gap-2" onClick={handleClickHome}>
+                    <button
+                      className="flex gap-2"
+                      onClick={() => dispatch(logout(navigate))}
+                    >
                       <p className="pt-1 text-xl">
                         <VscSignOut />
                       </p>
