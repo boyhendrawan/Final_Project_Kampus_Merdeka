@@ -1,10 +1,11 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
 
-import Account from './pages/Customers/Account';
-import Beranda from './pages/Customers/Beranda';
-import Checkout from "./pages/Customers/checkout/Checkout"
+import React from 'react';
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Dashboard from './pages/Customers/Dashboard';
-import FlightOption from './pages/FlightOption';
+import Beranda from './pages/searchSchedule/Beranda';
+import Account from './pages/Customers/Account';
+import Checkout from "./pages/Customers/checkout/Checkout"
+import FlightOption from './pages/searchSchedule/FlightOption';
 import History from './pages/Customers/History';
 import Login from './pages/login';
 import Navbar from './components/Navbar';
@@ -12,10 +13,10 @@ import Notifications from './pages/Customers/Notifications';
 import PageError from './components/PageError';
 import ProtectionAuth from './components/ProtectionAuth';
 import ProtectionHasAuth from './components/ProtectionHasAuth';
-import React from 'react';
 import Register from './pages/register';
+import HistoryModal from './components/modals/HistoryModal';
 import UpdatePassword from './pages/UpdatePassword';
-
+import SideFooter from './components/Footer.jsx';
 const Router = createBrowserRouter([
 
     {
@@ -24,6 +25,7 @@ const Router = createBrowserRouter([
             <>
                 <Navbar />
                 <Outlet />
+                <SideFooter/>
             </>
         ),
         errorElement: <PageError />,
@@ -39,13 +41,15 @@ const Router = createBrowserRouter([
             },
             {
 
-                path:"flightoption",
+                path:"flightoption/:allData",
                 element:<FlightOption />,
             },
             {
                 path: "beranda",
                 element: <Dashboard/>,
             },
+
+           
             // here should added element properly and not required login
             
         ]
@@ -54,6 +58,10 @@ const Router = createBrowserRouter([
         path: "auth",
         element: <ProtectionHasAuth />,
         children: [
+            {
+                path: "login/:tokenTiket",
+                element: <Login/>,
+            },
             {
                 path: "login",
                 element: <Login/>,
@@ -83,7 +91,7 @@ const Router = createBrowserRouter([
                 element: <Account/>
             },
             {
-                path: "checkout",
+                path: "checkout/:idTiket",
                 element: <Checkout />,
 
             },
@@ -94,13 +102,13 @@ const Router = createBrowserRouter([
             {
                 path: "history",
                 element: <History />,
-                children: [
-                    // detail more history  
-                    {
-                        path: ":idDetailHisotry",
-                        element: "detail history"
-                    }
-                ]
+                // children: [
+                //     // detail more history  
+                //     {
+                //         path: ":uuid_history",
+                //         element: <HistoryModal />
+                //     }
+                // ]
             },
 
         ]

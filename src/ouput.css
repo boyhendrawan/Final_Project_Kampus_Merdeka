@@ -37,6 +37,15 @@
 .glance-animation{
     @apply relative after:left-0 after:h-full after:top-0 after:rounded-lg after:content-[''] after:absolute after:w-0 after:bg-black/20 after:transition-all after:duration-[450ms] hover:after:w-full
 }
+.active-date{
+    @apply bg-primary-darkblue04 ;
+}
+.active-date span{
+    @apply text-white;
+}
+.btn-date span {
+    pointer-events: none;
+}
 
 @layer base {
   html {

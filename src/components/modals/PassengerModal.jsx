@@ -1,53 +1,14 @@
-import React, { useState } from "react";
-import { berandaReducer, initialState } from "../../reducer/BerandaState";
+import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
 const PassengerModal = ({
   show,
   onClose,
-  jumlahDewasa,
-  jumlahAnak,
-  jumlahBayi,
-  setJumlahAnak,
-  setJumlahDewasa,
-  setJumlahBayi,
+  state,
+  dispatch
 }) => {
-  const [state, setState] = useState(initialState);
+  
 
-  const dispatch = (action) => {
-    const newState = berandaReducer(state, action);
-    setState(newState);
-  };
-
-  const handleIncreaseDewasa = () => {
-    setJumlahDewasa((prevCount) => prevCount + 1);
-  };
-
-  const handleDecreaseDewasa = () => {
-    if (jumlahDewasa > 0) {
-      setJumlahDewasa((prevCount) => prevCount - 1);
-    }
-  };
-
-  const handleIncreaseAnak = () => {
-    setJumlahAnak((prevCount) => prevCount + 1);
-  };
-
-  const handleDecreaseAnak = () => {
-    if (jumlahAnak > 0) {
-      setJumlahAnak((prevCount) => prevCount - 1);
-    }
-  };
-
-  const handleIncreaseBayi = () => {
-    setJumlahBayi((prevCount) => prevCount + 1);
-  };
-
-  const handleDecreaseBayi = () => {
-    if (jumlahBayi > 0) {
-      setJumlahBayi((prevCount) => prevCount - 1);
-    }
-  };
 
   const handleSave = () => {
     onClose();
@@ -79,14 +40,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleDecreaseDewasa}
+                    onClick={ ()=> dispatch({type:"DECREASE_DEWASA"})}
                   >
                     -
                   </button>
-                  <span className="mx-2">{jumlahDewasa}</span>
+                  <span className="mx-2">{state.jumlahDewasa}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleIncreaseDewasa}
+                    onClick={ ()=>dispatch({type:"INCREASE_DEWASA"})}
                   >
                     +
                   </button>
@@ -101,14 +62,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleDecreaseAnak}
+                    onClick={()=>dispatch({type:"DECREASE_ANAK"})}
                   >
                     -
                   </button>
-                  <span className="mx-2">{jumlahAnak}</span>
+                  <span className="mx-2">{state.jumlahAnak}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleIncreaseAnak}
+                    onClick={()=>dispatch({type:"INCREASE_ANAK"})}
                   >
                     +
                   </button>
@@ -123,14 +84,14 @@ const PassengerModal = ({
                 <div className="flex items-center border mx-auto border-slate-400 rounded-lg p-2">
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleDecreaseBayi}
+                    onClick={()=> dispatch({type:"DECREASE_BAYI"})}
                   >
                     -
                   </button>
-                  <span className="mx-2">{jumlahBayi}</span>
+                  <span className="mx-2">{state.jumlahBayi}</span>
                   <button
                     className="text-purple-700 text-lg"
-                    onClick={handleIncreaseBayi}
+                    onClick={()=> dispatch({type:"INCREASE_BAYI"})}
                   >
                     +
                   </button>
@@ -138,7 +99,7 @@ const PassengerModal = ({
               </div>
               <div className="border-b border-slate-600 h-0 "></div>
               <span className="text-xl pl-2 pt-1 font-semibold text-end mx-8">
-                Total: {jumlahAnak + jumlahBayi + jumlahDewasa}
+                Total: {state.jumlahAnak + state.jumlahBayi + state.jumlahDewasa}
               </span>
               <div className="border-b border-slate-600 h-0 "></div>
               <button

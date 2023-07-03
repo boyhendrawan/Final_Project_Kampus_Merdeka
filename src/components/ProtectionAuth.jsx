@@ -2,7 +2,11 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import React, { useEffect } from 'react'
 
 import Navbar from './Navbar';
-import { useSelector } from 'react-redux';
+
+import { Outlet } from 'react-router-dom';
+import React from 'react'
+import Footer from './Footer';
+
 
 // import { useDispatch, useSelector } from 'react-redux';
 
@@ -38,11 +42,14 @@ const ProtectionAuth = () => {
   }, [isLoggedIn, token, navigate]);
 
   return (
-    <>
-      <Navbar isLoggedIn={isLoggedIn} /> {/* Pass isLoggedIn prop */}
-      <Outlet />
-    </>
-  );
-};
 
-export default ProtectionAuth;
+  <>
+  <Navbar/>
+  <Outlet/>
+  <Footer />
+  </>
+  )
+}
+
+export default ProtectionAuth
+

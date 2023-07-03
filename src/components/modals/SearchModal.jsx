@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { getSearch } from "../../utilites/redux/action/history";
+import HistoryModal from "./HistoryModal";
 
 const SearchModal = ({ show, onClose }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [showHistoryModal, setShowHistoryModal] = useState(false);
+
+  const dispatch = useDispatch();
+  const { searchResults } = useSelector((state) => state.post);
+  const isDataNotFound = searchResults.length === 0;
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleHistoryModal = () => {
+    setShowHistoryModal(!showHistoryModal);
+  };
+
+  const handleCloseModal = () => {
+    setShowHistoryModal(false);
+  };
+
   const handleSearch = () => {
-    // Lakukan logika pencarian sesuai dengan kebutuhan Anda
-    // Misalnya, panggil API atau lakukan manipulasi data di sini
-    // Simpan hasil pencarian ke dalam state searchResults
-
-    // Contoh sederhana pencarian dengan data statis
-    const results = [
-      { id: 1, name: "Penerbangan 1" },
-      { id: 2, name: "Penerbangan 2" },
-      { id: 3, name: "Penerbangan 3" },
-    ];
-
-    // Simpan hasil pencarian ke dalam state searchResults
-    setSearchResults(results);
+    dispatch(getSearch(searchTerm));
   };
 
   return (
@@ -58,17 +61,27 @@ const SearchModal = ({ show, onClose }) => {
           Cari
         </button>
         <div className="mt-5">
-          {searchResults.length > 0 ? (
+          {isDataNotFound ? (
+            <p>Tidak ada hasil pencarian.</p>
+          ) : searchResults.length > 0 ? (
             <ul>
-              {searchResults.map((result) => (
-                <li key={result.id}>{result.name}</li>
+              {searchResults.map((item) => (
+                <li key={item.id}>
+                  <span
+                    onClick={() => handleHistoryModal(item)}
+                    className="font-semibold truncate"
+                  >
+                    {item.uuid_history.length > 10
+                      ? item.uuid_history.substring(0, 8)
+                      : item.uuid_history}
+                  </span>
+                </li>
               ))}
             </ul>
-          ) : (
-            <p>Tidak ada hasil pencarian.</p>
-          )}
+          ) : null}
         </div>
       </div>
+      <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
     </div>
   );
 };

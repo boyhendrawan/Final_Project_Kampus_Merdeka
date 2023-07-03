@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { FaPlane } from "react-icons/fa";
-import garuda from "../../assets/garuda.png";
+import React, { useState } from "react";
 import HistoryModal from "../../components/modals/HistoryModal";
 import FilterModal from "../../components/modals/FilterModal";
 import {
@@ -8,22 +6,63 @@ import {
   AiOutlineFilter,
   AiOutlineSearch,
 } from "react-icons/ai";
-import SearchModal from "../../components/modals/SearchModal";
+import CardHistory from "../../components/CardHistory";
+import SearchModal from "./../../components/modals/SearchModal";
 
 const History = () => {
-  const [showHistoryModal, setShowHistoryModal] = useState(false);
-  const [showFilterModal, setShowFilterModal] = useState(false);
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [state, setState] = useState({
+    showHistoryModal: false,
+    showFilterModal: false,
+    showSearchModal: false,
+    filteredData: [],
+    searchTerm: "",
+    showHistoryContent: true,
+  });
 
   const handleHistoryModal = () => {
-    setShowHistoryModal(!showHistoryModal);
+    setState((prevState) => ({
+      ...prevState,
+      showHistoryModal: !prevState.showHistoryModal,
+    }));
   };
+
   const handleFilterModal = () => {
-    setShowFilterModal(!showFilterModal);
+    setState((prevState) => ({
+      ...prevState,
+      showFilterModal: !prevState.showFilterModal,
+      showHistoryContent: false,
+    }));
   };
-  const handleSearchrModal = () => {
-    setShowSearchModal(!showSearchModal);
+
+  const handleSearchModal = () => {
+    setState((prevState) => ({
+      ...prevState,
+      showSearchModal: !prevState.showSearchModal,
+    }));
   };
+
+  const handleFilterData = (filteredData) => {
+    setState((prevState) => ({
+      ...prevState,
+      filteredData: filteredData,
+      showFilterModal: false,
+      showHistoryContent: filteredData.length > 0,
+    }));
+  };
+
+  const handleSearchInputChange = (event) => {
+    const searchTerm = event.target.value;
+    setState((prevState) => ({
+      ...prevState,
+      searchTerm: searchTerm,
+    }));
+  };
+
+  const filteredResults = state.filteredData.filter((item) =>
+    String(item.airplane_name)
+      .toLocaleLowerCase()
+      .includes(state.searchTerm.toLocaleLowerCase())
+  );
 
   return (
     <div className="mt-28 mx-5 max-w-7xl xl:mx-auto md:mx-8">
@@ -37,78 +76,41 @@ const History = () => {
         </div>
         <div
           onClick={handleFilterModal}
-          className="flex gap-1 bg-purple-500 items-center text-white px-2 py-2 rounded-2xl"
+          className="flex gap-1 bg-purple-500 items-center text-white px-2 py-2 rounded-2xl cursor-pointer"
         >
-          <span>
+          <span className="flex items-center">
             <AiOutlineFilter />
           </span>
           <h1>Filter</h1>
         </div>
-        <div onClick={handleSearchrModal} className="flex gap-1 bg-purple-500 items-center text-white px-2 py-2 rounded-2xl">
-          <AiOutlineSearch />
-          <h1>Search</h1>
-        </div>
-      </div>
-      <div className="grid gap-6">
         <div
-          onClick={handleHistoryModal}
-          className="rounded-3xl bg-white border border-gray-300 p-5 shadow-lg"
+          onClick={handleSearchModal}
+          className="flex gap-1 bg-purple-500 items-center text-white px-2 py-2 rounded-2xl cursor-pointer"
         >
-          <div className="flex justify-between">
-            <img src={garuda} alt="" className="w-10" />
-            <h1 className="text-center pt-2.5 text-green-500 font-semibold bg-green-300 w-20 rounded-3xl text-sm">
-              Success
-            </h1>
-          </div>
-          <div className="flex justify-between pt-5">
-            <div className="flex-1" style={{ flexBasis: "20%" }}>
-              <p>Jakarta, Indonesia</p>
-              <h1 className="text-2xl font-semibold">JKTA</h1>
-            </div>
-            <div className="flex-2" style={{ flexBasis: "60%" }}>
-              <div className="flex items-center ">
-                <div className="flex-1 border-dashed border border-gray-400 mx-3 md:mx-0"></div>
-                <span className="text-gray-400 text-2xl md:text-4xl mt-6 md:mx-3">
-                  <p className="pl-1.5 md:pl-0">
-                    <FaPlane />
-                  </p>
-                  <p className="text-sm">Time</p>
-                </span>
-                <div className="flex-1 border-dashed border border-gray-400 mx-3 md:mx-0"></div>
-              </div>
-            </div>
-            <div className="flex-1 text-end" style={{ flexBasis: "20%" }}>
-              <p>Jakarta, Indonesia</p>
-              <h1 className="text-2xl font-semibold">JKTA</h1>
-            </div>
-          </div>
-          <div className="flex-1 border-dashed border border-gray-400 mt-8"></div>
-          <div className="flex justify-between pt-5">
-            <div>
-              <h1 className="text-sm">
-                Booking Code :{" "}
-                <span className="font-semibold">code.example</span>
-              </h1>
-            </div>
-            <div>
-              <h1 className="text-sm text-end">
-                Class:<span> Economy</span>
-              </h1>
-              <h1 className="md:text-xl font-bold text-green-500">
-                IDR. 2.400.000
-              </h1>
-            </div>
-          </div>
+          <span className="flex items-center">
+            <AiOutlineSearch />
+          </span>
+          <h1>Cari</h1>
         </div>
-      </div>
-      {showHistoryModal && (
-        <HistoryModal show={showHistoryModal} onClose={handleHistoryModal} />
+      </div>{" "}
+      {state.showHistoryContent && <CardHistory filteredData={filteredResults} />}
+      {state.showHistoryModal && (
+        <HistoryModal handleHistoryModal={handleHistoryModal} />
       )}
-      {showFilterModal && (
-        <FilterModal show={showFilterModal} onClose={handleFilterModal} />
+      {state.showFilterModal && (
+        <FilterModal
+          show={state.showFilterModal}
+          onClose={handleFilterModal}
+          onFilter={handleFilterData}
+        />
       )}
-      {showSearchModal && (
-        <SearchModal show={showSearchModal} onClose={handleSearchrModal} />
+      {state.showSearchModal && (
+        <SearchModal
+          show={state.showSearchModal}
+          onClose={handleSearchModal}
+          searchTerm={state.searchTerm}
+          onSearchInputChange={handleSearchInputChange}
+        />
       )}
     </div>
   );
