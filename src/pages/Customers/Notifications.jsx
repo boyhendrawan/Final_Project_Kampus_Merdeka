@@ -1,6 +1,5 @@
 import { IoMdArrowBack, IoMdNotificationsOutline } from "react-icons/io";
 import { MdEventNote, MdOutlineAccountCircle } from "react-icons/md";
-
 import { BiHomeAlt } from "react-icons/bi";
 import CardNotification from "../../components/CardNotification";
 import { Link } from "react-router-dom";
