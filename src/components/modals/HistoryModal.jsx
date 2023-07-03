@@ -9,6 +9,7 @@ import plane from "../../assets/plane.svg";
 import LoadingRequest from "../LoadingRequest";
 import queryString from 'query-string';
 import { getCetakTiket } from "../../utilites/redux/action/checkout";
+import moment from "moment/moment";
 const HistoryModal = ({ show, onClose }) => {
   // const { uuid_history } = useParams();
   const [isLoading,setIsLoading]=useState(false);
@@ -102,7 +103,7 @@ const HistoryModal = ({ show, onClose }) => {
                 <h1 className="text-purple-600 font-semibold pb-1">
                   Keberangkatan
                 </h1>
-                <h1 className="font-semibold">{postDetail[0]?.departure_time}</h1>
+                <h1 className="font-semibold">{moment(postDetail[0]?.departure_time).format("YYYY-mm-dd H.mm")}</h1>
                 <h1>{postDetail[0]?.departure_date}</h1>
                 <h1 className="">
                   <span>{postDetail[0]?.departure_airport}</span>
@@ -143,7 +144,7 @@ const HistoryModal = ({ show, onClose }) => {
               <div className="flex-1 border-dashed border border-gray-400 my-2"></div>
               <div className="text-sm">
                 <h1 className="text-purple-600 font-semibold pb-1">Kedatangan</h1>
-                <h1 className="font-semibold">{postDetail[0]?.arrival_time}</h1>
+                <h1 className="font-semibold">{moment(postDetail[0]?.arrival_time).format("YYYY-mm-dd H.mm")}</h1>
                 <h1>{postDetail[0]?.arrival_date}</h1>
                 <h1>{postDetail[0]?.arrival_airport}</h1>
               </div>
