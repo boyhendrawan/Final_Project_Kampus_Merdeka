@@ -7,7 +7,8 @@ import {
 } from "../reducers/history";
 import { toast } from "react-toastify";
 
-export const getPosts = () => async (dispatch, getState) => {
+export const getPosts = (setIsloading) => async (dispatch, getState) => {
+  setIsloading(true)
   try {
     const { token, dataUser } = getState().auth; // Ambil token dan dataUser dari state auth
     const { uuid_user } = dataUser; // Ambil UUID pengguna dari dataUser
@@ -28,6 +29,7 @@ export const getPosts = () => async (dispatch, getState) => {
     }
     toast.error(error.message);
   }
+  setIsloading(false)
 };
 
 export const getPostStatus = () => async (dispatch, getState) => {

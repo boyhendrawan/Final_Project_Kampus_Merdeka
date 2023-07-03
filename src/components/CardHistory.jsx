@@ -6,14 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUuidHistory } from "../utilites/redux/reducers/history";
 import { getPosts, getPostStatus } from "../utilites/redux/action/history";
 import imgNotFound from "../assets/img_noAvailable.png";
+import LoadingRequest from "./LoadingRequest";
 
 const CardHistory = () => {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
+  const [isLoading,setIsloading]=useState(false);
   const dispatch = useDispatch();
   const { posts, postStatus } = useSelector((state) => state.post);
   console.log(postStatus);
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPosts(setIsloading));
     dispatch(getPostStatus());
   }, [dispatch]);
 
@@ -26,6 +28,10 @@ const CardHistory = () => {
     setShowHistoryModal(false);
   };
   return (
+    <>
+  
+    {isLoading  && <LoadingRequest/>}
+    {!isLoading &&
     <div className="max-w-6xl">
       {posts?.length > 0 ?
         posts.map((item) => (
@@ -109,6 +115,8 @@ const CardHistory = () => {
         <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
       )}
     </div>
+    }
+    </>
   );
 };
 
