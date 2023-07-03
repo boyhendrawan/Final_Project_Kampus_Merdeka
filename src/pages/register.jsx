@@ -81,7 +81,7 @@ const Register = () => {
         className: "absolute bottom-0 right-1/2",
       });
     }
-    if (valueUsername.length <= 0 || valuePassword.length <= 0 || valueFullName.length <= 0 || valuePhone.length <= 0 ) {
+    if (valueUsername.length <= 0 || valuePassword.length <= 0 || valueFullName.length <= 0 || valuePhone.length <= 0) {
       toast.error("Harap isi semua inputan", {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "absolute bottom-0 right-1/2",
@@ -206,12 +206,13 @@ const Register = () => {
                   Nomor Telepon
                 </label>
                 <input
-                  type="text"
+                  type="tel"
                   id="phone"
                   name="phone"
                   placeholder="Masukan Nomor Telepon.."
                   className={`px-3 py-2 h-[48px] border font-semibold shadow rounded-lg mb-3 w-full block text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-darkblue04 focus:border-primary-darkblue04 invalid:text-red-500 invalid:focus:ring-red-500 ${invalidPhone ? 'text-opacity-50 cursor-not-allowed' : ''
                     }`}
+                  pattern="\d{11,}"
                   onChange={handleChangePhone}
                   onBlur={handleBlurPhone}
                   value={valuePhone}

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import {
   AiOutlineMenu,
@@ -12,7 +13,10 @@ import {
   AiOutlineHistory,
 } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
+
 import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { VscSignOut } from "react-icons/vsc";
 import logo from "../assets/logo.png";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -39,6 +43,7 @@ const Navbar = () => {
     }
     //  else navigate("/login");
   }, [isLoggedIn, token, dispatch]);
+
   const toggleDropdown = () => {
     setRotate(!rotate);
     setIsOpen(!isOpen);
@@ -60,6 +65,7 @@ const Navbar = () => {
   };
 
   const handleClickLogin = () => {
+
     navigate(`/auth/login/allData?statusLogin=false`);
   };
 
@@ -73,14 +79,17 @@ const Navbar = () => {
 
   const handleClickNotification = () => {
     navigate(`/user/notification/`);
+
   };
 
   return (
     <div
+
       className={`fixed shadow-lg bg-gray-100 md:bg-transparent backdrop-blur-sm font-poppins w-full left-0 top-0 lg:px-32 p-5 drop-shadow-lg z-50 ${
         sticky &&
         "md:bg-slate-50 md:bg-opacity-75 md:text-white md:h-20 md:items-center md:shadow-lg"
       }`}
+
     >
       <div className="flex justify-between items-center w-full text-white">
         <div
@@ -133,6 +142,7 @@ const Navbar = () => {
               <div className="relative bg-gray-800 py-1.5 rounded-3xl">
                 <button
                   className={` text-white bg-transparent  font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out`}
+
                   onClick={toggleDropdown}
                 >
                   Welcome,{" "}

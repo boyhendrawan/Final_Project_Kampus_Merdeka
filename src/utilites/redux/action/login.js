@@ -64,10 +64,24 @@ export const login =
       navigate(url);
 
     } catch (error) {
-      toast.error(error.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        className: "absolute bottom-0 right-1/2",
-      });
+      if (error.response) {
+        let errorMessage = "email atau password salah"; // Pesan kesalahan default
+        const status = error.response.status;
+
+        if (status === 401) {
+          errorMessage = "Email atau password salah. Mohon periksa kembali.";
+        } else if (status === 404) {
+          errorMessage =
+            "Akun tidak ditemukan. Mohon pastikan email yang Anda masukkan benar.";
+        } else if (status === 500) {
+          errorMessage = "Terjadi masalah pada server. Mohon coba lagi nanti.";
+        }
+
+        toast.error(errorMessage, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          className: "absolute bottom-0 right-1/2",
+        });
+      }
     }
   };
 
@@ -90,9 +104,9 @@ export const register =
           "Content-Type": "application/json",
         }
       );
-      const code = response?.data?.status
+      const code = response?.data?.status;
 
-      if (code === 200 ){
+      if (code === 200) {
         dispatch(setIsLoggedIn(true));
 
         // reset all fields
@@ -114,12 +128,12 @@ export const register =
         resetPhone();
         resetPassword();
 
-        toast.error(response?.data?.msg, {
+        toast.success(response?.data?.msg, {
           position: toast.POSITION.BOTTOM_RIGHT,
           className: "absolute bottom-0 right-1/2",
         });
+        navigate("/auth/login");
       }
-      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error(error?.response?.data, {
@@ -129,7 +143,9 @@ export const register =
         return;
       }
 
-      toast.error(error.msg, {
+      // If it's not an Axios error, it's a different type of error.
+      // Handle it accordingly.
+      toast.error(error.message, {
         position: toast.POSITION.BOTTOM_RIGHT,
         className: "absolute bottom-0 right-1/2",
       });

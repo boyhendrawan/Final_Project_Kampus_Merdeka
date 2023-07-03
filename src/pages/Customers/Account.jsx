@@ -84,7 +84,7 @@ const Account = () => {
       {/* Akhir Komponen Account */}
 
       {/* Navbar */}
-      <div className="fixed bottom-0 left-0 w-full shadow-md py-2 px-4 md:bottom-auto md:top-0 md:mt-2">
+      {/* <div className="fixed bottom-0 left-0 w-full shadow-md py-2 px-4 md:bottom-auto md:top-0 md:mt-2">
         <div className="md:flex md:justify-between md:ml-24 lg:32 xl:ml-44 overflow-x-hidden">
           <div className="hidden md:flex">
             <img src={logo} alt="Logo" className="h-[50px]" />
@@ -114,7 +114,7 @@ const Account = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* Akhir Navbar */}
 
       {/* Modal */}
