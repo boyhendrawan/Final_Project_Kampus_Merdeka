@@ -20,7 +20,7 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue,setPara
   const [dataUsers,setDataUsers]=useState([]);
 //  define all function module
   const dispatch=useDispatch();
-  const {dataCheckoutUnpaid,isLoading}= useSelector(Features=>Features.checkout);
+  const {dataCheckoutUnpaid}= useSelector(Features=>Features.checkout);
   const sumPessenger = dataParams.pessengers;
   useEffect(()=>{
     // // check if handle change data is available
@@ -104,7 +104,11 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue,setPara
         }
       }
       // added each object uuid_transection
-      object.uuid_transaction=dataParams.uuid_transaction;
+      if(sumPessenger>1){
+        object.uuid_transaction=dataParams.uuid_transaction[index];
+      }else{
+        object.uuid_transaction=dataParams.uuid_transaction;
+      }
       // delete objct f
       // stop looping if there're undifined input
       if(stopLoppingTmp) return;
@@ -114,23 +118,23 @@ const Pessengers = ({ next, previous, handleChangeData:saveData,allValue,setPara
     dispatch(sendUnpaidCheckout(dataUsers));
     // saveData("PESSENGERS",dataUsers)
     // here to do send request to api
-    // console.log({...dataUsers,...dataParams})
     // next();
 
   }
+  // handle if dataUnpaid updated and redirect to the next
   useEffect(()=>{
-    if(!isLoading && dataCheckoutUnpaid !==null){
+    if(dataCheckoutUnpaid !==null){
       // setParams()
       // provide an object
       const objectParams={
         stepper:3,
-        transaction:dataCheckoutUnpaid[0].uuid_transaction,
+        transaction:dataCheckoutUnpaid.map(e=>e.uuid_transaction),
         pessengers:dataCheckoutUnpaid.length
       }
       setParams(queryString.stringify(objectParams));
 
     }
-  },[dataCheckoutUnpaid,isLoading,setParams,dataParams.stepper])
+  },[dataCheckoutUnpaid,setParams,dataParams.stepper])
 
   return (
     <form action="">

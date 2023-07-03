@@ -10,9 +10,9 @@ import { toast } from "react-toastify";
 export const getPosts = () => async (dispatch, getState) => {
   try {
     const { token, dataUser } = getState().auth; // Ambil token dan dataUser dari state auth
-    const { uuid } = dataUser; // Ambil UUID pengguna dari dataUser
+    const { uuid_user } = dataUser; // Ambil UUID pengguna dari dataUser
     const response = await axios.get(
-      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid}`,
+      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid_user}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -33,9 +33,9 @@ export const getPosts = () => async (dispatch, getState) => {
 export const getPostStatus = () => async (dispatch, getState) => {
   try {
     const { token, dataUser } = getState().auth; // Ambil token dan dataUser dari state auth
-    const { uuid } = dataUser; // Ambil UUID pengguna dari dataUser
+    const { uuid_user } = dataUser; // Ambil UUID pengguna dari dataUser
     const response = await axios.get(
-      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid}`,
+      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid_user}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -43,8 +43,8 @@ export const getPostStatus = () => async (dispatch, getState) => {
         },
       }
     );
+    if(response.data.status !=='200') throw new Error(`Opps Got error ${response.data.status}`)
     dispatch(setPostsStatus(response.data.datas[0].status.trim()));
-    console.log(response.data.datas.status);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -54,13 +54,13 @@ export const getPostStatus = () => async (dispatch, getState) => {
   }
 };
 
-export const getPostDetails = (uuid_history) => async (dispatch, getState) => {
+export const getPostDetails = (uuid_history,setIsLoading) => async (dispatch, getState) => {
   const { token, dataUser } = getState().auth;
-  const { uuid } = dataUser;
-
+  const { uuid_user } = dataUser;
+  setIsLoading(true);
   try {
     const response = await axios.get(
-      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/uuid/${uuid}/${uuid_history}`,
+      `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/uuid/${uuid_user}/${uuid_history}`,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -68,8 +68,9 @@ export const getPostDetails = (uuid_history) => async (dispatch, getState) => {
         },
       }
     );
-
-    dispatch(setPostsDetails(response.data.datas.uuid_history));
+    if(response.data.status !=='200') throw new Error(`Opps Got error ${response.data.status}`)
+   
+    dispatch(setPostsDetails(response.data.datas));
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -77,14 +78,15 @@ export const getPostDetails = (uuid_history) => async (dispatch, getState) => {
     }
     toast.error(error.message);
   }
+  setIsLoading(false);
 };
 
 export const getSearch = (searchTerm) => async (dispatch, getState) => {
   const { token, dataUser } = getState().auth;
-  const { uuid } = dataUser;
+  const { uuid_user } = dataUser;
 
   try {
-    const apiUrl = `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid}`;
+    const apiUrl = `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid_user}`;
     const response = await axios.get(apiUrl, {
       headers: {
         "Content-Type": "application/json",

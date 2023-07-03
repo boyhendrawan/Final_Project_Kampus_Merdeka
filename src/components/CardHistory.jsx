@@ -3,29 +3,28 @@ import { FaPlane } from "react-icons/fa";
 import HistoryModal from "./modals/HistoryModal";
 import plane from "../assets/plane.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDetails, getPosts, getPostStatus} from "../utilites/redux/action/history";
+import { setUuidHistory } from "../utilites/redux/reducers/history";
+import {  getPosts, getPostStatus} from "../utilites/redux/action/history";
 
 const CardHistory = () => {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const dispatch = useDispatch();
   const { posts, postStatus } = useSelector((state) => state.post);
-
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getPostStatus());
   }, [dispatch]);
 
   const handleHistoryModal = (uuid_history) => {
-    dispatch(getPostDetails(uuid_history));
+    dispatch(setUuidHistory(uuid_history));
     setShowHistoryModal(true);
   };
 
   const handleCloseModal = () => {
     setShowHistoryModal(false);
   };
-
   return (
-    <div className="max-w-7xl">
+    <div className="max-w-6xl">
       {posts.map((item) => (
         <div
           key={item.uuid_history}

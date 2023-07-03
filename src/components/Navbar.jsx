@@ -8,6 +8,7 @@ import { FiLogIn } from "react-icons/fi";
 import logo from "../assets/logo.png";
 import { useSelector,useDispatch } from "react-redux";
 import { getProfile } from "../utilites/redux/action/login";
+import { logout } from "../utilites/redux/action/login";
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   // const { isLoggedIn, dataUser } = useState(true);
@@ -44,7 +45,8 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   const handleClickHome = () => {
-    navigate(`/`);
+    dispatch(logout(navigate));
+    // navigate(`/`);
   };
 
   const handleClickLogin = () => {

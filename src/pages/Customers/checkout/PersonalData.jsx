@@ -7,9 +7,8 @@ const PersonalData = ({ next, handleChangeData, valueData, dataParams,setParams 
   // define
   // const [isLoading, setIsloading] = useState(false);
   const { dataUser, token } = useSelector(features => features.auth);
-  const {dataCheckout,isLoading}=useSelector(features=>features.checkout);
+  const {dataCheckout}=useSelector(features=>features.checkout);
   const inputElement=useRef();
-  console.log(dataUser);
   const dispatch = useDispatch();
  
   //  provide request body
@@ -45,10 +44,10 @@ const PersonalData = ({ next, handleChangeData, valueData, dataParams,setParams 
   }
   // get if loading already done and set new params
   useEffect(()=>{
-    if(!isLoading && dataCheckout !==null){
+    if( dataCheckout !==null){
       setParams(queryString.stringify(dataCheckout));
     }
-  },[dataCheckout,isLoading,setParams])
+  },[dataCheckout,setParams])
   return (
    <>
     {!dataUser && <LoadingRequest/>}

@@ -52,7 +52,7 @@ const DonePage = ({dataParams},props) => {
             {dataSidePage.map((e,id) => {
               return <Accordion.Panel key={id}>
                 <Accordion.Title className='text-xs md:text-base lg:text-base tracking-wider font-bold text-start'>
-                  {e.title}.{e?.full_name} - <span>{e?.given_name.length > 0 ? e?.given_name : ""}</span>
+                  {e.title}.{e?.full_name} - <span>{e?.given_name}</span>
                 </Accordion.Title>
                 <Accordion.Content className='mt-2 '>
                   <div className=' w-full grid grid-cols-2 px-2  gap-x-5 gap-y-1 mb-4 gap text-gray-500 dark:text-gray-400 text-xs md:text-base lg:text-base'>

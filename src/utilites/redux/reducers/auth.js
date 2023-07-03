@@ -1,22 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-function getUuidFromToken(token) {
-  // Implementasikan logika untuk mendapatkan UUID dari token
-  // Bergantung pada format token yang digunakan
-
-  // Contoh sederhana jika UUID ada pada token yang berformat "UUID:DataLainnya"
-  const parts = token.split(":");
-  if (parts.length > 1) {
-    const uuid = parts[0];
-    return uuid;
-  }
-
-  // Kembalikan null jika tidak dapat menemukan UUID pada token
-  return null;
-}
-
 const initialState = {
-  dataUser: { uuid: "57de8b62-ca57-4710-8e47-0614e0da68d7" },
+  dataUser: null,
   isLoggedIn: !!localStorage.getItem("token"),
   token: localStorage.getItem("token") || null,
 };
@@ -37,9 +21,6 @@ const tokenSlice = createSlice({
       state.dataUser = null;
     },
     setUser(state, action) {
-      const uuid = getUuidFromToken(action.payload);
-      state.dataUser = { uuid };
-      // console.log(action.payload);
       state.dataUser = action.payload;
     },
     setIsLoggedIn(state, action) {

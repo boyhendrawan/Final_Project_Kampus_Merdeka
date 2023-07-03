@@ -1,19 +1,15 @@
 
 import "react-toastify/dist/ReactToastify.css";
-
 import { FiEye, FiEyeOff } from "react-icons/fi";
-
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-
 import bgLogin from "../assets/Gradient.png";
 import logo from "../assets/logo.png";
 import plant from "../assets/Plantshome.png";
 import { login as requestLogin } from "../utilites/redux/action/login";
 import { useDispatch } from "react-redux";
 import useInput from "../utilites/customHooks/use-input";
-
 import { useSearchParams } from "react-router-dom";
 import queryString from "query-string";
 
@@ -55,10 +51,10 @@ const [getParmas]=useSearchParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("running twice")
     if (valueUsername.length <= 0 || valuePassword.length <= 0) {
       toast.error("Harap isi semua inputan", {
         position: toast.POSITION.BOTTOM_RIGHT,
-        className: "absolute bottom-0 right-1/2",
       });
       return;
     } 
@@ -70,7 +66,7 @@ const [getParmas]=useSearchParams();
     url=`/user/checkout/allData?${queryString.stringify(objParams)}`;
     } else url="/";
 
-    console.log(url);
+    // console.log(url);
     dispatch(
       requestLogin(
         { valueUsername, valuePassword },

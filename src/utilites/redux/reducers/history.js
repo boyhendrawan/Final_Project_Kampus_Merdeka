@@ -7,6 +7,7 @@ const initialState = {
   searchTerm: '',
   searchResults: [],
   isDataNotFound: false,
+  uuidHistory:null
 };
 
 const postSlice = createSlice({
@@ -33,6 +34,9 @@ const postSlice = createSlice({
       state.searchResults = [];
       state.isDataNotFound = false;
     },
+    setUuidHistory(state, action){
+      state.uuidHistory=action.payload;
+    }
   },
 });
 
@@ -43,6 +47,7 @@ export const {
   setSearchTerm,
   setSearchResults,
   clearSearchResults,
+  setUuidHistory
 } = postSlice.actions;
 
 export default postSlice.reducer;
