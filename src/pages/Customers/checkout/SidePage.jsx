@@ -13,7 +13,9 @@ const SidePage = ({ checkOutData, dataParams, dispatch ,onClickPaid}) => {
     }, [dataParams.uuid_transaction, dispatch,dataParams.transaction])
     // get distance Time
     const differentTime=useGetDifferentTime(dataSidePage ? dataSidePage[0].arrival_time :"", dataSidePage?dataSidePage[0].departure_time :"");
-    const handleClick=(e)=>onClickPaid(e);
+    const handleClick=(e)=>{
+    onClickPaid(e)
+    };
     return (
         <div className='order-2 px-6 py-4 bg-white shadow-lg w-full rounded-lg max-w-md lg:max-w-sm '>
             <h1 className='header-title-h1 font-semibold mt-4 mb-2 text-center'>Detail Penerbangan</h1>

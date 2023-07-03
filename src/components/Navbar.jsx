@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from "react";
-import { div } from "react-router-dom";
 import {
   AiOutlineMenu,
   AiOutlineClose,
@@ -22,6 +21,7 @@ import logo from "../assets/logo.png";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../utilites/redux/action/login";
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   // const { isLoggedIn, dataUser } = useState(true);
@@ -60,7 +60,8 @@ const Navbar = () => {
   const handleClick = () => setNav(!nav);
 
   const handleClickHome = () => {
-    navigate(`/`);
+    dispatch(logout(navigate));
+    // navigate(`/`);
   };
 
   const handleClickLogin = () => {

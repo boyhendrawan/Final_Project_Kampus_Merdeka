@@ -9,11 +9,13 @@ import { paidCheckOut,getCetakTiket } from '../../../utilites/redux/action/check
 import queryString from 'query-string';
 import imgDone from "../../../assets/doneCheckout.svg";
 import SidePage from './SidePage';
+import LoadingRequest from '../../../components/LoadingRequest';
 // end pages
 // initial value for each input
 const intialData = {
   stepper: null,
   personal: {},
+  AllParamsConvert:{},
   pessengers: [],
 }
 const reducerData = (state, action) => {
@@ -28,6 +30,8 @@ const reducerData = (state, action) => {
       return { ...state, pessengers: action.data };
     case "UPDATE_STEPPER":
       return {...state,stepper:action.data}
+    case "UPDATE_PARAMS":
+        return {...state,stepper:parseInt(action.data.stepper),AllParamsConvert:action.data}
     default:
       return state;
   }
@@ -39,23 +43,26 @@ const Checkout = () => {
   const navigate=useNavigate();
   const [allParams,setParams]=useSearchParams();
   // convert params into 
-  const convertAndCheck = useCallback((data)=>{
-    const paramsObject = {};
-    for (let [key, value] of data.entries()) {
-        if (value.trim().length <= 0) return false;
-        paramsObject[key] = value;
-    }
-    return paramsObject;
-  },[]);
+
   // get data from params
-  const allParamsConvert=convertAndCheck(allParams);
   useEffect(()=>{
-    // send to the server this schedul is order
-    const convertParams=convertAndCheck(allParams);
-    if(!convertParams) return navigate("/");
-    dispatch({type:"UPDATE_STEPPER",data: parseInt(convertParams.stepper)});
-    // make an request to get uuid_transsection and make an checkoutfor this user
-  },[allParams,convertAndCheck,navigate])
+    const paramsObject = {};
+    for (const [key, value] of allParams.entries()) {
+      // check if value null
+      if (value.trim().length <= 0) return false;
+      if (paramsObject[key]) {
+        // If the key already exists, convert the value into an array
+        paramsObject[key] = Array.isArray(paramsObject[key])
+          ? [...paramsObject[key], value]
+          : [paramsObject[key], value];
+      } else {
+        // If the key doesn't exist, create a new key-value pair
+        paramsObject[key] = value;
+      }
+    }
+    if(!paramsObject) navigate("/");
+    else dispatch({type:"UPDATE_PARAMS",data:paramsObject});
+  },[allParams,navigate])
 
   // define important function
   const prevStep = () => {
@@ -82,19 +89,27 @@ const Checkout = () => {
   const produceBodyRequestPaid = useCallback((pessegers,transaction) => {
     const collectData = [];
     for (let i = 0; i < pessegers; i++) {
-      const constructData = {
-        "uuid_transaction": transaction,
+      let constructData;
+      if(pessegers >1){
+       constructData = {
+          "uuid_transaction": transaction[i],
+        }
+      }else{
+       constructData = {
+          "uuid_transaction": transaction,
+        }
       }
       collectData.push(constructData);
     }
     return collectData;
   }, []);
-  const handlePaidCheckout=()=>{
-    const dataRequestPaid=produceBodyRequestPaid(parseInt(allParamsConvert.pessengers),allParamsConvert.transaction);
+  // console.log(produceBodyRequestPaid(parseInt(checkOutData.AllParamsConvert.pessengers),checkOutData.AllParamsConvert.transaction));
+  const handlePaidCheckout=(e)=>{
+    const dataRequestPaid=produceBodyRequestPaid(parseInt(checkOutData.AllParamsConvert.pessengers),checkOutData.AllParamsConvert.transaction);
     dispatchApi(paidCheckOut(dataRequestPaid));
   }
   useEffect(()=>{
-    if(allParamsConvert.stepper ==="3" && !isLoading && dataCheckoutPaid){
+    if(checkOutData.AllParamsConvert.stepper ==="3" && !isLoading && dataCheckoutPaid){
       // produce new url
       const newParams={
         stepper:4,
@@ -103,22 +118,22 @@ const Checkout = () => {
       }
       setParams(queryString.stringify(newParams));
     }
-  },[allParamsConvert.stepper,dataCheckoutPaid,isLoading,setParams])
+  },[checkOutData.AllParamsConvert.stepper,dataCheckoutPaid,isLoading,setParams])
 
   const handlerCetakTiket=()=>{
-    dispatchApi(getCetakTiket(allParamsConvert.transaction))
+    dispatchApi(getCetakTiket(checkOutData.AllParamsConvert.transaction))
   }
   // added some logic for stepper function
   let holdPage = "";
   switch (parseInt(checkOutData?.stepper)) {
     case 1:
-      holdPage = <PersonalData setParams={setParams} dataParams={allParamsConvert}  valueData={checkOutData.personal} next={nextStep} handleChangeData={handleChangeData} />;
+      holdPage = <PersonalData setParams={setParams} dataParams={checkOutData.AllParamsConvert}  valueData={checkOutData.personal} next={nextStep} handleChangeData={handleChangeData} />;
       break;
     case 2:
-      holdPage = <Pessengers setParams={setParams} dataParams={allParamsConvert} allValue={checkOutData} next={nextStep} previous={prevStep} handleChangeData={handleChangeData} />;
+      holdPage = <Pessengers setParams={setParams} dataParams={checkOutData.AllParamsConvert} allValue={checkOutData} next={nextStep} previous={prevStep} handleChangeData={handleChangeData} />;
       break;
     case 3:
-      holdPage = <DonePage valueData={checkOutData} handleChangeData={handleChangeData} dataParams={allParamsConvert} />;
+      holdPage = <DonePage valueData={checkOutData} handleChangeData={handleChangeData} dataParams={checkOutData.AllParamsConvert} />;
       break;
     default:
       holdPage = "1";
@@ -132,7 +147,7 @@ const Checkout = () => {
         <h1 className='font-bold text-md md:text-lg lg:text-xl  my-4 ml-4'>Check Out</h1>
         <div className='flex flex-col  items-center w-full gap-y-4 lg:flex-row lg:items-start lg:gap-x-4 justify-center'>
          {parseInt(checkOutData?.stepper) >=2 &&
-         <SidePage checkOutData={checkOutData} onClickPaid={handlePaidCheckout} dataParams={allParamsConvert} dispatch={dispatchApi} />
+         <SidePage checkOutData={checkOutData} onClickPaid={handlePaidCheckout} dataParams={checkOutData.AllParamsConvert} dispatch={dispatchApi} />
          }
           <div className='order-1 px-6 py-4 bg-white shadow-lg w-full rounded-lg'>
             {/* Stepper */}
@@ -181,9 +196,14 @@ const Checkout = () => {
           <img src={imgDone} className='justify-self-center w-12/12 h-12/12' alt="" />
           <p className='mt-5'>Transaksi Pembayaran Selesai</p>
          <div className='w-full max-w-xs  mt-10'>
-          <button onClick={handlerCetakTiket} className='bg-primary-darkblue04 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Cetak Tiket</button>
-
-          <Link to="/" className='bg-primary-darkblue03 block text-center mt-4 mb-10 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Back To Home</Link>
+          {isLoading && <LoadingRequest/>}
+          {!isLoading &&
+          <>
+            <button onClick={handlerCetakTiket} className='bg-primary-darkblue04 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Cetak Tiket</button>
+            <Link to="/" className='bg-primary-darkblue03 block text-center mt-4 mb-10 text-white max-w-xl w-full rounded-lg py-3 glance-animation'>Back To Home</Link>
+          </>
+          
+          }
          </div>
          </div>
       </div>

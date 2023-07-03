@@ -21,7 +21,6 @@ export const getProfile =()=>async(dispatch,getState)=>{
         "token":`${token}`
       }
     });
-    // console.log(response);
     if(response.status !==200) throw new Error(`Opps get error when fetching  data ${response.status}`);
     // status ok
     dispatch(setUser(response.data.datas));
@@ -45,13 +44,16 @@ export const login =
   (data, navigate, resetUsername, resetPassword,url) => async (dispatch) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_AUTH_API}/api/v1/auth/login`,
-        data,
+        `${process.env.REACT_APP_API}/Users/login`,
+        {
+          email:data.valueUsername,
+          password:data.valuePassword
+        },
         { "Content-Type": "application/json" }
       );
 
+      if(response.data.status !=='200' ) throw new Error(`Opps got Error ${response.data.status} ${response?.data.msg}`);
       const token = response?.data.datas.token;
-        console.log(response);
       dispatch(fLogin(token));
       dispatch(setIsLoggedIn(true));
 
@@ -155,7 +157,6 @@ export const register =
 
 export const logout = (navigate) => {
   return (dispatch) => {
-    console.log("masuk");
     dispatch(fLogout());
     dispatch(fLogin());
     dispatch(setIsLoggedIn(false));

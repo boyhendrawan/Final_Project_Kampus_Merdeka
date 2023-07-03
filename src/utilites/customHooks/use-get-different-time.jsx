@@ -2,7 +2,7 @@
 
 function useGetDifferentTime(startTime="2023-06-26T17:56:30.003502", endTime="2023-06-26T17:56:30.003502") {
     // Convert time strings to Date objects
-    console.log(startTime);
+    // console.log(startTime);
     const startDate = new Date(`${startTime}`);
     const endDate = new Date(`${endTime}`);
     // Calculate the time difference in milliseconds

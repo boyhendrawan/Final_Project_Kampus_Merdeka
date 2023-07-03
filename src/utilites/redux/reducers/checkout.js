@@ -15,7 +15,7 @@ const checkoutSlice=createSlice({
         setParamsNextPage(state,action){
             const dataCheckout=
                 {
-                    uuid_transaction:action.payload.data[0].uuid_transaction,
+                    uuid_transaction:action.payload.data.map(e=>e.uuid_transaction),
                     uuid_schedule:action.payload.data[0].uuid_schedules,
                     stepper:'2',
                     pessengers:action.payload.data.length,
