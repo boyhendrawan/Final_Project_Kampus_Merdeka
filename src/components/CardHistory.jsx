@@ -13,7 +13,7 @@ const CardHistory = () => {
   const [isLoading,setIsloading]=useState(false);
   const dispatch = useDispatch();
   const { posts, postStatus } = useSelector((state) => state.post);
-  console.log(postStatus);
+  // console.log(postStatus);
   useEffect(() => {
     dispatch(getPosts(setIsloading));
     dispatch(getPostStatus());
