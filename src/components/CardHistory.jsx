@@ -97,7 +97,7 @@ const CardHistory = () => {
                   </h1>
                 </div>
                 <h1 className="md:text-xl font-bold text-green-500 flex items-center">
-                  IDR. {item?.price}
+                  {item?.price.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}
                 </h1>
               </div>
             </div>
