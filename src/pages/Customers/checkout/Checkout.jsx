@@ -160,7 +160,7 @@ const Checkout = () => {
                     1
                   </span>
 
-                  Personal <span className="hidden sm:inline-flex sm:ml-2">Info</span>
+                  Personal Info
                   <svg aria-hidden="true" className="w-4 h-4strokeLinecap ml-2 sm:ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
                 </li>
                 <li className={`flex items-center   ${checkOutData.stepper >= 2 ?
@@ -168,14 +168,14 @@ const Checkout = () => {
                   <span className="stepper-dot rounded-full shrink-0 ">
                     2
                   </span>
-                  Pessenger <span className="hidden sm:inline-flex sm:ml-2">Info</span>
+                  Checkout
                   <svg aria-hidden="true" className="w-4 h-4 ml-2 sm:ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
                 </li>
                 <li className={`flex items-center  ${checkOutData.stepper === 3 ? ' dot-active' : ' dot-nonactive'}`}>
                   <span className="stepper-dot rounded-full shrink-0">
                     3
                   </span>
-                  Paid
+                  Unpaid
                 </li>
               </ol>
 

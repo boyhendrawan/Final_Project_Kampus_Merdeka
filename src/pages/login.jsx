@@ -51,7 +51,7 @@ const [getParmas]=useSearchParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("running twice")
+    // console.log("running twice")
     if (valueUsername.length <= 0 || valuePassword.length <= 0) {
       toast.error("Harap isi semua inputan", {
         position: toast.POSITION.BOTTOM_RIGHT,
