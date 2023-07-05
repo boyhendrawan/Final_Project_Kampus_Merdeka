@@ -1,10 +1,6 @@
-
 import React, { useState, useEffect } from "react";
-import {
-  AiOutlineMenu,
-  AiOutlineClose,
-} from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { AiOutlineMenu, AiOutlineClose, AiFillNotification, AiOutlineNotification } from "react-icons/ai";
+import { useNavigate, NavLink } from "react-router-dom";
 import {
   AiOutlineCaretDown,
   AiOutlineUser,
@@ -12,10 +8,8 @@ import {
   AiOutlineHistory,
 } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
-
 import { FiLogIn } from "react-icons/fi";
 import logo from "../assets/logo.png";
-
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../utilites/redux/action/login";
 
@@ -62,7 +56,6 @@ const Navbar = () => {
   };
 
   const handleClickLogin = () => {
-
     navigate(`/auth/login/allData?statusLogin=false`);
   };
 
@@ -76,17 +69,14 @@ const Navbar = () => {
 
   const handleClickNotification = () => {
     navigate(`/user/notification/`);
-
   };
 
   return (
     <div
-
       className={`fixed shadow-lg bg-gray-100 md:bg-transparent backdrop-blur-sm font-poppins w-full left-0 top-0 lg:px-32 p-5 drop-shadow-lg z-50 ${
         sticky &&
         "md:bg-slate-50 md:bg-opacity-75 md:text-white md:h-20 md:items-center md:shadow-lg"
       }`}
-
     >
       <div className="flex justify-between items-center w-full text-white">
         <div
@@ -102,33 +92,48 @@ const Navbar = () => {
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <div onClick={handleClickHome} duration={500}>
+              <NavLink
+                onClick={handleClickHome}
+                className={({ isActive }) =>
+                  isActive ? "active navigation-link" : "navigation-link"
+                }
+              >
                 <span className="flex gap-1 justify-center">
                   <p>Home</p>
                 </span>
-              </div>
+              </NavLink>
             </li>
             <li
               className="hover:text-purple-500 font-semibold relative cursor-pointer transition-all 
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <div onClick={handleClickHistory} duration={500}>
+              <NavLink
+                onClick={handleClickHistory}
+                className={({ isActive }) =>
+                  isActive ? "active navigation-link" : "navigation-link"
+                }
+              >
                 <span className="flex gap-1 justify-center">
                   <p>History</p>
                 </span>
-              </div>
+              </NavLink>
             </li>
             <li
               className="hover:text-purple-500 font-semibold  relative cursor-pointer transition-all 
             before:absolute before:-bottom-2 before:left-0 before:w-0 before:h-1 before:rounded-full before:opacity-0 before:transition-all
             before:duration-500 before:bg-purple-500 hover:before:w-full hover:before:opacity-100"
             >
-              <div onClick={handleClickNotification} duration={500}>
+              <NavLink
+                onClick={handleClickNotification}
+                className={({ isActive }) =>
+                  isActive ? "active navigation-link" : "navigation-link"
+                }
+              >
                 <span className="flex gap-1 justify-center">
                   <p>Notification</p>
                 </span>
-              </div>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -138,7 +143,6 @@ const Navbar = () => {
               <div className="relative bg-gray-800 py-1.5 rounded-3xl">
                 <button
                   className={` text-white bg-transparent  font-semibold py-2 px-4 rounded inline-flex items-center transform transition duration-300 ease-in-out`}
-
                   onClick={toggleDropdown}
                 >
                   Welcome,{" "}
@@ -204,7 +208,12 @@ const Navbar = () => {
         className={!nav ? "hidden" : "mt-2 w-full text-center text-white z-40"}
       >
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <div onClick={handleClickHome} duration={500}>
+          <NavLink
+            onClick={handleClickHome}
+            className={({ isActive }) =>
+              isActive ? "active navigation-link" : "navigation-link"
+            }
+          >
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
@@ -212,10 +221,15 @@ const Navbar = () => {
               </span>
               <p>Home</p>
             </span>
-          </div>
+          </NavLink>
         </li>
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <div onClick={handleClickHome} duration={500}>
+        <NavLink
+            onClick={handleClickHistory}
+            className={({ isActive }) =>
+              isActive ? "active navigation-link" : "navigation-link"
+            }
+          >
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
@@ -223,19 +237,23 @@ const Navbar = () => {
               </span>
               <p>History</p>
             </span>
-          </div>
+          </NavLink>
         </li>
         <li className="border-b-2 border-zinc-300 py-3 w-full hover:text-white hover:bg-purple-500 text-slate-700">
-          <div onClick={handleClickHome} duration={500}>
+        <NavLink
+            onClick={handleClickNotification}
+            className={({ isActive }) =>
+              isActive ? "active navigation-link" : "navigation-link"
+            }
+          >
             <span className="flex gap-1 justify-center">
               <span className="text-xl pt-0.5">
                 {" "}
-                <AiOutlineUser />
+                <AiOutlineNotification />
               </span>
-
               <p>Notification</p>
             </span>
-          </div>
+          </NavLink>
         </li>
         <li className=" border-zinc-300 py-3 w-full hover:text-subMain">
           {isLoggedIn ? (
