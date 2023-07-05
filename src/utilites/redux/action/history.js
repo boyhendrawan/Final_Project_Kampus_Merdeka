@@ -36,8 +36,8 @@ export const getPosts = (setIsloading) => async (dispatch, getState) => {
 
 export const getPostStatus = () => async (dispatch, getState) => {
   try {
-    const { token, dataUser } = getState().auth; // Ambil token dan dataUser dari state auth
-    const { uuid_user } = dataUser; // Ambil UUID pengguna dari dataUser
+    const { token, dataUser } = getState().auth;
+    const { uuid_user } = dataUser; 
     const response = await axios.get(
       `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/user/${uuid_user}`,
       {
