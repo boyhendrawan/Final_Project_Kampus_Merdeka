@@ -7,7 +7,8 @@ const initialState = {
   searchTerm: '',
   searchResults: [],
   isDataNotFound: false,
-  uuidHistory:null
+  uuidHistory: null,
+  filteredData: [],
 };
 
 const postSlice = createSlice({
@@ -34,20 +35,31 @@ const postSlice = createSlice({
       state.searchResults = [];
       state.isDataNotFound = false;
     },
-    setUuidHistory(state, action){
-      state.uuidHistory=action.payload;
-    }
+    setUuidHistory(state, action) {
+      state.uuidHistory = action.payload;
+    },
+    // Additional reducer
+    filteredData: (state, action) => {
+      state.filteredData = action.payload;
+      state.isDataNotFound = action.payload.length === 0;
+    },
+    setFilterDataReq(state) {
+      state.filteredData = [];
+      state.isDataNotFound = false;
+    },
   },
 });
 
 export const {
+  setFilterDataReq,
   setPosts,
   setPostsStatus,
   setPostsDetails,
   setSearchTerm,
   setSearchResults,
   clearSearchResults,
-  setUuidHistory
+  setUuidHistory,
+  setFilterData, // Added reducer
 } = postSlice.actions;
 
 export default postSlice.reducer;

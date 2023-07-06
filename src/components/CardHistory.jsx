@@ -114,6 +114,7 @@ const CardHistory = () => {
       {showHistoryModal && (
         <HistoryModal show={showHistoryModal} onClose={handleCloseModal} />
       )}
+      
     </div>
     }
     </>

@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import HistoryModal from "./HistoryModal";
 import notFound from "../../assets/notfound.png";
 import CardHistory from "../CardHistory";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const FilterModal = () => {
   const [modalState, setModalState] = useState({
@@ -17,8 +19,7 @@ const FilterModal = () => {
   });
 
   const navigate = useNavigate();
-  const API_URL =
-    "https://novel-tomatoes-production.up.railway.app/HistoryTransaction/date/";
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (modalState.showFilterModal) {
@@ -28,12 +29,19 @@ const FilterModal = () => {
 
   const fetchFilteredData = () => {
     const formattedDate = formatDate(modalState.selectedDate);
-    const apiUrl =
-      API_URL + formattedDate + "/57de8b62-ca57-4710-8e47-0614e0da68d7";
 
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://novel-tomatoes-production.up.railway.app/HistoryTransaction/date/${formattedDate}/57de8b62-ca57-4710-8e47-0614e0da68d7`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        const data = response.data;
         setModalState((prevState) => ({
           ...prevState,
           dataNotFound: data.datas.length === 0,
@@ -67,9 +75,17 @@ const FilterModal = () => {
     }));
   };
 
-  const filteredResults = modalState.filteredData.filter((item) =>
-    String(item.title).toLocaleLowerCase()
-  );
+  const filteredResults =
+    modalState.filteredData.length > 0 &&
+    modalState.filteredData.filter(
+      (item) =>
+        item.title &&
+        item.title
+          .toLowerCase()
+          .includes(
+            modalState.selectedDate.toLocaleDateString("en-US").toLowerCase()
+          )
+    );
 
   const handleSave = () => {
     fetchFilteredData();
@@ -147,6 +163,7 @@ const FilterModal = () => {
           onClose={handleHistoryModal}
         />
       )}
+      {filteredResults && <CardHistory filteredData={filteredResults} />}
     </div>
   );
 };
